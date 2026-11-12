@@ -1,9 +1,151 @@
-document.addEventListener('DOMContentLoaded', function () {
-  var toggle = document.querySelector('.nav-toggle');
-  var nav = document.querySelector('nav.primary');
-  if (toggle && nav) {
-    toggle.addEventListener('click', function () {
-      nav.classList.toggle('open');
-    });
+(function () {
+  var promoNote = 'โปรโมชันอาจเปลี่ยนแปลงได้โดยไม่ต้องแจ้งล่วงหน้า';
+  var askNote = 'สอบถามเวลาทำการของร้านได้ที่ 095-441-4142';
+  var IMG = 'assets/img/web/';
+
+  // ข้อมูลหน้าต่างรายละเอียด (กดการ์ดแล้วเด้งขึ้นมา)
+  var items = {
+    c42: { tag: 'บางจากฉลองครบรอบ 42 ปี', title: 'สิทธิพิเศษจากบางจาก', big: 'ลด 1 บาท/ลิตร', lead: 'เฉพาะสมาชิก Bangchak GreenMiles วันที่ 13 พ.ย. 2569 เวลา 05.00–24.00 น.', points: ['น้ำมันทุกชนิด ทุกลิตร ไม่มีขั้นต่ำ', 'ราคาหน้าป้ายและหัวจ่ายหักส่วนลดแล้ว', 'เฉพาะสถานีที่ร่วมรายการ'], note: 'โปรโมชันนี้เป็นของบางจาก สอบถามเงื่อนไขเพิ่มเติมได้ที่ปั๊ม', img: IMG + 'promo/promo-42-years.png', alt: 'โปรโมชันบางจากฉลองครบรอบ 42 ปี ลด 1 บาทต่อลิตร' },
+    p1: { tag: 'ของแถมตามยอดเติม', title: 'เติมทุก 1,000 บาท', big: 'น้ำดื่ม 1 ขวด', lead: 'ยิ่งเติมมาก ยิ่งได้มาก รับน้ำดื่มทุกยอดเติม 1,000 บาท', points: ['เติม 2,000 บาท รับน้ำดื่ม 2 ขวด', 'ไม่สามารถเปลี่ยนของแถมข้ามชนิดน้ำมัน'], note: promoNote },
+    p2: { tag: 'ยอดเติมตั้งแต่ 1,200 บาท', title: 'ของแถมตามชนิดน้ำมัน', big: '1,200 ฿ ขึ้นไป', lead: 'ของแถมที่ได้ขึ้นอยู่กับชนิดน้ำมันที่เติม', points: ['ดีเซล รับ M-150 หรือคาราบาวแดง', 'แก๊สโซฮอล รับน้ำผลไม้ดอยคำ', 'ดีเซลไม่เกิน 10,000 บาท ใช้น้ำดื่ม 2 ขวด แลกเครื่องดื่มชูกำลังได้ 1 ขวด', 'ไม่สามารถเปลี่ยนของแถมข้ามชนิดน้ำมัน'], note: promoNote },
+    p3: { tag: 'B20 / E20', title: 'รับน้ำดื่ม 2 เท่า', big: 'น้ำดื่ม ×2', lead: 'เติม B20 หรือ E20 รับน้ำดื่มเพิ่มเป็น 2 เท่า', points: ['B20 เลือกของแถมได้ตามจำนวนสิทธิ์ที่ได้รับ', 'ไม่สามารถเปลี่ยนของแถมข้ามชนิดน้ำมัน'], note: promoNote },
+    p4: { tag: 'รถใหญ่', title: 'รับคูปองข้าวฟรี', big: '100 ลิตร ขึ้นไป', lead: 'รถใหญ่ หรือเติมตั้งแต่ 100 ลิตร รับคูปองข้าวฟรี ใช้ที่ศูนย์อาหาร', points: ['รถใหญ่เติมเกิน 10,000 บาท เลือกสัดส่วนน้ำดื่มและ M-150 ได้'], note: promoNote },
+    terms: { tag: 'เงื่อนไข', title: 'เงื่อนไขทั้งหมด', big: 'โปรของแถม', lead: 'อ่านเงื่อนไขก่อนรับของแถม', points: ['ไม่สามารถเปลี่ยนของแถมข้ามชนิดน้ำมัน', 'ดีเซลไม่เกิน 10,000 บาท ใช้น้ำดื่ม 2 ขวด แลกเครื่องดื่มชูกำลังได้ 1 ขวด', 'รถใหญ่เติมเกิน 10,000 บาท เลือกสัดส่วนน้ำดื่มและ M-150 ได้', 'B20 เลือกของแถมได้ตามจำนวนสิทธิ์ที่ได้รับ'], note: promoNote + ' ติดตามล่าสุดทาง LINE OA' },
+    s1: { tag: 'ร้านค้า', title: 'ร้านสะดวกซื้อ Mini Big C', big: 'Mini Big C', lead: 'แวะซื้อของใช้และของกินระหว่างทางได้ในปั๊ม', points: ['อยู่ภายในปั๊ม Oasis Park'], note: askNote + ' · ภาพประกอบ', img: IMG + 'services/shop-scene.jpg', alt: 'ร้านสะดวกซื้อหน้าปั๊ม พร้อมตะกร้าสินค้า' },
+    gallery: { tag: 'บรรยากาศ', title: 'บรรยากาศใน Oasis Park', lead: 'ภาพรวมปั๊ม หัวจ่าย หัวชาร์จ EV ร้านกาแฟ ศูนย์อาหาร ร้านสะดวกซื้อ ห้องน้ำ ลานจอดรถ และบัตรสมาชิก', points: [], note: 'ภาพประกอบบรรยากาศ อาจแตกต่างจากหน้างานจริง', img: IMG + 'gallery/oasis-collage.jpg', alt: 'ภาพรวมบรรยากาศ Oasis Park' },
+    s2: { tag: 'คาเฟ่', title: 'ร้านกาแฟ Inthanin', big: 'อินทนิล', lead: 'เครื่องดื่มหลากหลาย พร้อมของว่างอร่อย', points: ['เมนูแนะนำ: กาแฟเข้มข้น ชาเขียวหอมละมุน ชาไทยเข้มข้น ชาใสสดชื่น', 'ของว่าง เช่น ขนมจีบ แซนด์วิช'], note: askNote + ' · ภาพประกอบ', img: IMG + 'services/cafe-scene.jpg', alt: 'ร้านกาแฟยามเย็น พร้อมกาแฟเย็นและลาเต้' },
+    s3: { tag: 'อาหาร', title: 'ศูนย์อาหาร', big: 'อร่อยครบ จบที่เดียว', lead: 'เมนูหลากหลาย อร่อยถูกใจ ทุกสไตล์ เหมาะสำหรับคนขับรถและครอบครัว', points: ['เมนูแนะนำ: ก๋วยเตี๋ยวต้มยำ ต้มเลือดหมู ข้าวกะเพราหมู/ไก่/เนื้อ ข้าวขาหมู ข้าวมันไก่', 'รับคูปองข้าวฟรีสำหรับรถใหญ่ หรือเติมตั้งแต่ 100 ลิตร'], note: askNote + ' · ภาพประกอบ', img: IMG + 'services/food-scene.jpg', alt: 'ศูนย์อาหารยามเย็นข้างลานเติมน้ำมัน' },
+    s4: { tag: 'EV', title: 'ชาร์จรถ EV', big: 'สูงสุด 360 kW', lead: 'ชาร์จเร็วทันใจที่ Oasis Park ด้วยหัวชาร์จ SPARK EV Charging', points: ['ชาร์จพร้อมกันได้ 6 หัว', 'กำลังไฟสูงสุด 360 kW', 'ชำระเงินได้หลายช่องทาง', 'ลงทะเบียนและดูรายละเอียด EV ได้ที่ปั๊ม'], note: 'สอบถามสถานะหัวชาร์จและสิทธิประโยชน์ได้ที่ 095-441-4142 · ภาพประกอบ', img: IMG + 'services/ev-scene.jpg', alt: 'หัวชาร์จ EV ใต้หลังคาไฟเขียวไลม์ ข้างห้องน้ำ' }
+  };
+
+  var dialog, lastFocus;
+
+  function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
+
+  function build() {
+    dialog = document.createElement('dialog');
+    dialog.className = 'op-modal';
+    dialog.setAttribute('aria-labelledby', 'op-modal-title');
+    dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', function () { document.body.classList.remove('modal-open'); if (lastFocus && lastFocus.focus) lastFocus.focus(); });
+    document.body.appendChild(dialog);
   }
-});
+
+  function open(id, trigger) {
+    var m = typeof id === 'string' ? items[id] : id;
+    if (!m) return;
+    if (!dialog) build();
+    lastFocus = trigger || document.activeElement;
+    if (lastFocus && lastFocus.classList) { lastFocus.classList.remove('popped'); void lastFocus.offsetWidth; lastFocus.classList.add('popped'); }
+    var pts = (m.points || []).map(function (p) { return '<li><span>' + esc(p) + '</span></li>'; }).join('');
+    dialog.innerHTML =
+      '<div class="mbody">' +
+      '<button type="button" class="mclose" aria-label="ปิดหน้าต่าง">✕</button>' +
+      (m.img ? '<img class="mimg" src="' + esc(m.img) + '" alt="' + esc(m.alt || '') + '">' : '') +
+      '<span class="tag-pill">' + esc(m.tag) + '</span>' +
+      '<h3 id="op-modal-title">' + esc(m.title) + '</h3>' +
+      (m.big ? '<div class="mbig">' + esc(m.big) + '</div>' : '') +
+      '<p class="mlead">' + esc(m.lead) + '</p>' +
+      (pts ? '<ul>' + pts + '</ul>' : '') +
+      '<p class="mnote">' + esc(m.note) + '</p>' +
+      '<div class="macts">' +
+      '<a class="btn btn-primary" href="https://line.me/R/ti/p/@087rhavv" target="_blank" rel="noopener">สอบถามทาง LINE</a>' +
+      '<a class="btn btn-outline" href="tel:0954414142">โทร 095-441-4142</a>' +
+      '</div></div>';
+    dialog.querySelector('.mclose').addEventListener('click', function () { dialog.close(); });
+    document.body.classList.add('modal-open');
+    if (dialog.showModal) dialog.showModal(); else dialog.setAttribute('open', '');
+  }
+
+  window.OP = { items: items, open: open };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // เมนูมือถือ
+    var toggle = document.querySelector('.nav-toggle');
+    var nav = document.querySelector('nav.primary');
+    if (toggle && nav) {
+      toggle.addEventListener('click', function () {
+        var o = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', o ? 'true' : 'false');
+      });
+    }
+
+    // กดการ์ดแล้วเปิดหน้าต่างรายละเอียด
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-modal]');
+      if (t) { e.preventDefault(); open(t.getAttribute('data-modal'), t); }
+    });
+
+    // แสงตามเมาส์บนการ์ด
+    document.addEventListener('mousemove', function (e) {
+      var c = e.target.closest && e.target.closest('.glass');
+      if (!c) return;
+      var r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ripple แสงไลม์ตรงจุดที่กด
+    document.addEventListener('pointerdown', function (e) {
+      if (reduce) return;
+      var t = e.target.closest && e.target.closest('.glass, .btn, nav.primary a');
+      if (!t) return;
+      var r = t.getBoundingClientRect();
+      var s = document.createElement('span');
+      s.className = 'rip';
+      s.style.left = (e.clientX - r.left) + 'px';
+      s.style.top = (e.clientY - r.top) + 'px';
+      t.appendChild(s);
+      setTimeout(function () { s.remove(); }, 800);
+    });
+
+    // เปลี่ยนหน้าแบบแถบเขียว-ไลม์กวาด + ตราโลโก้เด้ง
+    var pt = document.querySelector('.pt');
+    document.addEventListener('click', function (e) {
+      if (reduce || !pt || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+      var u = new URL(a.href, location.href);
+      if (u.origin !== location.origin || u.pathname === location.pathname || !/(\.html|\/)$/.test(u.pathname)) return;
+      e.preventDefault();
+      pt.classList.add('leaving');
+      setTimeout(function () { location.href = a.href; }, 460);
+    });
+    window.addEventListener('pageshow', function (ev) { if (ev.persisted && pt) pt.classList.remove('leaving'); });
+
+    // พารัลแลกซ์ของภาพเบลอด้านหลัง
+    var bgs = document.querySelectorAll('.hero-bg');
+    if (bgs.length && !reduce) {
+      var tick = false;
+      window.addEventListener('scroll', function () {
+        if (tick) return; tick = true;
+        requestAnimationFrame(function () {
+          bgs.forEach(function (b) { b.style.setProperty('--sy', Math.min(window.scrollY, 700)); });
+          tick = false;
+        });
+      }, { passive: true });
+    }
+
+    // ภาพคมเอียงตามเมาส์ (เฉพาะจอที่มีเมาส์)
+    if (!reduce && window.matchMedia('(hover: hover)').matches) {
+      document.querySelectorAll('.shot').forEach(function (s) {
+        var t = s.querySelector('.tilt'); if (!t) return;
+        s.addEventListener('mousemove', function (e) {
+          var r = s.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+          t.style.setProperty('--ry', (x * 7).toFixed(2) + 'deg');
+          t.style.setProperty('--rx', (-y * 7).toFixed(2) + 'deg');
+        });
+        s.addEventListener('mouseleave', function () { t.style.setProperty('--rx', '0deg'); t.style.setProperty('--ry', '0deg'); });
+      });
+    }
+
+    // ซ่อนโปรที่หมดเขตแล้ว (data-until)
+    document.querySelectorAll('[data-until]').forEach(function (el) {
+      if (Date.now() > Date.parse(el.getAttribute('data-until'))) el.hidden = true;
+    });
+  });
+})();

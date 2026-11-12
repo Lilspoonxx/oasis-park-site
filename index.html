@@ -3,22 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Oasis Park (NKN Petroleum) — ปั๊มน้ำมันบางจาก</title>
-<meta name="description" content="Oasis Park ปั๊มน้ำมันบางจาก เปิด 24 ชั่วโมง ร้านสะดวกซื้อ Big C, กาแฟ Inthanin, ศูนย์อาหาร, ล้างรถ พร้อมโปรโมชันของแถมทุกการเติม">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛽</text></svg>">
+<title>Oasis Park (NKN Petroleum) — ปั๊มน้ำมันบางจาก เขาย้อย เปิด 24 ชั่วโมง</title>
+<meta name="description" content="Oasis Park ปั๊มน้ำมันบางจาก เขาย้อย เปิด 24 ชั่วโมง ชาร์จ EV ร้านสะดวกซื้อ Mini Big C กาแฟ Inthanin ศูนย์อาหาร พร้อมโปรโมชันของแถมทุกการเติม">
+<link rel="icon" href="assets/img/web/brand/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,500;0,600;0,700;0,800;1,700;1,800&family=Sarabun:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<div class="pt" aria-hidden="true"><img src="assets/img/web/brand/logo-emblem.png" alt="" width="110" height="110"></div>
 
 <header class="site">
   <div class="nav-row">
-    <a class="brand" href="index.html">
-      <span class="mark">⛽</span>
-      OASIS PARK
+    <a class="brand" href="index.html" aria-label="Oasis Park หน้าหลัก">
+      <img src="assets/img/web/brand/logo-emblem.png" alt="" width="48" height="48">
+      <span class="bt"><b>OASIS <span>PARK</span></b><small>NKN Petroleum · Bangchak</small></span>
     </a>
-    <button class="nav-toggle" aria-label="เปิดเมนู">☰</button>
+    <button class="nav-toggle" aria-label="เปิดเมนู" aria-expanded="false">☰</button>
     <nav class="primary">
-      <a href="index.html" class="active">หน้าหลัก</a>
+      <a href="index.html" class="active" aria-current="page">หน้าหลัก</a>
       <a href="about.html">ร้านของเรา</a>
       <a href="prices.html">ราคาน้ำมัน</a>
       <a href="promotions.html">โปรโมชัน</a>
@@ -27,85 +31,127 @@
   </div>
 </header>
 
-<section class="hero">
-  <div class="wrap">
-    <span class="eyebrow">ปั๊มน้ำมันบางจาก · เปิด 24 ชั่วโมง ทุกวัน</span>
-    <h1>Oasis Park <span class="accent">× Bangchak</span></h1>
-    <p class="lead">
-      แวะเติมน้ำมัน พักรถ อิ่มท้อง ครบในที่เดียว — ร้านสะดวกซื้อ Big C, กาแฟ Inthanin,
-      ศูนย์อาหาร และบริการล้างรถ พร้อมของแถมทุกการเติมน้ำมัน
-    </p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="prices.html">ดูราคาน้ำมันวันนี้</a>
-      <a class="btn btn-outline" href="contact.html">ดูแผนที่ / วิธีมา</a>
+<section class="hero layered">
+  <div class="hero-bg" style="background-image:url('assets/img/web/pages/page-home-blur.jpg')" aria-hidden="true"></div><div class="hero-veil" aria-hidden="true"></div><div class="swoosh" aria-hidden="true" style="left:-18%;top:52%;width:70%;height:90%;transform:rotate(-12deg);"></div><div class="swoosh" aria-hidden="true" style="right:-22%;top:-45%;width:75%;height:85%;transform:rotate(18deg);opacity:.7;"></div>
+  <div class="hero-grid">
+    <div class="hero-text">
+      <div class="logo-row fx-up">
+        <img src="assets/img/web/brand/logo-emblem.png" alt="โลโก้ Oasis Park" width="84" height="84">
+        <span class="pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="#052E16" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>บางจาก เขาย้อย</span>
+      </div>
+      <div class="brandline fx-up fx-d1">OASIS <span>PARK</span></div>
+      <h1 class="disp tag fx-up fx-d1">เติมเต็มทุกการเดินทาง<br>ในจุดเดียว</h1>
+      <p class="lead fx-up fx-d2">เปิดทุกวัน 24 ชั่วโมง ไม่มีวันหยุด เติมน้ำมัน ชาร์จ EV รับของแถม แวะพักที่ร้านกาแฟและศูนย์อาหาร</p>
+      <div class="cta-row fx-up fx-d3">
+        <a class="btn btn-primary" href="promotions.html">ดูโปรโมชัน</a>
+        <a class="btn btn-outline" href="prices.html">ราคาน้ำมันวันนี้</a>
+      </div>
     </div>
+    <figure class="shot"><div class="tilt"><span class="halo" aria-hidden="true"></span><img src="assets/img/web/pages/page-home.jpg" alt="ภาพปั๊ม Oasis Park ยามเย็น พร้อมของรางวัลและบัตรสมาชิก" width="1200"><span class="rim" aria-hidden="true"></span></div><figcaption>ภาพประกอบ</figcaption></figure>
+  </div>
+</section>
+
+<section class="block tight-top"><div class="wrap"><div class="grid quick">
+  <a class="glass quick-tile" href="prices.html"><span class="qi"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5s6.5 6.8 6.5 11.5a6.5 6.5 0 0 1-13 0C5.5 9.3 12 2.5 12 2.5z"/></svg></span><span class="ql">ราคาน้ำมัน</span><span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></a>
+  <a class="glass quick-tile" href="promotions.html"><span class="qi"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span class="ql">โปรโมชัน</span><span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></a>
+  <a class="glass quick-tile" href="about.html"><span class="qi"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9M3 9h18M3 9v11h18V9M9 20v-6h6v6"/></svg></span><span class="ql">บริการในปั๊ม</span><span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></a>
+  <a class="glass quick-tile" href="contact.html"><span class="qi"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg></span><span class="ql">แผนที่ &amp; ติดต่อ</span><span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></a>
+</div></div></section>
+<section class="block tight-top" data-until="2026-11-13T23:59:59+07:00"><div class="wrap">
+  <button type="button" class="glass campaign" data-modal="c42" aria-haspopup="dialog">
+    <img src="assets/img/web/promo/promo-42-years.png" alt="บางจากฉลองครบรอบ 42 ปี ลด 1 บาทต่อลิตร สำหรับสมาชิก GreenMiles วันที่ 13 พ.ย. 69" loading="lazy">
+    <span class="ct">
+      <span class="tag-pill">โปรพิเศษวันที่ 13 พ.ย. 69</span>
+      <span class="disp big">ลด 1 บาท/ลิตร<br>น้ำมันทุกชนิด</span>
+      <span>สำหรับสมาชิก Bangchak GreenMiles · 05.00–24.00 น.</span>
+      <span class="more">ดูรายละเอียด <span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></span>
+    </span>
+  </button>
+</div></section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow-label">SERVICES</div><h2>บริการในปั๊ม</h2><p>แวะพักได้ครบในที่เดียว แตะเพื่อดูรายละเอียด</p></div>
+    <div class="grid wide">
+  <button type="button" class="glass img" data-modal="s4" aria-haspopup="dialog">
+    <img class="thumb" src="assets/img/web/services/ev-scene.jpg" alt="ชาร์จรถ EV" style="object-position:50% หัวชาร์จ EV ใต้หลังคาไฟเขียวไลม์ ข้างห้องน้ำ" loading="lazy">
+    <span class="pad-in"><h3>ชาร์จเร็วทันใจ พร้อมกันได้ 6 หัว สูงสุด 360 kW</h3><p>undefined</p><span class="more">ดูรายละเอียด <span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></span></span>
+  </button>
+  <button type="button" class="glass img" data-modal="s3" aria-haspopup="dialog">
+    <img class="thumb" src="assets/img/web/services/food-scene.jpg" alt="ศูนย์อาหาร" style="object-position:50% ศูนย์อาหารยามเย็นข้างลานเติมน้ำมัน" loading="lazy">
+    <span class="pad-in"><h3>อร่อยครบ จบที่เดียว เมนูหลากหลายทุกสไตล์</h3><p>undefined</p><span class="more">ดูรายละเอียด <span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></span></span>
+  </button>
+  <button type="button" class="glass img" data-modal="s2" aria-haspopup="dialog">
+    <img class="thumb" src="assets/img/web/services/cafe-scene.jpg" alt="ร้านกาแฟ Inthanin" style="object-position:50% ร้านกาแฟยามเย็น พร้อมกาแฟเย็นและลาเต้" loading="lazy">
+    <span class="pad-in"><h3>เครื่องดื่มหลากหลาย พร้อมของว่างอร่อย</h3><p>undefined</p><span class="more">ดูรายละเอียด <span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></span></span>
+  </button>
+  <button type="button" class="glass img" data-modal="s1" aria-haspopup="dialog">
+    <img class="thumb" src="assets/img/web/services/shop-scene.jpg" alt="ร้านสะดวกซื้อ Mini Big C" style="object-position:50% ร้านสะดวกซื้อหน้าปั๊ม พร้อมตะกร้าสินค้า" loading="lazy">
+    <span class="pad-in"><h3>แวะซื้อของใช้และของกินระหว่างทาง</h3><p>undefined</p><span class="more">ดูรายละเอียด <span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></span></span>
+  </button>
+</div>
+<p class="note" style="margin-top:14px;">ภาพประกอบเพื่อสื่อความหมาย อาจแตกต่างจากหน้างานจริง</p>
   </div>
 </section>
 
 <section class="block">
   <div class="wrap">
-    <div class="section-head">
-      <h2>ทำไมต้อง Oasis Park</h2>
-      <p>ปั๊มบางจากที่พร้อมดูแลทั้งคนขับและรถของคุณ ตลอด 24 ชั่วโมง ไม่มีวันหยุด</p>
-    </div>
+    <div class="section-head"><div class="eyebrow-label">GALLERY</div><h2>บรรยากาศใน Oasis Park</h2><p>ปั๊ม ร้านค้า ที่พัก และจุดชาร์จ ในที่เดียว</p></div>
+    <button type="button" class="glass gallery" data-modal="gallery" aria-haspopup="dialog">
+  <img src="assets/img/web/gallery/oasis-collage.jpg" alt="ภาพรวมบรรยากาศ Oasis Park: ปั๊มน้ำมัน หัวจ่าย หัวชาร์จ EV Inthanin ศูนย์อาหาร ร้านสะดวกซื้อ ห้องน้ำ ลานจอดรถ และบัตรสมาชิก" loading="lazy" width="1400">
+  <span class="more" style="padding:12px 10px 4px;">แตะเพื่อดูภาพใหญ่ <span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></span>
+</button>
+<p class="note" style="margin-top:14px;">ภาพประกอบบรรยากาศ อาจแตกต่างจากหน้างานจริง</p>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow-label">PROMOTION</div><h2>โปรโมชันของแถม OASIS PARK</h2><p>แตะที่โปรที่สนใจเพื่อดูรายละเอียดและเงื่อนไข</p></div>
     <div class="grid">
-      <div class="card">
-        <span class="icon">⏰</span>
-        <h3>เปิด 24 ชม. ทุกวัน</h3>
-        <p>ไม่มีวันหยุด แวะเติมได้ทุกเวลาที่ต้องการ</p>
-      </div>
-      <div class="card">
-        <span class="icon">🏪</span>
-        <h3>ร้านสะดวกซื้อ Big C</h3>
-        <p>ซื้อของใช้ ของกินระหว่างเติมน้ำมัน</p>
-      </div>
-      <div class="card">
-        <span class="icon">☕</span>
-        <h3>กาแฟ Inthanin</h3>
-        <p>แวะจิบกาแฟสดก่อนออกเดินทางต่อ</p>
-      </div>
-      <div class="card">
-        <span class="icon">🍽️</span>
-        <h3>ศูนย์อาหาร</h3>
-        <p>อิ่มท้องก่อนเดินทางไกล</p>
-      </div>
-      <div class="card">
-        <span class="icon">🚗</span>
-        <h3>บริการล้างรถ</h3>
-        <p>ให้รถสะอาดพร้อมลุยต่อ</p>
-      </div>
-      <div class="card">
-        <span class="icon">🎁</span>
-        <h3>ของแถมทุกการเติม</h3>
-        <p>เติมครบยอด รับของแถมทันที ดูเงื่อนไขหน้าโปรโมชัน</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="wrap">
-    <div class="promo-card">
-      <span class="tag">โปรโมชันของแถม</span>
-      <h3>เติมน้ำมัน รับของแถมทุกการเติม</h3>
-      <p style="color:var(--ink-dim); margin-top:0;">
-        เติมทุก 1,000 บาท รับน้ำดื่ม 1 ขวด · เติมตั้งแต่ 1,200 บาท รับ M-150/คาราบาว (ดีเซล)
-        หรือน้ำผลไม้ดอยคำ (แก๊สโซฮอล) · รถใหญ่หรือเติมตั้งแต่ 100 ลิตร รับคูปองข้าวฟรี
-      </p>
-      <a class="btn btn-outline" href="promotions.html">ดูเงื่อนไขเต็ม →</a>
-    </div>
+  <button type="button" class="glass dark" data-modal="p1" aria-haspopup="dialog">
+    <span class="tag-pill">ทุกยอดเติม</span>
+    <span class="bignum" style="font-size:clamp(40px,4.6vw,56px);color:var(--lime);text-shadow:0 0 26px rgba(183,240,0,.45),0 3px 0 rgba(0,0,0,.5);">1,000 ฿</span>
+    <span style="font-size:18px;font-weight:600;line-height:1.4;">เติมทุก 1,000 บาท รับน้ำดื่ม 1 ขวด</span>
+    <span class="more">ดูเงื่อนไข <span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></span>
+  </button>
+  <button type="button" class="glass dark" data-modal="p2" aria-haspopup="dialog">
+    <span class="tag-pill">ดีเซล / แก๊สโซฮอล</span>
+    <span class="bignum" style="font-size:clamp(40px,4.6vw,56px);color:var(--lime);text-shadow:0 0 26px rgba(183,240,0,.45),0 3px 0 rgba(0,0,0,.5);">1,200 ฿+</span>
+    <span style="font-size:18px;font-weight:600;line-height:1.4;">ดีเซลรับ M-150 หรือคาราบาวแดง แก๊สโซฮอลรับน้ำผลไม้ดอยคำ</span>
+    <span class="more">ดูเงื่อนไข <span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></span>
+  </button>
+  <button type="button" class="glass dark" data-modal="p3" aria-haspopup="dialog">
+    <span class="tag-pill">B20 / E20</span>
+    <span class="bignum" style="font-size:clamp(40px,4.6vw,56px);color:var(--lime);text-shadow:0 0 26px rgba(183,240,0,.45),0 3px 0 rgba(0,0,0,.5);">2×</span>
+    <span style="font-size:18px;font-weight:600;line-height:1.4;">เติม B20 หรือ E20 รับน้ำดื่ม 2 เท่า</span>
+    <span class="more">ดูเงื่อนไข <span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></span>
+  </button>
+  <button type="button" class="glass dark" data-modal="p4" aria-haspopup="dialog">
+    <span class="tag-pill">รถใหญ่</span>
+    <span class="bignum" style="font-size:clamp(40px,4.6vw,56px);color:var(--lime);text-shadow:0 0 26px rgba(183,240,0,.45),0 3px 0 rgba(0,0,0,.5);">100 ลิตร</span>
+    <span style="font-size:18px;font-weight:600;line-height:1.4;">รถใหญ่หรือเติมตั้งแต่ 100 ลิตร รับคูปองข้าวฟรี</span>
+    <span class="more">ดูเงื่อนไข <span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></span>
+  </button>
+</div>
+<p style="margin:22px 0 0;"><button type="button" class="btn btn-outline" data-modal="terms" aria-haspopup="dialog">เงื่อนไขทั้งหมดของโปรโมชัน</button></p>
+<p class="note" style="margin-top:14px;">โปรโมชันอาจเปลี่ยนแปลงได้โดยไม่ต้องแจ้งล่วงหน้า ติดตามล่าสุดทาง LINE OA</p>
   </div>
 </section>
 
 <footer class="site">
-  <div class="wrap">
-    <div class="fname">NKN Petroleum (Oasis Park)</div>
-    <div>ปั๊มน้ำมันบางจาก · เปิดทุกวัน 24 ชั่วโมง · โทร 095-441-4142</div>
+  <div class="wrap foot">
+    <div class="fb">
+      <img src="assets/img/web/brand/logo-emblem.png" alt="" width="52" height="52">
+      <div><div class="fn">OASIS <span>PARK</span></div><small>NKN Petroleum · ปั๊มน้ำมันบางจาก เขาย้อย · เปิดทุกวัน 24 ชั่วโมง</small></div>
+    </div>
+    <nav><a href="prices.html">ราคาน้ำมัน</a><a href="promotions.html">โปรโมชัน</a><a href="contact.html">แผนที่ &amp; ติดต่อ</a></nav>
   </div>
 </footer>
 
-<div class="sticky-line">
-  <a href="https://line.me/R/ti/p/@087rhavv" target="_blank" rel="noopener">💬 แอด LINE OA</a>
+<div class="sticky-bar">
+  <a class="call" href="tel:0954414142">โทรเลย</a>
+  <a class="line" href="https://line.me/R/ti/p/@087rhavv" target="_blank" rel="noopener">แอด LINE OA</a>
 </div>
 
 <script src="assets/js/main.js"></script>

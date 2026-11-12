@@ -1,3 +1,12 @@
 # ไฟล์ทำงานภายใน ไม่ใช่ส่วนของเว็บที่ deploy จริง
 content-brief.md
 mood-board/
+
+# รูปต้นฉบับขนาดใหญ่ (ใช้เฉพาะไฟล์ย่อใน assets/img/web/)
+/assets/img/*.png
+/assets/img/*.jpg
+
+# รูปต้นฉบับ/โฟลเดอร์รับรูป/คู่มือรูป — ไม่ push (push เฉพาะ assets/img/web/)
+/assets/img/inbox/
+/assets/img/originals/
+/assets/img/README.md

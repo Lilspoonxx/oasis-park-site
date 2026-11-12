@@ -4,59 +4,76 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ราคาน้ำมันวันนี้ — Oasis Park</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛽</text></svg>">
+<meta name="description" content="ราคาน้ำมันวันนี้ Oasis Park บางจาก เขาย้อย พร้อมการปรับขึ้นลงเทียบกับประกาศก่อนหน้า">
+<link rel="icon" href="assets/img/web/brand/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,500;0,600;0,700;0,800;1,700;1,800&family=Sarabun:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<div class="pt" aria-hidden="true"><img src="assets/img/web/brand/logo-emblem.png" alt="" width="110" height="110"></div>
 
 <header class="site">
   <div class="nav-row">
-    <a class="brand" href="index.html"><span class="mark">⛽</span>OASIS PARK</a>
-    <button class="nav-toggle" aria-label="เปิดเมนู">☰</button>
+    <a class="brand" href="index.html" aria-label="Oasis Park หน้าหลัก">
+      <img src="assets/img/web/brand/logo-emblem.png" alt="" width="48" height="48">
+      <span class="bt"><b>OASIS <span>PARK</span></b><small>NKN Petroleum · Bangchak</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="เปิดเมนู" aria-expanded="false">☰</button>
     <nav class="primary">
       <a href="index.html">หน้าหลัก</a>
       <a href="about.html">ร้านของเรา</a>
-      <a href="prices.html" class="active">ราคาน้ำมัน</a>
+      <a href="prices.html" class="active" aria-current="page">ราคาน้ำมัน</a>
       <a href="promotions.html">โปรโมชัน</a>
       <a href="contact.html">แผนที่ &amp; ติดต่อ</a>
     </nav>
   </div>
 </header>
 
-<section class="hero" style="padding-bottom:20px;">
+<section class="hero layered center">
+  <div class="hero-bg" style="background-image:url('assets/img/web/pages/page-prices-blur.jpg')" aria-hidden="true"></div><div class="hero-veil" aria-hidden="true"></div><div class="swoosh" aria-hidden="true" style="left:-18%;top:52%;width:70%;height:90%;transform:rotate(-12deg);"></div><div class="swoosh" aria-hidden="true" style="right:-22%;top:-45%;width:75%;height:85%;transform:rotate(18deg);opacity:.7;"></div>
+  <div class="hero-grid center"><div class="hero-text">
+    <h1 class="page">ราคาน้ำมัน<span class="accent">วันนี้</span></h1>
+  </div>
+  <figure class="shot"><div class="tilt"><span class="halo" aria-hidden="true"></span><img src="assets/img/web/pages/page-prices.jpg" alt="หัวจ่ายน้ำมัน Oasis Park ในลานปั๊มยามเย็น" width="1200"><span class="rim" aria-hidden="true"></span></div><figcaption>ภาพประกอบ</figcaption></figure>
+  <div class="hero-text"><p class="lead">ราคาต่อลิตร อ้างอิงประกาศราคาปลีกบางจาก แตะที่การ์ดเพื่อดูรายละเอียด</p></div></div>
+</section>
+<section class="block tight-top">
   <div class="wrap">
-    <span class="eyebrow">ราคาน้ำมัน</span>
-    <h1>ราคาน้ำมัน<span class="accent">วันนี้</span></h1>
-    <p class="lead">ราคาต่อลิตร ณ ปั๊ม Oasis Park — อัปเดตล่าสุดวันที่ <strong id="price-updated">—</strong></p>
+    <div class="section-head">
+      <p><strong id="price-effective">—</strong></p>
+      <p class="legend">ป้ายแสดงการปรับราคาเทียบกับประกาศก่อนหน้า (6 พ.ย. 2569) · <span class="d">▼ ลง</span> · <span class="u">▲ ขึ้น</span> · <b>– เท่าเดิม</b></p>
+    </div>
+    <div class="grid" id="price-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr));"><p class="note">กำลังโหลดราคา…</p></div>
+    <p class="note" style="margin-top:18px;">ที่มา: <a href="https://www.bangchak.co.th/th/oilprice" target="_blank" rel="noopener">ประกาศราคาปลีกบางจาก (เว็บทางการ)</a> เป็นราคาปลีกใน กทม. ไม่รวมภาษีบำรุงท้องถิ่น ราคาหน้าปั๊มอาจแตกต่างเล็กน้อย กรุณายืนยันกับพนักงานหรือดูที่ตู้จ่ายก่อนเติม</p>
   </div>
 </section>
-
-<section class="block" style="padding-top:0;">
-  <div class="wrap">
-    <table class="price-table">
-      <thead>
-        <tr><th>ประเภทน้ำมัน</th><th>ราคา/ลิตร</th></tr>
-      </thead>
-      <tbody id="price-body">
-        <tr><td colspan="2">กำลังโหลดราคา…</td></tr>
-      </tbody>
-    </table>
-    <p class="price-note">
-      * ราคาอ้างอิงจากประกาศราคาขายปลีกบางจากล่าสุดที่มี อาจมีความต่างเล็กน้อยจากราคาจริงหน้าปั๊ม
-      กรุณาตรวจสอบราคาที่ตู้จ่ายน้ำมันอีกครั้งก่อนเติม
-    </p>
-  </div>
-</section>
+<section class="block tight-top" data-until="2026-11-13T23:59:59+07:00"><div class="wrap">
+  <button type="button" class="glass campaign" data-modal="c42" aria-haspopup="dialog">
+    <img src="assets/img/web/promo/promo-42-years.png" alt="บางจากฉลองครบรอบ 42 ปี ลด 1 บาทต่อลิตร สำหรับสมาชิก GreenMiles วันที่ 13 พ.ย. 69" loading="lazy">
+    <span class="ct">
+      <span class="tag-pill">โปรพิเศษวันที่ 13 พ.ย. 69</span>
+      <span class="disp big">ลด 1 บาท/ลิตร<br>น้ำมันทุกชนิด</span>
+      <span>สำหรับสมาชิก Bangchak GreenMiles · 05.00–24.00 น.</span>
+      <span class="more">ดูรายละเอียด <span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></span>
+    </span>
+  </button>
+</div></section>
 
 <footer class="site">
-  <div class="wrap">
-    <div class="fname">NKN Petroleum (Oasis Park)</div>
-    <div>ปั๊มน้ำมันบางจาก · เปิดทุกวัน 24 ชั่วโมง · โทร 095-441-4142</div>
+  <div class="wrap foot">
+    <div class="fb">
+      <img src="assets/img/web/brand/logo-emblem.png" alt="" width="52" height="52">
+      <div><div class="fn">OASIS <span>PARK</span></div><small>NKN Petroleum · ปั๊มน้ำมันบางจาก เขาย้อย · เปิดทุกวัน 24 ชั่วโมง</small></div>
+    </div>
+    <nav><a href="prices.html">ราคาน้ำมัน</a><a href="promotions.html">โปรโมชัน</a><a href="contact.html">แผนที่ &amp; ติดต่อ</a></nav>
   </div>
 </footer>
 
-<div class="sticky-line">
-  <a href="https://line.me/R/ti/p/@087rhavv" target="_blank" rel="noopener">💬 แอด LINE OA</a>
+<div class="sticky-bar">
+  <a class="call" href="tel:0954414142">โทรเลย</a>
+  <a class="line" href="https://line.me/R/ti/p/@087rhavv" target="_blank" rel="noopener">แอด LINE OA</a>
 </div>
 
 <script src="assets/js/main.js"></script>
