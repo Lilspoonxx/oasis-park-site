@@ -104,6 +104,8 @@
 
     // เปลี่ยนหน้าแบบแถบเขียว-ไลม์กวาด + ตราโลโก้เด้ง
     var pt = document.querySelector('.pt');
+    // กันค้าง: เมื่อแอนิเมชันเปิดหน้าจบ (หรือเกิน 2 วินาที) ให้เอาแถบออกจากหน้า
+    if (pt) { var donePt = function () { if (!pt.classList.contains('leaving')) pt.style.display = 'none'; }; pt.addEventListener('animationend', function (e) { if (e.animationName === 'ptEnter') donePt(); }); setTimeout(donePt, 2000); }
     document.addEventListener('click', function (e) {
       if (reduce || !pt || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       var a = e.target.closest && e.target.closest('a[href]');
@@ -111,10 +113,10 @@
       var u = new URL(a.href, location.href);
       if (u.origin !== location.origin || u.pathname === location.pathname || !/(\.html|\/)$/.test(u.pathname)) return;
       e.preventDefault();
-      pt.classList.add('leaving');
+      pt.style.display = ''; pt.classList.add('leaving');
       setTimeout(function () { location.href = a.href; }, 460);
     });
-    window.addEventListener('pageshow', function (ev) { if (ev.persisted && pt) pt.classList.remove('leaving'); });
+    window.addEventListener('pageshow', function (ev) { if (ev.persisted && pt) { pt.classList.remove('leaving'); pt.style.display = 'none'; } });
 
     // พารัลแลกซ์ของภาพเบลอด้านหลัง
     var bgs = document.querySelectorAll('.hero-bg');
