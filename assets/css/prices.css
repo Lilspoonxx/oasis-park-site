@@ -330,13 +330,13 @@ dialog.op-modal.custom { width: min(660px, calc(100vw - 24px)); border: 1.5px so
 @media (prefers-reduced-motion: reduce) { .fxd-num.glow { animation: none; } .fxd-acts button { transition: none; } }
 
 /* =====================================================================
-   เวทีรายละเอียดน้ำมัน (จอกว้าง ≥ 900px) — จัดตามพิกัดอ้างอิง 1586 × 992 จาก INTEGRATION.md
+   เวทีรายละเอียดน้ำมัน (จอกว้าง ≥ 1100px) — จัดตามพิกัดอ้างอิง 1586 × 992 จาก INTEGRATION.md
    ชั้นภาพ: 0 พื้นหลังปั๊ม · 1 รายการราคาซ้าย · 2 กระจก · 3 เนื้อหา · 4 หัวจ่าย · 5 ปุ่มปิด
    ===================================================================== */
 .fxs-bg, .fxs-list, .fxs-glass { display: none; }
 .fxs-detail.fxd { width: 100%; }
 
-@media (min-width: 900px) {
+@media (min-width: 1100px) {
   dialog.op-modal.custom { width: min(1586px, 96vw, calc((100vh - 24px) * 1.5988)); max-height: none; padding: 0; border: 0; border-radius: 26px; background: #021a12; box-shadow: 0 0 0 1px rgba(183, 240, 0, .3), 0 40px 90px -20px rgba(0, 0, 0, .9); overflow: hidden; }
   .op-modal.custom .mbody { padding: 0; overflow: visible; }
   .fxs { --u: calc(100cqw / 1586); position: relative; container-type: inline-size; width: 100%; aspect-ratio: 1586 / 992; overflow: hidden; border-radius: 26px; }

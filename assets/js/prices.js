@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     e85: { tag: 'แก๊สโซฮอล E85', b: ['Gasohol', 'E85 S EVO'], c: ['#F04FC8', '#A3178B'], lead: 'แก๊สโซฮอล E85 มีเอทานอลผสมสูง ใช้ได้เฉพาะรถที่รองรับ E85', points: [water], note: 'ก่อนเติม E85 โปรดตรวจสอบว่ารถของท่านรองรับ · ' + fuelNote },
     premium98: { tag: 'พรีเมียม', b: ['Hi Premium', '98 Plus'], c: ['#E3C25A', '#8A6B14'], lead: 'เบนซินพรีเมียมออกเทน 98 สำหรับรถที่ต้องการน้ำมันออกเทนสูง', points: [water], note: fuelNote },
     b20: { tag: 'ดีเซล B20', b: ['Diesel', 'B20'], c: ['#3AA0FF', '#0B52C9'], lead: 'ดีเซลผสมไบโอดีเซล 20% สำหรับรถที่รองรับ B20 เช่น รถบรรทุกและรถใหญ่', points: ['เติม B20 รับน้ำดื่ม 2 เท่า', 'B20 เลือกของแถมได้ตามจำนวนสิทธิ์ที่ได้รับ'], note: 'ก่อนเติม B20 โปรดตรวจสอบว่ารถของท่านรองรับ · ' + fuelNote },
-    dieselS: { tag: 'ดีเซล', b: ['Hi Diesel', 'S'], c: ['#3F6BFF', '#14298F'], lead: 'น้ำมันดีเซลสำหรับเครื่องยนต์ดีเซล เหมาะกับรถกระบะ รถบรรทุก และรถใหญ่', points: ['เติมตั้งแต่ 1,200 บาท รับ M-150 หรือคาราบาวแดง', water, 'รถใหญ่หรือเติมตั้งแต่ 100 ลิตร รับคูปองข้าวฟรี'], note: fuelNote },
+    dieselS: { tag: 'ดีเซล', b: ['Hi Diesel', 'S'], c: ['#3F6BFF', '#14298F'], lead: 'น้ำมันดีเซลสำหรับเครื่องยนต์ดีเซล เหมาะกับรถกระบะ รถบรรทุก และรถใหญ่', points: ['เติมตั้งแต่ 1,200 บาท รับ M-150 หรือคาราบาวแดง', water, 'รถใหญ่หรือเติมตั้งแต่ 100 ลิตร รับคูปองอาหารฟรี'], note: fuelNote },
     premiumDiesel: { tag: 'ดีเซลพรีเมียม', b: ['Hi Premium', 'Diesel Plus'], c: ['#E4E8E6', '#8B9692'], dark: true, lead: 'ดีเซลพรีเมียมสำหรับเครื่องยนต์ดีเซลที่ต้องการน้ำมันคุณภาพสูง', points: [water], note: fuelNote }
   };
   var groups = [
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // จอกว้าง: เปิดเวทีรายละเอียด (มีรายการซ้ายอยู่แล้ว) / จอแคบ: เปิดรายการทั้งหมดก่อน
   function openFromCard(trigger) {
     var data = window.FuelPrices.current();
-    if (window.matchMedia('(min-width: 900px)').matches && data.fuels.length) window.OP.open(fuelItem(data.fuels[0], data), trigger);
+    if (window.matchMedia('(min-width: 1100px)').matches && data.fuels.length) window.OP.open(fuelItem(data.fuels[0], data), trigger);
     else openBoard(trigger);
   }
 
