@@ -1,13 +1,34 @@
 .ev-hero {
   padding: clamp(42px, 7vw, 100px) 0;
-  background: radial-gradient(ellipse at 85% 10%, #38640f, transparent 55%), #06241a;
+  background:
+    radial-gradient(ellipse at 85% 12%, #578b2544, transparent 58%),
+    linear-gradient(120deg, #041710, #082e20);
   border-bottom: 1px solid #b7f00050;
 }
 .ev-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(22px, 5vw, 72px); align-items: center; }
 .ev-hero h1 { margin: 0; font: 800 clamp(40px, 6vw, 82px)/1.13 'Prompt', sans-serif; }
 .ev-hero h1 span, .ev-brand, .ev-source a, .ev-link { color: var(--lime-glow); }
 .ev-brand { font-weight: 700; }
-.ev-hero img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid #b7f00075; border-radius: 24px; box-shadow: 0 0 35px #b7f00025; }
+.ev-figure { min-width: 0; margin: 0; }
+.ev-figure figcaption, .ev-support figcaption { margin-top: 8px; color: #d1e1d8; font-size: 13px; }
+.ev-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #b7f00080;
+  border-radius: 24px 7px 24px 7px;
+  box-shadow: 0 0 38px #b7f00026, 0 18px 48px #0007;
+}
+.ev-frame img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.ev-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 42%, #dfff6433 49%, transparent 56%);
+  transform: translateX(-100%);
+}
+.ev-support { margin: 16px 0 0; }
+.ev-support img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 14px 4px; }
 .ev-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; margin-top: 14px; }
 .ev-link, .ev-source a { text-decoration: underline; text-underline-offset: .24em; }
 #how-to { scroll-margin-top: 88px; }
@@ -19,9 +40,18 @@
 .ev-grid ul { padding-inline-start: 1.25em; margin-bottom: 0; }
 .ev-grid ul li + li { margin-top: 8px; }
 .ev-steps { list-style: none; padding: 0; margin: 0; counter-reset: ev-step; }
-.ev-steps > li { counter-increment: ev-step; }
+.ev-steps > li {
+  counter-increment: ev-step;
+  background: linear-gradient(150deg, #143f2b, #07251a 72%);
+  border-top-color: #b7f00075;
+  box-shadow: inset 0 1px 0 #dfff6418;
+}
 .ev-steps > li::before { content: counter(ev-step); display: grid; place-items: center; width: 36px; height: 36px; margin-bottom: 14px; border-radius: 10px; background: var(--lime-glow); color: #092417; font-weight: 800; }
-.ev-band { background: #082d20; }
+.ev-band { background: radial-gradient(ellipse at 70% 0%, #2b531a75, transparent 64%), #082d20; }
+@media (prefers-reduced-motion: no-preference) {
+  .ev-frame::after { animation: ev-scan 1.3s ease-out .35s both; }
+  @keyframes ev-scan { to { transform: translateX(100%); } }
+}
 @media (max-width: 840px) {
   .ev-hero-grid { grid-template-columns: 1fr; }
   .ev-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
