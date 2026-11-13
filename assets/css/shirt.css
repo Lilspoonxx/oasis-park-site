@@ -1,0 +1,62 @@
+/* ส่วนเสื้อ — ปริศนา "?" แล้วเปิดเผยลายจริง */
+.shirt-reveal { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); align-items: center; }
+@media (max-width: 800px) { .shirt-reveal { grid-template-columns: 1fr; } }
+
+.sr-stage {
+  position: relative; aspect-ratio: 1322 / 1190; width: 100%; border-radius: 28px; overflow: hidden; isolation: isolate;
+  background: radial-gradient(ellipse at 50% 42%, #0E5A2C 0%, #063C1E 45%, #031A12 100%);
+  border: 1.5px solid var(--border);
+  box-shadow: 0 0 0 1px rgba(183,240,0,.12), 0 30px 70px -20px rgba(0,0,0,.7), 0 0 80px -20px rgba(183,240,0,.35);
+}
+.sr-ring { position: absolute; inset: -30%; z-index: 0; background: conic-gradient(from 0deg, transparent 0 55%, rgba(183,240,0,.35) 70%, transparent 85%); animation: sr-spin 9s linear infinite; opacity: .8; }
+.sr-grid { position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(rgba(183,240,0,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(183,240,0,.07) 1px, transparent 1px); background-size: 38px 38px; mask-image: radial-gradient(circle at 50% 50%, #000 20%, transparent 72%); -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 20%, transparent 72%); }
+.sr-spark { position: absolute; z-index: 1; width: 8px; height: 8px; border-radius: 50%; background: var(--lime-glow); box-shadow: 0 0 14px 3px rgba(223,255,69,.9); opacity: 0; animation: sr-twinkle 3.2s ease-in-out infinite; pointer-events: none; }
+
+.sr-mystery {
+  position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; width: 100%; padding: 0; border: 0; background: none; color: #fff; cursor: pointer;
+  transition: transform .6s cubic-bezier(.5, 0, .2, 1), opacity .5s ease, filter .6s ease;
+}
+.sr-mystery svg { width: 74%; height: auto; max-height: 90%; overflow: visible; animation: sr-float 4.5s ease-in-out infinite; filter: drop-shadow(0 22px 28px rgba(0,0,0,.6)) drop-shadow(0 0 26px rgba(183,240,0,.35)); transition: filter .3s; }
+.sr-mystery:hover svg { filter: drop-shadow(0 22px 28px rgba(0,0,0,.6)) drop-shadow(0 0 40px rgba(223,255,69,.7)); }
+.sr-sheen { animation: sr-sheen 3.6s ease-in-out infinite; }
+.sr-q { font-family: 'Prompt', sans-serif; font-weight: 800; font-style: italic; fill: var(--lime-glow); animation: sr-pulse 2.2s ease-in-out infinite; transform-origin: 200px 215px; filter: drop-shadow(0 0 10px rgba(223,255,69,.95)); }
+.sr-hint { position: absolute; left: 50%; bottom: 5%; transform: translateX(-50%); padding: 6px 18px; border-radius: 999px; background: var(--lime); color: var(--on-lime); font-weight: 700; font-size: 16px; white-space: nowrap; box-shadow: 0 0 24px rgba(183,240,0,.6); animation: sr-hint 2.2s ease-in-out infinite; }
+
+.sr-flash { position: absolute; inset: 0; z-index: 4; pointer-events: none; background: radial-gradient(circle at 50% 50%, #fff 0%, var(--lime-glow) 25%, transparent 62%); opacity: 0; }
+.shirt-reveal.open .sr-flash { animation: sr-flash .9s ease-out; }
+.shirt-reveal.open .sr-mystery { transform: scale(1.35); opacity: 0; filter: blur(8px) brightness(2); pointer-events: none; }
+
+.sr-viewer { position: absolute; inset: 0; z-index: 3; visibility: hidden; opacity: 0; transform: scale(.92); transition: opacity .7s ease .25s, transform .7s cubic-bezier(.2, .9, .3, 1.1) .25s, visibility 0s linear 1s; }
+.shirt-reveal.open .sr-viewer { visibility: visible; opacity: 1; transform: none; transition-delay: .25s, .25s, 0s; }
+.sr-viewer img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .45s ease; }
+.sr-viewer img.on { opacity: 1; }
+.sr-tabs { position: absolute; left: 0; right: 0; bottom: 3.2%; display: flex; justify-content: center; gap: 8px; z-index: 5; }
+.sr-tab { padding: 6px 16px; min-height: 40px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,.55); background: rgba(3,26,18,.72); color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; backdrop-filter: blur(6px); transition: background .2s, color .2s, border-color .2s, transform .2s; }
+.sr-tab:hover { border-color: var(--lime-glow); transform: translateY(-2px); }
+.sr-tab[aria-selected="true"] { background: var(--lime); color: var(--on-lime); border-color: var(--lime-glow); }
+
+.sr-text { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.sr-text h2 { margin: 0; font-style: italic; font-weight: 800; font-size: clamp(30px, 4.2vw, 48px); line-height: 1.2; }
+.sr-text h2 span { color: var(--lime); text-shadow: 0 0 26px rgba(183,240,0,.45); }
+.sr-text p { margin: 0; color: var(--ink-dim); }
+.sr-feats { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.sr-feats li { padding: 4px 14px; border-radius: 999px; border: 1px solid var(--border); background: rgba(183,240,0,.1); font-size: 15px; font-weight: 600; }
+.sr-soon { opacity: 0; max-height: 0; overflow: hidden; transition: opacity .6s ease .6s, max-height .6s ease; }
+.shirt-reveal.open .sr-soon { opacity: 1; max-height: 200px; }
+
+@keyframes sr-spin { to { transform: rotate(360deg); } }
+@keyframes sr-float { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-12px) rotate(1deg); } }
+@keyframes sr-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .75; transform: scale(1.08); } }
+@keyframes sr-hint { 0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); } 50% { opacity: .8; transform: translateX(-50%) scale(1.06); } }
+@keyframes sr-sheen { 0% { transform: translateX(-420px) skewX(-18deg); } 60%, 100% { transform: translateX(520px) skewX(-18deg); } }
+@keyframes sr-twinkle { 0%, 100% { opacity: 0; transform: scale(.4); } 50% { opacity: 1; transform: scale(1.2); } }
+@keyframes sr-flash { 0% { opacity: 0; transform: scale(.4); } 25% { opacity: 1; } 100% { opacity: 0; transform: scale(2.2); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .sr-ring, .sr-mystery svg, .sr-sheen, .sr-q, .sr-hint, .sr-spark, .shirt-reveal.open .sr-flash { animation: none !important; }
+  .sr-spark { opacity: .8; }
+  .sr-mystery, .sr-viewer, .sr-viewer img, .sr-soon, .sr-tab { transition: none !important; }
+  .shirt-reveal.open .sr-mystery { transform: none; filter: none; }
+}
+
+.sr-close[hidden] { display: none; }

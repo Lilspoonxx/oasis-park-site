@@ -479,3 +479,33 @@ section.block.tight-top { padding-top: clamp(20px, 3vw, 32px); padding-bottom: 0
   .hero h1.tag { font-size: clamp(30px, 3.1vw, 48px); }
   .hero h1.tag span { white-space: nowrap; }
 }
+
+/* การ์ดโปรของแถม: รูปประกอบมุมขวาล่าง (ตัวเลขผลประโยชน์ต้องเด่นกว่ารูป) */
+.glass.fb { min-height: 300px; padding-bottom: 26px; }
+.glass.fb:hover { transform: translateY(-4px); border-color: var(--lime); box-shadow: inset 0 2px 0 rgba(255, 255, 255, .3), 0 18px 40px -20px rgba(183, 240, 0, .5); }
+.glass.fb::before, .glass.fb::after { display: none; }
+.fb-num { font-size: clamp(38px, 4.2vw, 52px); color: var(--lime); text-shadow: 0 0 22px rgba(183, 240, 0, .4), 0 3px 0 rgba(0, 0, 0, .5); white-space: nowrap; }
+.fb-num small { font-size: .45em; font-weight: 700; letter-spacing: .01em; margin-left: 2px; }
+.fb-desc { font-size: 17px; font-weight: 600; line-height: 1.45; max-width: 66%; }
+.fb .more { margin-top: auto; }
+.fb .nw { white-space: nowrap; }
+.fb-lg .fb-num { white-space: nowrap; line-height: 1.08; font-size: clamp(30px, 3.1vw, 40px); }
+.fb-get { display: block; margin-top: 2px; font-size: .5em; font-weight: 700; color: #fff; text-shadow: none; letter-spacing: 0; }
+.fb-sub { display: block; margin-top: 6px; font-size: 14px; font-weight: 500; line-height: 1.45; color: var(--ink-dim); }
+.fb-hl { align-self: flex-start; margin-top: -6px; padding: 0 10px; border: 1px solid var(--lime); border-radius: 999px; color: var(--lime-glow); font-size: 14px; font-weight: 700; line-height: 1.6; }
+.fb-img { position: absolute !important; right: 10px; bottom: 12px; z-index: 0 !important; height: auto; object-fit: contain; pointer-events: none; filter: drop-shadow(0 10px 14px rgba(0, 0, 0, .5)); transition: transform .28s ease; }
+.fb-sm .fb-img { width: 26%; }
+.fb-md .fb-img { width: 36%; }
+.fb-lg .fb-img { width: 42%; }
+.glass.fb:hover .fb-img { transform: translateY(-3px) scale(1.02); }
+.glass.fb:hover .chev { transform: translateX(4px); }
+.op-modal .mimg[src*="freebie"] { width: auto; max-width: 70%; max-height: 200px; margin: 0 auto 14px; object-fit: contain; filter: drop-shadow(0 12px 18px rgba(0, 0, 0, .45)); }
+@media (max-width: 560px) { .glass.fb { min-height: 230px; } .fb-desc { max-width: 62%; } .fb-sm .fb-img { width: 24%; } .fb-md .fb-img { width: 32%; } .fb-lg .fb-img { width: 38%; } }
+@media (prefers-reduced-motion: reduce) { .fb-img { transition: none !important; } }
+
+/* ปิด modal แบบ smooth (main.js ใส่คลาส .closing ก่อนปิดจริง) */
+dialog.op-modal.closing[open] { animation: modalOut .22s ease both; }
+dialog.op-modal.closing::backdrop { animation: backdropOut .22s ease both; }
+@keyframes modalOut { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(10px) scale(.97); } }
+@keyframes backdropOut { from { background: rgba(1, 12, 8, .72); backdrop-filter: blur(10px); } to { background: rgba(1, 12, 8, 0); backdrop-filter: blur(0); } }
+@media (prefers-reduced-motion: reduce) { dialog.op-modal.closing[open], dialog.op-modal.closing::backdrop { animation: none !important; } }

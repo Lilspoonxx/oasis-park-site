@@ -10,3 +10,9 @@ mood-board/
 /assets/img/inbox/
 /assets/img/originals/
 /assets/img/README.md
+
+# แพ็กสั่งงานสำเร็จรูป (คำสั่ง + รูปอ้างอิง + ชิ้นส่วนภาพ) — ไฟล์ทำงานภายใน ไม่ push
+briefs/
+
+# กฎสำหรับ AI ที่เข้ามาช่วยแก้ (ไฟล์ทำงานภายใน ไม่ push)
+AGENTS.md

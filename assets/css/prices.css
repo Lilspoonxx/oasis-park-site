@@ -1,0 +1,465 @@
+/* หน้าราคาน้ำมัน — แถวราคาแบบ 2 แผง + ลูกเล่นเบาๆ (animate เฉพาะ transform/opacity เท่าที่ทำได้) */
+
+/* ---------- สถานะหัวหน้า ---------- */
+.pb-head { gap: 6px; }
+.pb-status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; font-size: 17px; }
+.pb-live { display: inline-flex; align-items: center; gap: 8px; padding: 2px 14px 2px 10px; border-radius: 999px; border: 1.5px solid var(--lime); background: rgba(183, 240, 0, .12); color: var(--lime-glow); font-weight: 800; letter-spacing: .12em; font-size: 15px; }
+.pb-live[hidden] { display: none; }
+.pb-live.pulse { animation: pb-livepulse .8s ease-out 1; }
+.pb-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--lime-glow); animation: pb-dot 2.4s ease-out infinite; }
+.pb-date { display: inline-flex; align-items: center; gap: 8px; }
+.pb-date strong { color: #fff; transition: opacity .25s ease; }
+.pb-refresh { width: 34px; height: 34px; border-radius: 50%; display: inline-grid; place-items: center; cursor: pointer; border: 1px solid rgba(255, 255, 255, .45); background: rgba(255, 255, 255, .08); color: #fff; transition: transform .2s ease, border-color .2s; }
+.pb-refresh:hover { border-color: var(--lime-glow); color: var(--lime-glow); }
+.pb-refresh.spin svg { animation: pb-spin .7s ease-in-out 1; }
+.pb-refresh.busy { opacity: .6; }
+.pb-status.stale .pb-date strong { color: var(--orange); }
+.pb-eff { margin: 0; font-size: 16px; color: var(--ink-dim); }
+.pb-eff:empty { display: none; }
+.pb-msg { margin: 4px 0 0; padding: 6px 14px; border-radius: 12px; font-size: 15px; font-weight: 600; color: var(--orange); background: rgba(255, 176, 102, .12); border: 1px solid rgba(255, 176, 102, .5); align-self: flex-start; }
+.pb-msg[hidden] { display: none; }
+.legend .s { color: #B9C4BD; }
+
+/* ---------- 2 แผง: เบนซิน | ดีเซล ---------- */
+.pb-board { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
+@media (max-width: 900px) { .pb-board { grid-template-columns: 1fr; } }
+.pb-panel { position: relative; overflow: hidden; padding: 16px 16px 18px; border-radius: 24px; border: 1px solid rgba(183, 240, 0, .35); background: linear-gradient(160deg, rgba(10, 52, 28, .92), rgba(3, 26, 18, .96)); box-shadow: 0 24px 50px -28px rgba(0, 0, 0, .8), inset 0 1px 0 rgba(255, 255, 255, .12); }
+.pb-panel::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 90px; pointer-events: none; z-index: 0; background: linear-gradient(180deg, transparent, rgba(183, 240, 0, .09), transparent); animation: pb-scan 9s ease-in-out infinite; opacity: 0; }
+.pb-title { position: relative; z-index: 1; display: flex; align-items: center; gap: 10px; margin: 0 0 12px; font-style: italic; font-weight: 800; font-size: clamp(20px, 2.4vw, 26px); color: var(--lime-glow); }
+.pb-rows { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px; }
+
+/* ---------- แถวราคา ---------- */
+.glass.prow { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto auto 16px; align-items: center; column-gap: 12px; padding: 10px 14px; min-height: 74px; border-radius: 16px; border: 1px solid rgba(183, 240, 0, .3); background: linear-gradient(90deg, rgba(16, 78, 40, .78), rgba(6, 42, 24, .82)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12); transition: transform .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease; }
+.glass.prow::after { display: none; }
+.glass.prow:hover, .glass.prow:focus-visible { transform: translateY(-2px); border-color: var(--lime-glow); background: linear-gradient(90deg, rgba(24, 104, 54, .88), rgba(8, 56, 31, .9)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 0 0 1px rgba(223, 255, 69, .35), 0 14px 28px -16px rgba(183, 240, 0, .6); }
+.glass.prow:active { transform: scale(.985); filter: brightness(1.12); transition-duration: .08s; }
+.glass.prow:hover .pchev, .glass.prow:focus-visible .pchev { transform: translateX(3px); color: var(--lime-glow); }
+.pchev { display: inline-grid; place-items: center; color: rgba(255, 255, 255, .8); transition: transform .22s ease, color .22s ease; }
+
+.fbadge { width: 64px; height: 52px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; line-height: 1.05; text-align: center; color: #fff; background: linear-gradient(160deg, var(--c1), var(--c2)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45), 0 6px 12px -6px rgba(0, 0, 0, .7); text-shadow: 0 1px 2px rgba(0, 0, 0, .45); font-style: italic; }
+.fbadge small { font-size: 10.5px; font-weight: 700; }
+.fbadge b { font-size: 13px; font-weight: 800; }
+.fbadge b.lg { font-size: 11px; letter-spacing: -.01em; }
+.fbadge.dk { color: #1B2420; text-shadow: none; }
+.fname { font-weight: 700; font-size: 16.5px; line-height: 1.25; text-align: left; }
+
+.pcell { position: relative; display: inline-flex; align-items: baseline; gap: 6px; padding: 4px 12px 4px 14px; border-radius: 14px; color: #0A2A12; background: linear-gradient(180deg, #E6FF5C, #A9EC00); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 4px 10px -4px rgba(183, 240, 0, .6); }
+.pcell .unit { font-size: 12px; font-weight: 700; white-space: nowrap; }
+.pcell::after { content: ""; position: absolute; inset: -3px; border-radius: 17px; pointer-events: none; box-shadow: 0 0 22px 4px rgba(223, 255, 69, .85); opacity: 0; }
+.pcell.glow::after { animation: pb-glow 1s ease-out 1; }
+.pring { position: absolute; left: 50%; top: 50%; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%; border: 2px solid var(--lime-glow); pointer-events: none; animation: pb-ring .6s ease-out 1 both; }
+.fuel-price { font-size: clamp(24px, 2.5vw, 30px); line-height: 1; font-family: 'Prompt', sans-serif; font-weight: 800; font-style: italic; text-shadow: none; }
+
+.glass.prow .chg { justify-self: end; white-space: nowrap; font-size: 14px; padding: 2px 11px; }
+.chg.down { color: var(--lime-glow); }
+.chg.up { color: var(--orange); }
+.chg.same { color: #B9C4BD; border-color: rgba(185, 196, 189, .55); background: rgba(255, 255, 255, .05); }
+.prow.t-down .chg, .prow.t-up .chg { box-shadow: 0 0 12px -2px currentColor; }
+
+/* เมื่อราคาเปลี่ยน: ป้ายสไลด์เข้า + การ์ดเรืองสั้นๆ */
+.pc-glow { position: absolute !important; inset: 0; z-index: 0 !important; border-radius: inherit; pointer-events: none; opacity: 0; }
+.prow.t-down .pc-glow { background: radial-gradient(circle at 70% 50%, rgba(183, 240, 0, .35), transparent 65%); }
+.prow.t-up .pc-glow { background: radial-gradient(circle at 70% 50%, rgba(255, 150, 60, .4), transparent 65%); }
+.prow.fx .pc-glow { animation: pb-pulse 1.2s ease-out 1; }
+.prow.fx .chg { animation: pb-slide .5s .25s cubic-bezier(.2, .8, .2, 1) both; }
+
+/* ตัวเลขหมุน */
+.roll { display: inline-flex; vertical-align: bottom; line-height: 1; letter-spacing: -.03em; }
+.rd { display: inline-block; height: 1em; overflow: hidden; padding: 0 .02em; }
+.rc { display: block; will-change: transform; }
+.rc i { display: block; height: 1em; line-height: 1; font-style: inherit; text-align: center; font-feature-settings: 'tnum'; }
+.rp { display: inline-block; height: 1em; line-height: 1; }
+
+/* ---------- สกีลีตอนโหลด (ความสูงเท่าแถวจริง กันเลย์เอาต์ขยับ) ---------- */
+.prow.sk { position: relative; overflow: hidden; display: grid; grid-template-columns: 64px 1fr 120px; gap: 12px; align-items: center; min-height: 74px; padding: 10px 14px; border-radius: 16px; border: 1px solid rgba(183, 240, 0, .15); background: rgba(10, 60, 32, .5); }
+.prow.sk i, .sk-t { display: block; border-radius: 10px; background: rgba(255, 255, 255, .1); }
+.sk-b { height: 52px; } .sk-l { height: 16px; width: 70%; } .sk-p { height: 34px; border-radius: 14px !important; }
+.sk-t { width: 180px; height: 22px; }
+.prow.sk::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .12) 50%, transparent 70%); transform: translateX(-100%); animation: pb-shimmer 1.4s ease-in-out infinite; }
+
+/* ---------- สรุปราคาวันนี้ ---------- */
+.pb-summary { margin-top: 20px; padding: 18px 22px 20px; border-radius: 24px; border: 1px solid rgba(183, 240, 0, .35); background: linear-gradient(160deg, rgba(10, 52, 28, .92), rgba(3, 26, 18, .96)); display: flex; flex-direction: column; gap: 12px; }
+.pb-summary[hidden] { display: none; }
+.pb-summary .pb-title { margin: 0; }
+.sum-head { margin: 0; font-weight: 700; font-size: 18px; }
+.sum-row { display: grid; grid-template-columns: auto 1fr; gap: 10px 14px; align-items: start; }
+.sum-row .chg { white-space: nowrap; }
+.sum-list { display: flex; flex-wrap: wrap; gap: 6px 8px; }
+.sum-chip { padding: 1px 12px; border-radius: 999px; font-size: 15px; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .18); }
+.sum-chip b { color: var(--lime-glow); font-weight: 700; }
+@media (max-width: 560px) { .sum-row { grid-template-columns: 1fr; } }
+.pb-err { padding: 18px; border-radius: 16px; border: 1px solid var(--border); grid-column: 1 / -1; }
+
+/* ---------- Modal รายละเอียดราคา ---------- */
+.op-modal.fuel .mbody { overflow: hidden; }
+.op-modal.fuel .mbody::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 3; background: linear-gradient(110deg, transparent 38%, rgba(223, 255, 69, .22) 50%, transparent 62%); transform: translateX(-120%); animation: pb-sweep 1.1s .12s ease-out 1 both; }
+.fxm { margin-top: 6px; }
+.fxm-price { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.fxm-num { font-family: 'Prompt', sans-serif; font-weight: 800; font-style: italic; font-size: clamp(54px, 11vw, 76px); line-height: 1; color: var(--lime-glow); text-shadow: none; filter: drop-shadow(0 0 14px rgba(183, 240, 0, .5)) drop-shadow(0 3px 0 rgba(0, 0, 0, .4)); }
+.fxm-num.glow { animation: pb-numglow 1s ease-out 1; }
+.fxm-price small { font-size: 18px; font-weight: 700; }
+.fxm-trend { margin-top: 10px; }
+.fxm-trend .chg { font-size: 17px; padding: 3px 16px; }
+.fxm-dl { margin: 14px 0 0; display: grid; gap: 6px; }
+.fxm-dl div { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 16px; }
+.fxm-dl dt { color: var(--ink-dim); } .fxm-dl dd { margin: 0; font-weight: 700; }
+.fxm-hist { margin-top: 16px; padding: 14px 16px; border-radius: 16px; background: rgba(3, 26, 18, .45); border: 1px solid rgba(183, 240, 0, .25); }
+.fxm-hist h4 { margin: 0 0 6px; font-size: 15px; font-weight: 700; color: var(--lime-glow); letter-spacing: .04em; }
+.spark { width: 100%; height: 64px; display: block; overflow: visible; }
+.spark polyline { fill: none; stroke: var(--lime-glow); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(183, 240, 0, .7)); }
+.spark circle { fill: #0B3A1E; stroke: var(--lime-glow); stroke-width: 2; }
+.spark circle.last { fill: var(--lime-glow); }
+.fxm-tl { margin: 8px 0 0 !important; display: grid !important; gap: 4px !important; }
+.fxm-tl li { display: flex !important; justify-content: space-between; font-size: 15px; }
+.fxm-tl li::before { display: none !important; }
+.fxm-hn { margin: 8px 0 0; font-size: 13px; color: var(--ink-dim); }
+.fxm-tl li.now b { color: var(--lime-glow); }
+
+/* ---------- จอแคบ ---------- */
+@media (max-width: 560px) {
+  .pb-panel { padding: 12px 10px 14px; border-radius: 20px; }
+  .glass.prow { grid-template-columns: 56px minmax(0, 1fr) auto 14px; grid-template-areas: "b n t c" "b p p c"; row-gap: 6px; align-items: center; padding: 10px 12px; }
+  .glass.prow > .fbadge { grid-area: b; width: 56px; height: 56px; }
+  .glass.prow > .fname { grid-area: n; font-size: 16px; }
+  .glass.prow > .pcell { grid-area: p; justify-self: start; }
+  .glass.prow > .chg, .glass.prow > span:nth-child(5) { grid-area: t; align-self: start; }
+  .glass.prow > .pchev { grid-area: c; }
+  .prow.sk { grid-template-columns: 56px 1fr 90px; }
+}
+
+@keyframes pb-dot { 0% { box-shadow: 0 0 0 0 rgba(223, 255, 69, .7); } 70%, 100% { box-shadow: 0 0 0 9px rgba(223, 255, 69, 0); } }
+@keyframes pb-livepulse { 0% { transform: scale(1); } 40% { transform: scale(1.14); } 100% { transform: scale(1); } }
+@keyframes pb-spin { to { transform: rotate(360deg); } }
+@keyframes pb-scan { 0% { transform: translateY(-100%); opacity: 0; } 8% { opacity: 1; } 30% { transform: translateY(520%); opacity: 0; } 100% { transform: translateY(520%); opacity: 0; } }
+@keyframes pb-glow { 0% { opacity: 0; } 35% { opacity: .65; } 100% { opacity: 0; } }
+@keyframes pb-ring { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(3.2); opacity: 0; } }
+@keyframes pb-pulse { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes pb-slide { from { transform: translateX(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes pb-shimmer { to { transform: translateX(100%); } }
+@keyframes pb-sweep { to { transform: translateX(120%); } }
+@keyframes pb-numglow { 0% { filter: drop-shadow(0 0 6px rgba(183, 240, 0, .2)); } 40% { filter: drop-shadow(0 0 30px rgba(223, 255, 69, .95)) drop-shadow(0 0 8px #fff); } 100% { filter: drop-shadow(0 0 14px rgba(183, 240, 0, .5)) drop-shadow(0 3px 0 rgba(0, 0, 0, .4)); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pb-dot, .pb-panel::before, .prow.sk::after, .pb-live.pulse, .pb-refresh.spin svg, .pcell.glow::after, .prow.fx .pc-glow, .prow.fx .chg, .fxm-num.glow, .op-modal.fuel .mbody::after, .pring { animation: none !important; }
+  .glass.prow, .pchev, .pb-date strong { transition: none !important; }
+  .glass.prow:hover, .glass.prow:focus-visible { transform: none; }
+}
+
+/* ---------- ภาพหัวหน้า "ราคาน้ำมันวันนี้" กดได้ทั้งใบ ---------- */
+.fp-card { cursor: pointer; transition: transform .25s ease, filter .25s ease; -webkit-tap-highlight-color: transparent; }
+.fp-card .tilt { position: relative; }
+.fp-card:hover { transform: translateY(-4px) scale(1.01); }
+.fp-card:active { transform: scale(.99); filter: brightness(1.08); transition-duration: .1s; }
+.fp-card:focus-visible { outline: 3px solid var(--lime-glow); outline-offset: 6px; border-radius: 28px; }
+.fp-card img { transition: box-shadow .25s ease; }
+.fp-card:hover img, .fp-card:focus-visible img { box-shadow: 0 0 70px -2px rgba(183, 240, 0, .95), 0 34px 70px -24px rgba(0, 0, 0, .8); }
+.fp-sweep { position: absolute; inset: 0; border-radius: 26px; overflow: hidden; pointer-events: none; }
+.fp-sweep i { position: absolute; top: 0; bottom: 0; left: 0; width: 38%; transform: translateX(-130%) skewX(-18deg); opacity: 0; background: linear-gradient(90deg, transparent, rgba(223, 255, 69, .38), transparent); }
+.fp-card:hover .fp-sweep i, .fp-card:focus-visible .fp-sweep i { animation: fp-sweep .9s ease-out 1 both; }
+.fp-cta { position: absolute; left: 50%; bottom: 5%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 6px; padding: 5px 16px; border-radius: 999px; background: rgba(3, 26, 18, .78); border: 1.5px solid var(--lime); color: var(--lime-glow); font-weight: 700; font-size: 15px; white-space: nowrap; backdrop-filter: blur(6px); box-shadow: 0 0 18px -2px rgba(183, 240, 0, .55); transition: background .25s, color .25s, box-shadow .25s; }
+.fp-card:hover .fp-cta, .fp-card:focus-visible .fp-cta { background: var(--lime); color: var(--on-lime); box-shadow: 0 0 28px 2px rgba(183, 240, 0, .8); }
+@keyframes fp-sweep { 0% { transform: translateX(-130%) skewX(-18deg); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateX(360%) skewX(-18deg); opacity: 0; } }
+
+/* ---------- Modal ราคาน้ำมันวันนี้ ---------- */
+dialog.op-modal.wide { width: min(760px, calc(100vw - 32px)); }
+dialog.op-modal.fuel[open] { animation: pb-modalin .3s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes pb-modalin { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+.mb-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.mb-date { font-weight: 700; }
+.mb-eff { margin: 4px 0 0; font-size: 15px; color: var(--ink-dim); }
+.op-modal .pb-msg { margin: 8px 0 0; }
+.mb-view { margin-top: 12px; }
+.mb-group { margin-bottom: 14px; }
+.mb-group h4, .mb-sum h4 { margin: 0 0 8px; font-style: italic; font-weight: 800; font-size: 18px; color: var(--lime-glow); }
+.mrow { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto auto 16px; align-items: center; column-gap: 10px; margin-bottom: 8px; padding: 9px 12px; border-radius: 14px; border: 1px solid rgba(183, 240, 0, .3); background: linear-gradient(90deg, rgba(16, 78, 40, .78), rgba(6, 42, 24, .85)); color: #fff; font: inherit; cursor: pointer; text-align: left; transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease; }
+.mrow:hover, .mrow:focus-visible { transform: translateY(-2px); border-color: var(--lime-glow); background: linear-gradient(90deg, rgba(24, 104, 54, .9), rgba(8, 56, 31, .92)); box-shadow: 0 0 0 1px rgba(223, 255, 69, .3), 0 12px 24px -16px rgba(183, 240, 0, .6); }
+.mrow:active { transform: scale(.985); filter: brightness(1.12); transition-duration: .08s; }
+.mrow:hover .pchev, .mrow:focus-visible .pchev { transform: translateX(3px); color: var(--lime-glow); }
+.mname { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 16px; line-height: 1.25; }
+.mrow .fdot { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--fc, var(--lime)); box-shadow: 0 0 10px var(--fc, var(--lime)); }
+.mrow .pcell { justify-self: end; }
+.mrow .chg { white-space: nowrap; font-size: 14px; padding: 2px 11px; }
+.mrow.t-down .chg, .mrow.t-up .chg { box-shadow: 0 0 12px -2px currentColor; }
+.mb-sum { margin-top: 6px; padding: 14px 16px; border-radius: 16px; background: rgba(3, 26, 18, .45); border: 1px solid rgba(183, 240, 0, .25); }
+.mb-sum .sum-head { font-size: 16px; }
+.mb-sum .sum-row { margin-top: 8px; }
+.mb-back { margin: 0 0 8px; padding: 4px 14px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .5); background: rgba(255, 255, 255, .08); color: #fff; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; transition: border-color .2s, color .2s, transform .2s; }
+.mb-back:hover { border-color: var(--lime-glow); color: var(--lime-glow); transform: translateX(-2px); }
+.fxm-name { margin: 4px 0 6px; font-style: italic; font-weight: 800; font-size: 24px; }
+.mb-detail { animation: pb-slide .35s ease both; }
+@media (max-width: 560px) {
+  .mrow { grid-template-columns: minmax(0, 1fr) auto 14px; grid-template-areas: "n t c" "p p c"; row-gap: 6px; }
+  .mrow > .mname { grid-area: n; } .mrow > .pcell { grid-area: p; justify-self: start; } .mrow > .chg { grid-area: t; justify-self: end; align-self: start; } .mrow > .pchev { grid-area: c; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fp-card, .fp-card img, .fp-cta, .mrow, .mb-back { transition: none !important; }
+  .fp-card:hover .fp-sweep i, .fp-card:focus-visible .fp-sweep i, dialog.op-modal.fuel[open], .mb-detail { animation: none !important; }
+  .fp-card:hover, .mrow:hover { transform: none; }
+}
+
+/* =====================================================================
+   ปรับหน้าตาให้ใกล้ mockup: แท็บหัวกลุ่ม, ป้ายน้ำมันมันวาว, ราคาในป้ายไลม์,
+   ป้ายแนวโน้มมีวงกลมไอคอน, ลิงก์ "กดดูรายละเอียด", แถบสรุปล่าง
+   ===================================================================== */
+.pb-status { gap: 10px 12px; }
+.pb-live { padding: 5px 18px 5px 12px; font-size: 16px; background: rgba(3, 30, 18, .75); box-shadow: 0 0 18px -4px rgba(183, 240, 0, .6); }
+.pb-date { padding: 5px 16px; border: 1.5px solid rgba(183, 240, 0, .45); border-radius: 999px; background: rgba(3, 30, 18, .7); }
+.pb-refresh { width: 38px; height: 38px; background: rgba(3, 30, 18, .7); border-color: rgba(183, 240, 0, .45); }
+
+/* แผง */
+.pb-panel { padding: 18px 18px 14px; border-radius: 28px; border: 1.5px solid rgba(183, 240, 0, .5); background: linear-gradient(165deg, rgba(14, 76, 40, .95), rgba(4, 34, 22, .97) 55%, rgba(3, 26, 18, .98)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 26px 50px -26px rgba(0, 0, 0, .85), 0 0 44px -22px rgba(183, 240, 0, .55); }
+
+/* แท็บหัวกลุ่ม: ป้ายไลม์ + ไอคอนหัวจ่ายในวงกลมมืด */
+.pb-panel .pb-title { display: inline-flex; align-items: center; gap: 10px; margin: -2px 0 14px -6px; padding: 5px 26px 5px 6px; border-radius: 999px 999px 999px 8px; font-size: clamp(20px, 2.2vw, 26px); color: #07301A; background: linear-gradient(90deg, #A6EA00, #D6FF45); box-shadow: 0 8px 20px -10px rgba(183, 240, 0, .9), inset 0 1px 0 rgba(255, 255, 255, .6); }
+.pb-panel .pb-title svg { width: 38px; height: 38px; padding: 7px; border-radius: 50%; color: var(--lime-glow); background: #07301A; box-shadow: 0 0 0 2px rgba(255, 255, 255, .35); }
+
+/* แถว */
+.pb-rows { gap: 12px; }
+.glass.prow { min-height: 86px; padding: 12px 16px; grid-template-columns: 78px minmax(0, 1fr) auto auto 16px; column-gap: 14px; border-radius: 18px; border-color: rgba(183, 240, 0, .4); background: linear-gradient(90deg, rgba(8, 52, 30, .85), rgba(4, 36, 22, .9)); }
+.fbadge { position: relative; width: 78px; height: 58px; border-radius: 15px; overflow: hidden; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 -8px 14px rgba(0, 0, 0, .28), 0 8px 14px -8px rgba(0, 0, 0, .8); }
+.fbadge::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 48%; background: linear-gradient(180deg, rgba(255, 255, 255, .45), rgba(255, 255, 255, 0)); pointer-events: none; }
+.fbadge small { font-size: 11px; position: relative; } .fbadge b { font-size: 14.5px; position: relative; } .fbadge b.lg { font-size: 12px; }
+.fname { font-size: 17.5px; }
+.pcell { padding: 6px 14px 6px 18px; border-radius: 16px; gap: 8px; }
+.fuel-price { font-size: clamp(28px, 2.9vw, 34px); }
+.pcell .unit { font-size: 13px; }
+.glass.prow .chg { display: inline-flex; align-items: center; gap: 8px; padding: 3px 14px 3px 4px; font-size: 15px; background: rgba(3, 30, 18, .88); border: 1.5px solid var(--tc, currentColor); }
+.glass.prow .chg.down { --tc: var(--lime-glow); } .glass.prow .chg.up { --tc: var(--orange); } .glass.prow .chg.same { --tc: #B9C4BD; }
+.chg .ti { width: 22px; height: 22px; border-radius: 50%; display: inline-grid; place-items: center; font-style: normal; font-size: 10px; font-weight: 800; color: #05301A; background: var(--tc, currentColor); }
+.pchev { color: rgba(255, 255, 255, .85); }
+
+/* ลิงก์ท้ายแผง */
+.pb-more { position: relative; z-index: 1; display: flex; align-items: center; gap: 6px; margin: 12px 6px 0 auto; padding: 4px 8px; border: 0; background: none; color: var(--lime-glow); font: inherit; font-style: italic; font-weight: 700; font-size: 17px; cursor: pointer; transition: transform .2s ease; }
+.pb-more:hover, .pb-more:focus-visible { transform: translateX(3px); text-decoration: underline; }
+
+/* แถบสรุปล่าง */
+.pb-summary { flex-direction: row; align-items: center; gap: 22px; margin-top: 22px; padding: 16px 24px; border-radius: 28px; border: 1.5px solid rgba(183, 240, 0, .55); background: linear-gradient(160deg, rgba(14, 76, 40, .95), rgba(3, 28, 18, .98)); box-shadow: 0 0 44px -18px rgba(183, 240, 0, .6); }
+.sm-left { display: flex; align-items: center; gap: 14px; flex: none; padding-right: 24px; border-right: 1px solid rgba(255, 255, 255, .22); }
+.sm-ico { width: 66px; height: 66px; border-radius: 18px; display: grid; place-items: center; color: #fff; background: linear-gradient(160deg, #FFC25A, #E0720A); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 10px 18px -10px rgba(224, 114, 10, .9); }
+.sm-left h2 { margin: 0; font-style: italic; font-weight: 800; font-size: 26px; line-height: 1.1; color: #fff; }
+.sm-left h2 span { display: block; color: #FFB04D; }
+.sm-body { flex: 1; min-width: 0; }
+.pb-summary .sum-head { margin: 0 0 8px; font-size: 14.5px; font-weight: 500; color: var(--ink-dim); }
+.pb-summary .sum-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-top: 6px; }
+.pb-summary .sum-list { display: block; flex: 1; min-width: 0; }
+.pb-summary .sum-chip { display: inline; padding: 0; border: 0; background: none; border-radius: 0; font-size: 16px; }
+.pb-summary .sum-chip:not(:last-child)::after { content: ", "; }
+@media (max-width: 760px) {
+  .pb-summary { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .sm-left { border-right: 0; padding-right: 0; }
+}
+@media (max-width: 560px) {
+  .glass.prow { grid-template-columns: 62px minmax(0, 1fr) auto 14px; grid-template-areas: "b n t c" "b p p c"; min-height: 0; }
+  .fbadge { width: 62px; height: 52px; }
+  .fbadge small { font-size: 10px; } .fbadge b { font-size: 12.5px; } .fbadge b.lg { font-size: 10.5px; }
+  .fname { font-size: 16px; }
+  .glass.prow .chg { padding: 2px 10px 2px 3px; font-size: 14px; }
+  .pb-panel .pb-title { font-size: 19px; }
+}
+
+/* แถวบนเดสก์ท็อป: ชื่อ + ป้ายแนวโน้มซ้อนกัน ราคาในป้ายไลม์อยู่ขวา (กันชื่อโดนบีบเมื่อแผงกว้างครึ่งหน้า) */
+@media (min-width: 561px) {
+  .glass.prow { grid-template-columns: 72px minmax(0, 1fr) auto 16px; grid-template-areas: "b n p c" "b t p c"; row-gap: 5px; }
+  .glass.prow > .fbadge { grid-area: b; }
+  .glass.prow > .fname { grid-area: n; align-self: end; }
+  .glass.prow > .chg, .glass.prow > span:nth-child(5) { grid-area: t; justify-self: start; align-self: start; }
+  .glass.prow > .pcell { grid-area: p; }
+  .glass.prow > .pchev { grid-area: c; }
+  .fbadge { width: 72px; }
+}
+
+/* =====================================================================
+   การ์ดรายละเอียดน้ำมัน — จัดตาม mockup: หัวจ่าย + ป้ายชื่อสีน้ำมัน + ราคาแบบมิเตอร์ในแคปซูลไลม์
+   ===================================================================== */
+dialog.op-modal.custom { width: min(660px, calc(100vw - 24px)); border: 1.5px solid rgba(223, 255, 69, .85); background: linear-gradient(165deg, rgba(22, 112, 52, .97) 0%, rgba(6, 52, 30, .98) 45%, rgba(3, 28, 18, .99) 100%); box-shadow: 0 0 0 1px rgba(183, 240, 0, .25), 0 0 80px -10px rgba(183, 240, 0, .6), 0 40px 80px -20px rgba(0, 0, 0, .9); }
+.op-modal.custom .mbody { padding: 30px clamp(18px, 4vw, 34px) 26px; overflow: hidden; }
+.fxd { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; }
+.fxd-nozzle { position: absolute; left: -22px; top: -22px; width: 132px; height: auto; filter: drop-shadow(0 10px 14px rgba(0, 0, 0, .55)); pointer-events: none; }
+.fxd-title { max-width: 100%; margin: 0 0 2px; padding: 6px 44px; border-radius: 999px; background: linear-gradient(90deg, var(--c1), var(--c2)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 0 10px 22px -10px var(--c1); font-family: 'Prompt', sans-serif; font-weight: 800; font-style: italic; font-size: clamp(24px, 5.2vw, 36px); line-height: 1.25; color: #fff; text-shadow: 0 2px 0 rgba(0, 0, 0, .3); }
+.fxd-date { display: inline-flex; align-items: center; gap: 8px; padding: 4px 18px; border-radius: 999px; border: 1.5px solid rgba(183, 240, 0, .5); background: rgba(3, 30, 18, .65); font-weight: 700; font-style: italic; font-size: 17px; }
+
+/* ราคาแบบมิเตอร์: เห็นเลขก่อน/หลังจางๆ */
+.fxd-odo { display: inline-flex; align-items: center; gap: 14px; padding: 6px 30px; border-radius: 999px; border: 2.5px solid var(--lime-glow); background: radial-gradient(ellipse at 50% 50%, rgba(8, 56, 31, .95), rgba(3, 26, 18, .96)); box-shadow: inset 0 0 36px rgba(183, 240, 0, .22), 0 0 36px -2px rgba(183, 240, 0, .6); }
+.fxd-num { display: inline-block; font-family: 'Prompt', sans-serif; font-weight: 800; font-style: italic; font-size: clamp(60px, 13vw, 100px); line-height: 1; color: #fff; text-shadow: none; filter: drop-shadow(0 0 14px rgba(223, 255, 69, .5)); }
+.fxd-num .roll { align-items: center; -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .38) 14%, #000 36%, #000 64%, rgba(0, 0, 0, .38) 86%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .38) 14%, #000 36%, #000 64%, rgba(0, 0, 0, .38) 86%, transparent 100%); }
+.fxd-num .rd { height: 1.8em; }
+.fxd-num .rc { margin-top: .4em; }
+.fxd-num.glow { animation: fxd-glow 1s ease-out 1; }
+.fxd-odo small { font-size: clamp(18px, 3.4vw, 28px); font-weight: 700; color: #fff; }
+
+.fxd-chg { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 18px; }
+.fxd-chg .chg { display: inline-flex; align-items: center; gap: 10px; padding: 5px 20px 5px 6px; font-size: 20px; font-weight: 700; background: rgba(3, 30, 18, .88); border: 1.5px solid var(--tc, currentColor); box-shadow: 0 0 16px -3px var(--tc, currentColor); }
+.fxd-chg .chg.down { --tc: var(--lime-glow); } .fxd-chg .chg.up { --tc: var(--orange); } .fxd-chg .chg.same { --tc: #B9C4BD; box-shadow: none; }
+.fxd-chg .ti { width: 28px; height: 28px; font-size: 12px; }
+.fxd-vr { width: 1.5px; align-self: stretch; min-height: 30px; background: rgba(255, 255, 255, .3); }
+.fxd-prev { font-size: 18px; font-style: italic; }
+.fxd-prev b { font-size: 22px; font-weight: 800; }
+.fxd-prev small { display: block; font-size: 13px; font-style: normal; color: var(--ink-dim); }
+.fxd-src { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: 15px; font-style: italic; color: var(--lime-glow); }
+
+.fxd-hist { width: 100%; display: flex; align-items: center; gap: 12px 16px; flex-wrap: wrap; padding: 10px 16px; border-radius: 18px; background: rgba(3, 26, 18, .55); border: 1px solid rgba(183, 240, 0, .3); text-align: left; }
+.fxd-hl { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-style: italic; color: var(--lime-glow); white-space: nowrap; }
+.fxd-hl small { font-weight: 500; color: var(--ink-dim); }
+.fxd-chips { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.fxd-chip { padding: 4px 14px; border-radius: 999px; font-size: 15px; border: 1.5px solid rgba(255, 255, 255, .28); background: rgba(255, 255, 255, .06); }
+.fxd-chip b { font-weight: 700; }
+.fxd-chip.now { color: #05301A; border-color: var(--lime-glow); background: linear-gradient(180deg, #E6FF5C, #A9EC00); box-shadow: 0 0 16px -3px rgba(183, 240, 0, .8); }
+.fxd-arr { font-style: normal; font-weight: 800; color: var(--lime-glow); }
+
+.fxd-acts { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; width: 100%; margin-top: 4px; }
+.fxd-acts button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 30px; border-radius: 999px; font: inherit; font-size: 18px; font-weight: 800; font-style: italic; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
+.fxd-all { flex: 1 1 220px; max-width: 320px; border: 0; color: #05301A; background: linear-gradient(180deg, #E6FF5C, #A9EC00); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 10px 24px -10px rgba(183, 240, 0, .9); }
+.fxd-close { flex: 1 1 140px; max-width: 220px; color: #fff; border: 1.5px solid rgba(255, 255, 255, .4); background: rgba(3, 30, 18, .7); }
+.fxd-acts button:hover { transform: translateY(-2px); }
+.fxd-acts button:active { transform: scale(.97); }
+.fxd-close:hover { border-color: var(--lime-glow); }
+@keyframes fxd-glow { 0% { filter: none; } 40% { filter: drop-shadow(0 0 26px rgba(223, 255, 69, .95)); } 100% { filter: none; } }
+
+@media (max-width: 560px) {
+  .fxd { gap: 12px; }
+  .fxd-nozzle { width: 84px; left: -14px; top: -14px; }
+  .fxd-title { padding: 5px 50px 5px 58px; font-size: 20px; }
+  .fxd-date { font-size: 14px; padding: 4px 12px; gap: 6px; }
+  .fxd-odo small { white-space: nowrap; font-size: 15px; }
+  .fxd-odo { padding: 4px 20px; gap: 8px; }
+  .fxd-num { font-size: clamp(48px, 15vw, 64px); }
+  .fxd-vr { display: none; }
+  .fxd-chg { flex-direction: column; gap: 8px; }
+  .fxd-acts button { padding: 0 20px; font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .fxd-num.glow { animation: none; } .fxd-acts button { transition: none; } }
+
+/* =====================================================================
+   เวทีรายละเอียดน้ำมัน (จอกว้าง ≥ 900px) — จัดตามพิกัดอ้างอิง 1586 × 992 จาก INTEGRATION.md
+   ชั้นภาพ: 0 พื้นหลังปั๊ม · 1 รายการราคาซ้าย · 2 กระจก · 3 เนื้อหา · 4 หัวจ่าย · 5 ปุ่มปิด
+   ===================================================================== */
+.fxs-bg, .fxs-list, .fxs-glass { display: none; }
+.fxs-detail.fxd { width: 100%; }
+
+@media (min-width: 900px) {
+  dialog.op-modal.custom { width: min(1586px, 96vw, calc((100vh - 24px) * 1.5988)); max-height: none; padding: 0; border: 0; border-radius: 26px; background: #021a12; box-shadow: 0 0 0 1px rgba(183, 240, 0, .3), 0 40px 90px -20px rgba(0, 0, 0, .9); overflow: hidden; }
+  .op-modal.custom .mbody { padding: 0; overflow: visible; }
+  .fxs { --u: calc(100cqw / 1586); position: relative; container-type: inline-size; width: 100%; aspect-ratio: 1586 / 992; overflow: hidden; border-radius: 26px; }
+  .fxs .at { position: absolute; left: calc(var(--x) / 1586 * 100%); top: calc(var(--y) / 992 * 100%); width: calc(var(--w) / 1586 * 100%); height: calc(var(--h) / 992 * 100%); margin: 0; }
+
+  .fxs-bg { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+  .fxs-glass { display: block; z-index: 2; pointer-events: none; object-fit: fill; }
+  .fxs-detail.fxd { display: contents; }
+
+  /* รายการซ้าย */
+  .fxs-list { display: block; z-index: 1; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; padding-right: calc(var(--u) * 6); }
+  .fxs-grp { margin-bottom: calc(var(--u) * 6); }
+  .fxs-grp h4 { display: inline-flex; margin: 0 0 calc(var(--u) * 6); padding: calc(var(--u) * 2) calc(var(--u) * 22) calc(var(--u) * 2) calc(var(--u) * 14); border-radius: 999px; font-size: calc(var(--u) * 19); font-style: italic; font-weight: 800; color: #07301A; background: linear-gradient(90deg, #A6EA00, #D6FF45); }
+  .fxs-row { width: 100%; display: grid; grid-template-columns: calc(var(--u) * 62) minmax(0, 1fr) auto calc(var(--u) * 16); align-items: center; column-gap: calc(var(--u) * 12); margin-bottom: calc(var(--u) * 5); padding: calc(var(--u) * 3) calc(var(--u) * 12); min-height: calc(var(--u) * 48); border-radius: calc(var(--u) * 14); border: 1px solid rgba(183, 240, 0, .28); background: linear-gradient(90deg, rgba(8, 52, 30, .7), rgba(4, 36, 22, .72)); color: #fff; font: inherit; text-align: left; cursor: pointer; transition: transform .2s ease, border-color .2s ease, background .2s ease; }
+  .fxs-row:hover, .fxs-row:focus-visible { transform: translateY(-2px); border-color: var(--lime-glow); }
+  .fxs-row.sel { border-color: var(--lime-glow); background: linear-gradient(90deg, rgba(24, 104, 54, .8), rgba(8, 56, 31, .82)); box-shadow: 0 0 0 1px rgba(223, 255, 69, .4), 0 0 calc(var(--u) * 24) -6px rgba(183, 240, 0, .7); }
+  .fxs-row .fbadge { width: calc(var(--u) * 62); height: calc(var(--u) * 40); border-radius: calc(var(--u) * 10); }
+  .fxs-row .fbadge small { font-size: calc(var(--u) * 9); } .fxs-row .fbadge b { font-size: calc(var(--u) * 12); } .fxs-row .fbadge b.lg { font-size: calc(var(--u) * 9.5); }
+  .fxs-name { font-size: calc(var(--u) * 19); font-weight: 700; line-height: 1.2; }
+  .fxs-price { display: inline-flex; align-items: baseline; gap: calc(var(--u) * 6); padding: calc(var(--u) * 3) calc(var(--u) * 14); border-radius: calc(var(--u) * 12); font-family: 'Prompt', sans-serif; font-weight: 800; font-style: italic; font-size: calc(var(--u) * 24); color: #0A2A12; background: linear-gradient(180deg, #E6FF5C, #A9EC00); }
+  .fxs-price small { font-size: calc(var(--u) * 11); font-weight: 700; font-style: normal; }
+  .fxs-row .pchev svg { width: calc(var(--u) * 15); height: calc(var(--u) * 15); }
+
+  /* เนื้อหาบนกระจก */
+  .fxs .fxd-nozzle { z-index: 4; left: calc(604 / 1586 * 100%); top: calc(179 / 992 * 100%); width: calc(229 / 1586 * 100%); height: calc(205 / 992 * 100%); object-fit: contain; filter: drop-shadow(0 10px 14px rgba(0, 0, 0, .55)); }
+  .fxs .fxd-title { z-index: 3; display: flex; align-items: center; justify-content: center; padding: 0 calc(var(--u) * 36) 0 calc(var(--u) * 60); font-size: calc(var(--u) * 40); border-radius: 999px; line-height: 1.15; }
+  .fxs .fxd-date { z-index: 3; display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 8); padding: 0; font-size: calc(var(--u) * 21); }
+  .fxs .fxd-date svg { width: calc(var(--u) * 20); height: calc(var(--u) * 20); }
+  .fxs .fxd-odo { z-index: 3; display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 16); padding: 0; border-radius: 50%; border-width: calc(var(--u) * 3); outline: calc(var(--u) * 2) solid rgba(183, 240, 0, .4); outline-offset: calc(var(--u) * 9); }
+  .fxs .fxd-num { font-size: calc(var(--u) * 112); }
+  .fxs .fxd-odo small { font-size: calc(var(--u) * 30); }
+  .fxs .fxd-chg { z-index: 3; display: flex; flex-wrap: nowrap; align-items: center; justify-content: center; gap: calc(var(--u) * 26); }
+  .fxs .fxd-chg .chg { font-size: calc(var(--u) * 28); padding: calc(var(--u) * 4) calc(var(--u) * 24) calc(var(--u) * 4) calc(var(--u) * 6); gap: calc(var(--u) * 10); }
+  .fxs .fxd-chg .ti { width: calc(var(--u) * 34); height: calc(var(--u) * 34); font-size: calc(var(--u) * 14); }
+  .fxs .fxd-vr { min-height: calc(var(--u) * 44); }
+  .fxs .fxd-prev { font-size: calc(var(--u) * 24); line-height: 1.1; }
+  .fxs .fxd-prev b { font-size: calc(var(--u) * 30); }
+  .fxs .fxd-prev small { font-size: calc(var(--u) * 14); }
+  .fxs .fxd-src { z-index: 3; display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 8); font-size: calc(var(--u) * 19); }
+  .fxs .fxd-hist { z-index: 3; display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 14); padding: 0 calc(var(--u) * 18); flex-wrap: nowrap; background: rgba(3, 26, 18, .55); border-radius: calc(var(--u) * 20); }
+  .fxs .fxd-hl { font-size: calc(var(--u) * 21); } .fxs .fxd-hl small { display: none; }
+  .fxs .fxd-chips { flex-wrap: nowrap; gap: calc(var(--u) * 8); }
+  .fxs .fxd-chip { font-size: calc(var(--u) * 20); padding: calc(var(--u) * 4) calc(var(--u) * 14); white-space: nowrap; }
+  .fxs .fxd-acts { display: contents; }
+  .fxs .fxd-all, .fxs .fxd-close { z-index: 3; min-height: 0; padding: 0; max-width: none; flex: none; font-size: calc(var(--u) * 26); gap: calc(var(--u) * 10); }
+  .fxs .fxd-all svg { width: calc(var(--u) * 24); height: calc(var(--u) * 24); }
+  .fxs .fxd-nozzle ~ * { }
+  dialog.op-modal.custom .mclose { z-index: 5; left: calc(1370 / 1586 * 100%); top: calc(214 / 992 * 100%); right: auto; width: calc(48 / 1586 * 100%); height: auto; aspect-ratio: 1; }
+}
+
+/* Price-page masthead and night station */
+header.price-site { background: linear-gradient(110deg, #205109 0%, #061d15 27%, #041711 100%); border-bottom-color: #90c42c65; }
+.price-site .nav-row { max-width: 1440px; }
+.price-site .brand { gap: 9px; flex-shrink: 0; }
+.price-site .brand img { width: 48px; height: 48px; box-shadow: none; }
+.price-brand-lockup { display: grid; justify-items: center; gap: 4px; line-height: 1; }
+.price-brand-names { display: flex; align-items: center; gap: 8px; font: italic 800 18px/1 'Prompt', sans-serif; }
+.price-brand-names b span { display: block; color: var(--lime-glow); }
+.price-brand-names strong { padding-left: 8px; border-left: 1px solid #d7e6d5; font-size: 13px; }
+.price-brand-lockup small { display: flex; align-items: center; gap: 6px; letter-spacing: .16em; font-size: 10px; }
+.price-brand-lockup small::before, .price-brand-lockup small::after { content: ''; width: 12px; height: 1px; background: currentColor; }
+.price-site nav.primary a { border: 1px solid transparent; }
+.price-site nav.primary a.active { border-color: #b5ed33; color: #e8ff8b; background: linear-gradient(180deg, #193809, #071d13); }
+
+.hero.price-hero {
+  display: flex;
+  align-items: center;
+  min-height: clamp(290px, 36vw, 510px);
+  padding: 44px 0;
+  background:
+    linear-gradient(90deg, #041c11eb, #052918a1 45%, transparent 85%),
+    linear-gradient(0deg, #04261a 0%, transparent 28%),
+    url('../img/web/fuel/fuel-bg.webp') right 34% / cover no-repeat #0b361b;
+}
+.price-hero-copy { width: 100%; text-align: left; }
+.price-hero h1.page { font-size: clamp(34px, 6vw, 78px); }
+.price-hero .lead { margin: 10px 0 20px; }
+.price-hero-action, .fxd-guide summary {
+  border: 1px solid #c9fb44;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #284b15, #08291a);
+  color: #f1ffdd;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+.price-hero-action { min-height: 46px; padding: 6px 22px; }
+.price-hero-action span { margin-inline-start: 8px; }
+
+.fxd-num { font-size: clamp(60px, 14vw, 116px); font-variant-numeric: tabular-nums; }
+.fxd-hist { display: grid; gap: 5px; }
+.op-modal .fxd-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px 8px; list-style: none; padding: 0; margin: 0; }
+.op-modal .fxd-chip { display: block; min-width: 0; text-align: center; padding-inline: 6px; line-height: 1.35; }
+.op-modal .fxd-chip::before { content: none; }
+.fxd-chip b { white-space: nowrap; }
+.fxd-guide { position: relative; max-width: 100%; }
+.fxd-guide summary { display: flex; justify-content: center; align-items: center; gap: .5em; min-height: 44px; padding: 4px 16px; list-style: none; }
+.fxd-guide summary::-webkit-details-marker { display: none; }
+.fxd-guide summary::before { content: '+'; }
+.fxd-guide[open] summary::before { content: '−'; }
+.fxd-guide-copy { padding: 12px 16px; margin-top: 5px; border: 1px solid #a9ec0080; border-radius: 14px; background: #08291a; text-align: left; }
+
+@media (max-width: 560px) {
+  .hero.price-hero { background-position: center, center, 66% 30%; }
+  .fxd-num { font-size: clamp(50px, 15vw, 70px); }
+  .fxd-chip { font-size: 13px; }
+}
+@media (min-width: 900px) {
+  .fxs-row { grid-template-columns: calc(var(--u) * 78) minmax(0, 1fr) auto calc(var(--u) * 16); min-height: calc(var(--u) * 59); }
+  .fxs-row .fbadge { width: calc(var(--u) * 78); height: calc(var(--u) * 45); }
+  .fxs-row .fbadge small { font-size: calc(var(--u) * 11); }
+  .fxs-row .fbadge b { font-size: calc(var(--u) * 14); }
+  .fxs-row .fbadge b.lg { font-size: calc(var(--u) * 11); }
+  .fxs-name { font-size: calc(var(--u) * 23); }
+  .fxs-price { font-size: calc(var(--u) * 29); }
+  .fxs-price small { font-size: calc(var(--u) * 12); }
+  .fxs .fxd-num { font-size: calc(var(--u) * 128); }
+  .fxs .fxd-hist { display: grid; grid-template-columns: auto minmax(0, 1fr); align-content: center; }
+  .fxs .fxd-hl { display: grid; grid-template-columns: auto auto; column-gap: calc(var(--u) * 7); }
+  .fxs .fxd-hl small { display: block; grid-column: 2; font-size: calc(var(--u) * 14); }
+  .op-modal .fxs .fxd-chips { gap: calc(var(--u) * 4) calc(var(--u) * 8); }
+  .fxs .fxd-chip { font-size: calc(var(--u) * 17); padding: calc(var(--u) * 2) calc(var(--u) * 6); }
+  .fxs .fxd-guide { z-index: 4; font-size: calc(var(--u) * 20); }
+  .fxs .fxd-guide summary { min-height: 0; height: 100%; padding: 0; }
+  .fxs .fxd-guide-copy { position: absolute; bottom: 100%; margin: 0 0 5px; width: 100%; }
+}

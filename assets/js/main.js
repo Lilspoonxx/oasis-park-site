@@ -6,10 +6,10 @@
   // ข้อมูลหน้าต่างรายละเอียด (กดการ์ดแล้วเด้งขึ้นมา)
   var items = {
     c42: { tag: 'บางจากฉลองครบรอบ 42 ปี', title: 'สิทธิพิเศษจากบางจาก', big: 'ลด 1 บาท/ลิตร', lead: 'เฉพาะสมาชิก Bangchak GreenMiles วันที่ 13 พ.ย. 2569 เวลา 05.00–24.00 น.', points: ['น้ำมันทุกชนิด ทุกลิตร ไม่มีขั้นต่ำ', 'ราคาหน้าป้ายและหัวจ่ายหักส่วนลดแล้ว', 'เฉพาะสถานีที่ร่วมรายการ'], note: 'โปรโมชันนี้เป็นของบางจาก สอบถามเงื่อนไขเพิ่มเติมได้ที่ปั๊ม', img: IMG + 'promo/promo-42-years.png', alt: 'โปรโมชันบางจากฉลองครบรอบ 42 ปี ลด 1 บาทต่อลิตร' },
-    p1: { tag: 'ของแถมตามยอดเติม', title: 'เติมทุก 1,000 บาท', big: 'น้ำดื่ม 1 ขวด', lead: 'ยิ่งเติมมาก ยิ่งได้มาก รับน้ำดื่มทุกยอดเติม 1,000 บาท', points: ['เติม 2,000 บาท รับน้ำดื่ม 2 ขวด', 'ไม่สามารถเปลี่ยนของแถมข้ามชนิดน้ำมัน'], note: promoNote },
-    p2: { tag: 'ยอดเติมตั้งแต่ 1,200 บาท', title: 'ของแถมตามชนิดน้ำมัน', big: '1,200 ฿ ขึ้นไป', lead: 'ของแถมที่ได้ขึ้นอยู่กับชนิดน้ำมันที่เติม', points: ['ดีเซล รับ M-150 หรือคาราบาวแดง', 'แก๊สโซฮอล รับน้ำผลไม้ดอยคำ', 'ดีเซลไม่เกิน 10,000 บาท ใช้น้ำดื่ม 2 ขวด แลกเครื่องดื่มชูกำลังได้ 1 ขวด', 'ไม่สามารถเปลี่ยนของแถมข้ามชนิดน้ำมัน'], note: promoNote },
-    p3: { tag: 'B20 / E20', title: 'รับน้ำดื่ม 2 เท่า', big: 'น้ำดื่ม ×2', lead: 'เติม B20 หรือ E20 รับน้ำดื่มเพิ่มเป็น 2 เท่า', points: ['B20 เลือกของแถมได้ตามจำนวนสิทธิ์ที่ได้รับ', 'ไม่สามารถเปลี่ยนของแถมข้ามชนิดน้ำมัน'], note: promoNote },
-    p4: { tag: 'รถใหญ่', title: 'รับคูปองข้าวฟรี', big: '100 ลิตร ขึ้นไป', lead: 'รถใหญ่ หรือเติมตั้งแต่ 100 ลิตร รับคูปองข้าวฟรี ใช้ที่ศูนย์อาหาร', points: ['รถใหญ่เติมเกิน 10,000 บาท เลือกสัดส่วนน้ำดื่มและ M-150 ได้'], note: promoNote },
+    p1: { tag: 'ของแถมตามยอดเติม', title: 'เติมทุก 1,000 บาท', big: 'น้ำดื่ม 1 ขวด', lead: 'ยิ่งเติมมาก ยิ่งได้มาก รับน้ำดื่มทุกยอดเติม 1,000 บาท', points: ['เติม 2,000 บาท รับน้ำดื่ม 2 ขวด', 'ไม่สามารถเปลี่ยนของแถมข้ามชนิดน้ำมัน'], note: promoNote, img: IMG + 'promo/freebie-water.webp', alt: 'ขวดน้ำดื่ม OASIS PARK' },
+    p2: { tag: 'ยอดเติมตั้งแต่ 1,200 บาท', title: 'ของแถมตามชนิดน้ำมัน', big: '1,200 ฿ ขึ้นไป', lead: 'ของแถมที่ได้ขึ้นอยู่กับชนิดน้ำมันที่เติม', points: ['ดีเซล รับ M-150 หรือคาราบาวแดง', 'แก๊สโซฮอล รับน้ำผลไม้ดอยคำ', 'ดีเซลไม่เกิน 10,000 บาท ใช้น้ำดื่ม 2 ขวด แลกเครื่องดื่มชูกำลังได้ 1 ขวด', 'ไม่สามารถเปลี่ยนของแถมข้ามชนิดน้ำมัน'], note: promoNote, img: IMG + 'promo/freebie-drinks.webp', alt: 'เครื่องดื่มโปรโมชั่นดีเซลและแก๊สโซฮอล' },
+    p3: { tag: 'เฉพาะ B20 / E20', title: 'B20 / E20 รับน้ำดื่ม 2 เท่า', big: 'น้ำดื่ม 2 เท่า', lead: 'โปรโมชันนี้สำหรับผู้เติม B20 หรือ E20 เท่านั้น เติมแล้วรับน้ำดื่มเพิ่มเป็น 2 เท่า', points: ['ใช้ได้เฉพาะน้ำมัน B20 และ E20', 'รับของแถมตามจำนวนสิทธิ์ที่ได้รับ', 'ไม่สามารถเปลี่ยนของแถมข้ามชนิดน้ำมันได้'], note: promoNote, img: IMG + 'promo/freebie-water-x2.webp', alt: 'น้ำดื่มสองขวดสำหรับโปรโมชั่น B20 และ E20' },
+    p4: { tag: 'รถใหญ่', title: 'รับคูปองข้าวฟรี', big: '100 ลิตร ขึ้นไป', lead: 'รถใหญ่ หรือเติมตั้งแต่ 100 ลิตร รับคูปองข้าวฟรี ใช้ที่ศูนย์อาหาร', points: ['ร้านอาหารเปิด 07:00 – 15:00 น.', 'รถใหญ่เติมเกิน 10,000 บาท เลือกสัดส่วนน้ำดื่มและ M-150 ได้'], note: promoNote, img: IMG + 'promo/freebie-rice-coupon.webp', alt: 'รถใหญ่พร้อมคูปองอาหาร' },
     terms: { tag: 'เงื่อนไข', title: 'เงื่อนไขทั้งหมด', big: 'โปรของแถม', lead: 'อ่านเงื่อนไขก่อนรับของแถม', points: ['ไม่สามารถเปลี่ยนของแถมข้ามชนิดน้ำมัน', 'ดีเซลไม่เกิน 10,000 บาท ใช้น้ำดื่ม 2 ขวด แลกเครื่องดื่มชูกำลังได้ 1 ขวด', 'รถใหญ่เติมเกิน 10,000 บาท เลือกสัดส่วนน้ำดื่มและ M-150 ได้', 'B20 เลือกของแถมได้ตามจำนวนสิทธิ์ที่ได้รับ'], note: promoNote + ' ติดตามล่าสุดทาง LINE OA' },
     s1: { tag: 'ร้านค้า', title: 'ร้านสะดวกซื้อ Mini Big C', big: 'Mini Big C', lead: 'แวะซื้อของใช้และของกินระหว่างทางได้ในปั๊ม', points: ['อยู่ภายในปั๊ม Oasis Park'], note: askNote + ' · ภาพประกอบ', img: IMG + 'services/shop-scene.jpg', alt: 'ร้านสะดวกซื้อหน้าปั๊ม พร้อมตะกร้าสินค้า' },
     gallery: { tag: 'บรรยากาศ', title: 'บรรยากาศใน Oasis Park', lead: 'ภาพรวมปั๊ม หัวจ่าย หัวชาร์จ EV ร้านกาแฟ ศูนย์อาหาร ร้านสะดวกซื้อ ห้องน้ำ ลานจอดรถ และบัตรสมาชิก', points: [], note: 'ภาพประกอบบรรยากาศ อาจแตกต่างจากหน้างานจริง', img: IMG + 'gallery/oasis-collage.jpg', alt: 'ภาพรวมบรรยากาศ Oasis Park' },
@@ -22,11 +22,20 @@
 
   function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
 
+  var reduceMo = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function closeDialog() {           // ปิดแบบ fade/scale สั้นๆ แล้วค่อยปิดจริง
+    if (!dialog || !dialog.open) return;
+    if (reduceMo || dialog.classList.contains('closing')) { if (reduceMo) dialog.close(); return; }
+    dialog.classList.add('closing');
+    setTimeout(function () { dialog.classList.remove('closing'); dialog.close(); }, 230);
+  }
+
   function build() {
     dialog = document.createElement('dialog');
     dialog.className = 'op-modal';
     dialog.setAttribute('aria-labelledby', 'op-modal-title');
-    dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
+    dialog.addEventListener('click', function (e) { if (e.target === dialog) closeDialog(); });
+    dialog.addEventListener('cancel', function (e) { e.preventDefault(); closeDialog(); });   // กด Escape
     dialog.addEventListener('close', function () { document.body.classList.remove('modal-open'); if (lastFocus && lastFocus.focus) lastFocus.focus(); });
     document.body.appendChild(dialog);
   }
@@ -35,16 +44,17 @@
     var m = typeof id === 'string' ? items[id] : id;
     if (!m) return;
     if (!dialog) build();
-    lastFocus = trigger || document.activeElement;
+    if (!dialog.open) lastFocus = trigger || document.activeElement;      // เปลี่ยนเนื้อหา modal ที่เปิดอยู่: คงจุดโฟกัสเดิมไว้
     if (lastFocus && lastFocus.classList) { lastFocus.classList.remove('popped'); void lastFocus.offsetWidth; lastFocus.classList.add('popped'); }
     var pts = (m.points || []).map(function (p) { return '<li><span>' + esc(p) + '</span></li>'; }).join('');
-    dialog.innerHTML =
+    dialog.innerHTML = m.custom ? ('<div class="mbody"><button type="button" class="mclose" aria-label="ปิดหน้าต่าง">✕</button><h3 id="op-modal-title" class="sr-only">' + esc(m.title) + '</h3>' + (m.html || '') + '</div>') :
       '<div class="mbody">' +
       '<button type="button" class="mclose" aria-label="ปิดหน้าต่าง">✕</button>' +
       (m.img ? '<img class="mimg" src="' + esc(m.img) + '" alt="' + esc(m.alt || '') + '">' : '') +
       '<span class="tag-pill">' + esc(m.tag) + '</span>' +
       '<h3 id="op-modal-title">' + esc(m.title) + '</h3>' +
       (m.big ? '<div class="mbig">' + esc(m.big) + '</div>' : '') +
+      (m.html ? '<div class="mx">' + m.html + '</div>' : '') +
       '<p class="mlead">' + esc(m.lead) + '</p>' +
       (pts ? '<ul>' + pts + '</ul>' : '') +
       '<p class="mnote">' + esc(m.note) + '</p>' +
@@ -52,12 +62,17 @@
       '<a class="btn btn-primary" href="https://line.me/R/ti/p/@087rhavv" target="_blank" rel="noopener">สอบถามทาง LINE</a>' +
       '<a class="btn btn-outline" href="tel:0954414142">โทร 095-441-4142</a>' +
       '</div></div>';
-    dialog.querySelector('.mclose').addEventListener('click', function () { dialog.close(); });
+    dialog.classList.toggle('fuel', !!m.fuel);
+    dialog.classList.toggle('custom', !!m.custom);
+    dialog.classList.toggle('wide', !!m.wide);
+    dialog.classList.remove('closing');
+    dialog.querySelector('.mclose').addEventListener('click', closeDialog);
     document.body.classList.add('modal-open');
-    if (dialog.showModal) dialog.showModal(); else dialog.setAttribute('open', '');
+    if (!dialog.open) { if (dialog.showModal) dialog.showModal(); else dialog.setAttribute('open', ''); }
+    if (m.onOpen) m.onOpen(dialog);
   }
 
-  window.OP = { items: items, open: open };
+  window.OP = { items: items, open: open, close: closeDialog };
 
   document.addEventListener('DOMContentLoaded', function () {
     // เมนูมือถือ
