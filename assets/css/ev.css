@@ -28,7 +28,7 @@
   transform: translateX(-100%);
 }
 .ev-support { margin: 16px 0 0; }
-.ev-support img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 14px 4px; }
+.ev-support img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 14px 4px; }
 .ev-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; margin-top: 14px; }
 .ev-link, .ev-source a { text-decoration: underline; text-underline-offset: .24em; }
 #how-to { scroll-margin-top: 88px; }
