@@ -1,6 +1,6 @@
 /* สร้างโดย scripts/update_prices.py - อย่าแก้มือ (สำเนาของ prices.json ให้เปิดไฟล์ตรงได้โดยไม่ต้อง fetch) */
 window.FUEL_PRICES_BUNDLE = {
-  "updated": "2026-11-13T22:06+07:00",
+  "updated": "2026-11-15T13:48+07:00",
   "effective": {
     "date": "2026-11-11",
     "time": "05:00"
