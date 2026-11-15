@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ชาร์จรถ EV ที่ Oasis Park เขาย้อย</title>
-  <meta name="description" content="วิธีชาร์จรถด้วย SPARK EV ที่ Oasis Park บางจาก เขาย้อย พร้อมลิงก์ดาวน์โหลดแอป เช็กสถานี และนำทาง">
+  <meta name="description" content="วิธีชาร์จรถด้วย SPARK EV ที่ Oasis Park บางจาก เขาย้อย สถานี BCP - Phetchaburi NKN (0050) พร้อมลิงก์ดาวน์โหลดแอปและนำทาง">
   <link rel="icon" href="assets/img/web/brand/logo-emblem.png">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@600;700;800&family=Sarabun:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="assets/css/style.css">
@@ -23,11 +23,19 @@
 <main>
   <section class="ev-hero">
     <div class="wrap ev-hero-grid">
-      <div>
+      <div class="ev-hero-copy">
         <p class="ev-brand">SPARK EV ที่บางจาก เขาย้อย</p>
         <h1>ชาร์จรถ EV<br>ที่ <span>Oasis Park</span></h1>
-        <p>แวะชาร์จริมถนนเพชรเกษม จิบกาแฟหรือหาอะไรทานระหว่างรอ ค้นหาสถานีในแอปด้วยรหัส <strong>0050</strong> หรือชื่อ <strong>BCP - Phetchaburi NKN</strong></p>
-        <div class="ev-actions"><a class="btn btn-primary" href="#how-to">ดูวิธีชาร์จ</a><a class="ev-link" href="https://maps.app.goo.gl/FMdbPYjpVNQoEC7d7">นำทางไป Oasis Park ↗</a></div>
+        <p class="ev-lead">แวะชาร์จริมถนนเพชรเกษม จิบกาแฟหรือหาอะไรทานระหว่างรอ</p>
+        <div class="ev-station" role="group" aria-label="ข้อมูลสถานีในแอป SPARK EV">
+          <span class="ev-station-label">ค้นหาในแอป SPARK EV</span>
+          <b class="ev-station-name">BCP – Phetchaburi NKN</b>
+          <span class="ev-station-code">รหัสสถานี <strong>0050</strong></span>
+        </div>
+        <div class="ev-actions">
+          <a class="btn btn-primary" href="https://maps.app.goo.gl/FMdbPYjpVNQoEC7d7" target="_blank" rel="noopener">นำทางไป Oasis Park</a>
+          <a class="btn btn-outline" href="#how-to">ดูวิธีชาร์จ</a>
+        </div>
       </div>
       <figure class="ev-figure">
         <div class="ev-frame"><img src="assets/img/web/services/ev-hero.webp" alt="ภาพประกอบจุดชาร์จรถไฟฟ้าที่ Oasis Park" fetchpriority="high"></div>
@@ -35,51 +43,80 @@
       </figure>
     </div>
   </section>
+
+  <section class="ev-prep" aria-labelledby="ev-prep-title">
+    <div class="wrap ev-prep-row">
+      <div class="ev-prep-text">
+        <h2 id="ev-prep-title">เตรียมก่อนชาร์จ</h2>
+        <p>ติดตั้งแอป SPARK EV แล้วเช็กหัวชาร์จว่างและค่าชาร์จในแอปก่อนเดินทาง</p>
+      </div>
+      <div class="ev-stores">
+        <a class="ev-store" href="https://apps.apple.com/th/app/spark-ev-charging/id6478201256" target="_blank" rel="noopener"><small>ดาวน์โหลดบน</small><b>App Store</b></a>
+        <a class="ev-store" href="https://play.google.com/store/apps/details?hl=th&amp;id=hk.com.cstl.evcs.intl.spark" target="_blank" rel="noopener"><small>ดาวน์โหลดบน</small><b>Google Play</b></a>
+      </div>
+    </div>
+  </section>
+
   <section class="block" id="how-to">
     <div class="wrap">
-      <div class="section-head"><h2>วิธีชาร์จด้วย SPARK EV</h2><p>ก่อนเดินทาง เช็กหัวว่าง กำลังชาร์จ และค่าบริการของสถานีในแอป</p></div>
-      <figure class="ev-figure ev-figure--guide">
-        <div class="ev-frame">
-          <img src="assets/img/web/services/spark-ev-guide-v2.webp"
-               width="1536" height="1024" loading="lazy"
-               alt="ภาพประกอบวิธีชาร์จรถไฟฟ้าหกขั้นตอน">
-        </div>
-        <figcaption>ภาพจำลองหน้าจอแอปและอุปกรณ์</figcaption>
-      </figure>
-      <ol class="ev-guide-steps">
-        <li>สแกน QR ที่ตู้ชาร์จผ่านแอป SPARK EV</li>
-        <li>เสียบหัวชาร์จเข้ากับรถ</li>
-        <li>กดเริ่มชาร์จในแอป</li>
-        <li>เลื่อนเพื่อหยุดชาร์จเมื่อพร้อมจบรายการ</li>
-        <li>กดยืนยันในแอปและรอให้ระบบหยุดชาร์จ</li>
-        <li>ถอดหัวชาร์จเมื่อรถหรือหัวชาร์จปลดล็อกแล้ว</li>
+      <div class="section-head"><h2>วิธีชาร์จด้วย SPARK EV</h2><p>6 ขั้นตอนตั้งแต่สแกนจนถอดหัวชาร์จ</p></div>
+      <ol class="ev-guide">
+        <li><figure><img src="assets/img/web/services/ev-step-01.webp" width="480" height="454" loading="lazy" alt="มือถือเปิดหน้าสแกน QR ข้างตู้ชาร์จที่มีรหัส QR"></figure><p>สแกน QR ที่ตู้ชาร์จผ่านแอป SPARK EV</p></li>
+        <li><figure><img src="assets/img/web/services/ev-step-02.webp" width="480" height="454" loading="lazy" alt="มือกำลังเสียบหัวชาร์จเข้าช่องชาร์จของรถ"></figure><p>เสียบหัวชาร์จเข้ากับรถ</p></li>
+        <li><figure><img src="assets/img/web/services/ev-step-03.webp" width="480" height="454" loading="lazy" alt="หน้าจอแอปแสดงพร้อมชาร์จและปุ่มเริ่มชาร์จ"></figure><p>กดเริ่มชาร์จในแอป</p></li>
+        <li><figure><img src="assets/img/web/services/ev-step-04.webp" width="480" height="454" loading="lazy" alt="หน้าจอแอปกำลังชาร์จพร้อมแถบเลื่อนเพื่อหยุดชาร์จ"></figure><p>เลื่อนเพื่อหยุดชาร์จเมื่อพร้อมจบรายการ</p></li>
+        <li><figure><img src="assets/img/web/services/ev-step-05.webp" width="480" height="454" loading="lazy" alt="หน้าจอแอปถามยืนยันการหยุดชาร์จ"></figure><p>กดยืนยันในแอปและรอให้ระบบหยุดชาร์จ</p></li>
+        <li><figure><img src="assets/img/web/services/ev-step-06.webp" width="480" height="454" loading="lazy" alt="มือถอดหัวชาร์จออกจากช่องชาร์จของรถ"></figure><p>ถอดหัวชาร์จเมื่อรถหรือหัวชาร์จปลดล็อกแล้ว</p></li>
       </ol>
-      <h3 class="ev-prep-title">รายละเอียดเพิ่มเติมในแอป</h3>
-      <ol class="ev-grid ev-steps">
-        <li class="glass" data-ev-visual="download"><h3>ดาวน์โหลดแอป</h3><p>ติดตั้ง SPARK EV Charging บนมือถือ</p><div class="ev-actions"><a class="ev-link" href="https://apps.apple.com/th/app/spark-ev-charging/id6478201256">App Store</a><a class="ev-link" href="https://play.google.com/store/apps/details?id=hk.com.cstl.evcs.intl.spark&amp;hl=th">Google Play</a></div></li>
-        <li class="glass" data-ev-visual="account"><h3>ลงทะเบียน</h3><p>กรอกเบอร์มือถือ ยืนยันรหัสที่ได้รับ และกรอกข้อมูลผู้ใช้ตามที่แอปแจ้ง</p></li>
-        <li class="glass" data-ev-visual="wallet"><h3>เตรียมชำระเงิน</h3><p>ตรวจช่องทางชำระเงินในแอป และเติมเงินหากเลือกใช้ E-Wallet</p></li>
-        <li class="glass" data-ev-visual="map"><h3>ค้นหาสถานีและเช็กหัวว่าง</h3><p>ค้นหา 0050 เลือกหัวชาร์จที่รถรองรับ แล้วเช็กสถานะก่อนเข้าจอด</p></li>
-        <li class="glass" data-ev-visual="plug"><h3>เสียบหัวและเริ่มชาร์จ</h3><p>เลือกหัวให้ตรงกับหมายเลขที่ตู้ ทำตามขั้นตอนบนตู้และในแอป แล้วตรวจว่าขึ้นสถานะกำลังชาร์จ</p></li>
-        <li class="glass" data-ev-visual="status"><h3>ติดตามและจบการชาร์จ</h3><p>ดูความคืบหน้าในแอป เมื่อชาร์จเสร็จให้จบรายการและรอปลดล็อกก่อนถอดหัว จากนั้นดูประวัติและใบเสร็จอิเล็กทรอนิกส์ในแอป</p></li>
-      </ol>
-      <p class="ev-source"><a href="https://sparkev.co/our-services">คู่มือจาก SPARK EV ↗</a></p>
+      <p class="ev-note">ภาพจำลองหน้าจอแอปและอุปกรณ์ อาจแตกต่างจากหน้างานจริง · <a class="ev-link" href="https://sparkev.co/our-services" target="_blank" rel="noopener">คู่มือจาก SPARK EV ↗</a></p>
     </div>
   </section>
+
   <section class="block ev-band">
-    <div class="wrap ev-grid ev-two">
-      <article class="glass" data-ev-visual="app"><h2>ข้อดีของ SPARK EV</h2><ul><li>ค้นหาสถานีและเช็กสถานะหัวชาร์จได้ในแอป</li><li>เริ่มหรือหยุดชาร์จจากมือถือ พร้อมติดตามสถานะและรับแจ้งเตือน</li><li>ดูประวัติ ยอดคงเหลือ คูปอง และใบเสร็จในแอป</li></ul></article>
-      <article class="glass" data-ev-visual="rest"><h2>จุดเด่นของ Oasis Park เขาย้อย</h2><ul><li>จุดแวะพักบนถนนเพชรเกษม ชาร์จรถระหว่างเดินทาง</li><li>มี Inthanin, Mini Big C และศูนย์อาหารในจุดพักเดียวกัน</li><li>สถานีบริการ Oasis Park เปิดทุกวัน 24 ชั่วโมง ตรวจสถานะหัวชาร์จในแอปก่อนมา</li></ul></article>
+    <div class="wrap ev-rest">
+      <figure class="ev-figure">
+        <div class="ev-frame"><img src="assets/img/web/services/ev-rest-stop.webp" alt="ภาพประกอบมุมพักระหว่างรอชาร์จรถที่ Oasis Park" loading="lazy"></div>
+        <figcaption>ภาพประกอบ อาจแตกต่างจากหน้างานจริง</figcaption>
+      </figure>
+      <div>
+        <h2 class="ev-h2">จุดพัก Oasis Park เขาย้อย</h2>
+        <ul class="ev-list">
+          <li>จุดแวะพักบนถนนเพชรเกษม ชาร์จรถระหว่างเดินทาง</li>
+          <li>มี Inthanin, Mini Big C และศูนย์อาหารในจุดพักเดียวกัน</li>
+          <li>สถานีบริการ Oasis Park เปิดทุกวัน 24 ชั่วโมง ตรวจสถานะหัวชาร์จในแอปก่อนมา</li>
+        </ul>
+      </div>
     </div>
   </section>
-  <section class="block">
+
+  <section class="block" aria-labelledby="ev-help-title">
     <div class="wrap">
-      <div class="section-head"><h2>SPARK EV กำลังพัฒนาอะไรต่อ</h2><p>แผนระดับเครือข่ายจากรายงานประจำปี 2025 ของ Cornerstone Technologies</p></div>
-      <div class="ev-grid ev-two">
-        <article class="glass" data-ev-visual="network"><h3>ขยายจุดชาร์จในไทย</h3><p>แผนระยะถัดไปครอบคลุมพื้นที่พาณิชย์และที่อยู่อาศัยเพิ่มเติมนอกเครือข่ายบางจาก เพื่อเพิ่มทางเลือกในการชาร์จ</p></article>
-        <article class="glass" data-ev-visual="grid"><h3>ศึกษาเทคโนโลยีจ่ายไฟคืนสู่โครงข่าย</h3><p>เริ่มสำรวจความเป็นไปได้ของ Vehicle-to-Grid (V2G) ในไทย รายงานยังไม่ระบุกำหนดเปิดใช้ที่ Oasis Park เขาย้อย</p></article>
+      <div class="section-head"><h2 id="ev-help-title">ติดต่อใคร เรื่องอะไร</h2></div>
+      <div class="ev-help">
+        <article class="ev-help-card">
+          <h3>Oasis Park</h3>
+          <p>สถานที่ ที่จอด ร้านค้า และบริการในปั๊ม</p>
+          <div class="ev-help-links"><a href="tel:0954414142">โทร 095-441-4142</a><a href="https://line.me/R/ti/p/@087rhavv" target="_blank" rel="noopener">LINE OA</a></div>
+        </article>
+        <article class="ev-help-card">
+          <h3>SPARK EV</h3>
+          <p>แอป การชาร์จ การชำระเงิน และปัญหาที่ตู้ชาร์จ</p>
+          <div class="ev-help-links"><a href="tel:020966278">โทร 02-096-6278</a><a href="https://sparkev.co/contact" target="_blank" rel="noopener">ติดต่อ SPARK EV ↗</a></div>
+        </article>
       </div>
-      <p class="ev-source"><a href="https://www.hkexnews.hk/listedco/listconews/gem/2026/0429/2026042904210.pdf">รายงานประจำปีของ Cornerstone Technologies ↗</a></p>
+      <p class="ev-note">สะสมแต้มกับ SPARK EV: <a class="ev-link" href="https://sparkev.co/s-miles" target="_blank" rel="noopener">S-Miles ↗</a></p>
+    </div>
+  </section>
+
+  <section class="block ev-roadmap" aria-labelledby="ev-roadmap-title">
+    <div class="wrap">
+      <h2 class="ev-h2" id="ev-roadmap-title">แผนพัฒนาของเครือข่าย SPARK EV</h2>
+      <p class="ev-roadmap-note">เป็นแผนระดับเครือข่ายจากรายงานประจำปี 2025 ของ Cornerstone Technologies ยังไม่ใช่กำหนดการของ Oasis Park เขาย้อย</p>
+      <ul class="ev-list">
+        <li>ขยายจุดชาร์จในไทยไปยังพื้นที่พาณิชย์และที่อยู่อาศัยเพิ่มเติมนอกเครือข่ายบางจาก</li>
+        <li>ศึกษาความเป็นไปได้ของ Vehicle-to-Grid (V2G) การจ่ายไฟจากรถคืนสู่โครงข่าย</li>
+      </ul>
+      <p class="ev-note"><a class="ev-link" href="https://www.hkexnews.hk/listedco/listconews/gem/2026/0429/2026042904210.pdf" target="_blank" rel="noopener">รายงานประจำปีของ Cornerstone Technologies ↗</a></p>
     </div>
   </section>
 </main>
@@ -90,72 +127,5 @@
 </div>
 
 <script src="assets/js/main.js"></script>
-<dialog class="ev-dialog" aria-labelledby="ev-dialog-title">
-  <form method="dialog"><button type="submit" class="ev-dialog-close" aria-label="ปิดรายละเอียด">✕</button></form>
-  <h2 id="ev-dialog-title"></h2>
-  <div class="ev-dialog-art"></div>
-  <div class="ev-dialog-copy"></div>
-</dialog>
-<script>
-  (() => {
-    const dialog = document.querySelector('.ev-dialog');
-    const title = dialog.querySelector('h2');
-    const art = dialog.querySelector('.ev-dialog-art');
-    const copy = dialog.querySelector('.ev-dialog-copy');
-    const phone = '<rect x="100" y="38" width="120" height="122" rx="20" fill="#103e32"/><path d="M148 49h24M151 149h18"/>';
-    const bolt = '<path d="M163 65l-23 35h19l-5 25 26-37h-19z" fill="#cfff57"/>';
-    const pin = '<path d="M0 24S-20 2-20-9a20 20 0 0 1 40 0C20 2 0 24 0 24z" fill="#154b37"/><circle cy="-8" r="6" fill="#cfff57"/>';
-    const scenes = {
-      download: phone + '<path d="M160 65v53m-17-16 17 16 17-16M136 129h48"/><path d="M79 63h-22v36m184 27h22V91" opacity=".5"/>',
-      account: phone + '<circle cx="160" cy="82" r="13" fill="#286a49"/><path d="M136 122q0-27 24-27t24 27z" fill="#286a49"/><circle cx="215" cy="114" r="22" fill="#1e6244"/><path d="m205 114 7 7 13-15"/>',
-      wallet: '<rect x="93" y="48" width="129" height="71" rx="12" transform="rotate(-11 93 48)" fill="#286a49"/><path d="M123 65h32"/><rect x="77" y="77" width="161" height="73" rx="15" fill="#123e31"/><path d="M238 98h-48a14 14 0 0 0 0 28h48z" fill="#286a49"/><circle cx="193" cy="112" r="3" fill="#cfff57"/>',
-      map: '<path d="m55 69 65-16 70 15 70-18v84l-70 17-70-16-65 17z" fill="#143f32"/><path d="M120 53v82m70-67v83M62 117l61-21 67 16 58-29" opacity=".55"/><g transform="translate(171 81)">' + pin + '</g>',
-      plug: '<circle cx="220" cy="95" r="49" fill="#164536"/><circle cx="220" cy="95" r="31" stroke-dasharray="7 5"/><path d="M48 152q40 0 45-48h26m0-18h67l27 10-27 20h-67z" fill="#236448"/><path d="M133 95h41m-41 11h33"/>',
-      status: '<rect x="72" y="67" width="163" height="65" rx="13" fill="#123e31"/><path d="M235 85h14v29h-14"/><path d="M93 84h29v31H93zM131 84h29v31h-29zM169 84h29v31h-29z" fill="#8ee338"/><circle cx="226" cy="137" r="20" fill="#245940"/><path d="m217 137 6 6 12-13"/>',
-      app: phone + bolt + '<circle cx="76" cy="94" r="15" fill="#195641"/><circle cx="244" cy="94" r="15" fill="#195641"/><path d="M91 94h9m120 0h9M71 94h10m163-5v10m-5-5h10"/>',
-      rest: '<path d="M76 63h66l-8 79H84z" fill="#256246"/><path d="M71 63h76m-66-11h56M85 97h53"/><path d="M160 142h89M174 142V73h61v69M164 73l40-30 42 30z" fill="#133e31"/><path d="M193 142v-38h22v38"/>',
-      network: '<path d="M70 122l44-57 57 64 57-63 30 45M114 65l114 1" opacity=".7"/><g transform="translate(114 65) scale(.65)">' + pin + '</g><g transform="translate(171 129) scale(.7)">' + pin + '</g><g transform="translate(228 66) scale(.65)">' + pin + '</g><circle cx="70" cy="122" r="5"/><circle cx="258" cy="111" r="5"/>',
-      grid: '<path d="M55 125h77v-23l-16-20H79l-13 18-11 4zM69 100h59M222 142l18-100 18 100m-30-59h24m-29 21h35m-41 17h47" fill="#174936"/><circle cx="75" cy="125" r="10" fill="#0a2821"/><circle cx="116" cy="125" r="10" fill="#0a2821"/><path d="M145 83h60l-10-10m10 10-10 10m10 20h-60l10-10m-10 10 10 10"/>'
-    };
-    const renderScene = (key) => '<svg viewBox="0 0 320 190" aria-hidden="true" focusable="false"><path d="M16 43V16h28m232 0h28v27M16 147v27h28m232 0h28v-27" opacity=".45"/><ellipse cx="160" cy="147" rx="113" ry="20" fill="#a5f945" fill-opacity=".07" stroke-opacity=".2"/>' + scenes[key] + '</svg>';
-    let opener;
-    let artRequest = 0;
-    dialog.addEventListener('close', () => opener?.focus());
-    document.querySelectorAll('[data-ev-visual]').forEach((card) => {
-      const heading = card.querySelector('h2, h3');
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'ev-preview';
-      button.setAttribute('aria-haspopup', 'dialog');
-      button.setAttribute('aria-label', 'ดูภาพประกอบและรายละเอียด: ' + heading.textContent);
-      button.textContent = 'ดูภาพและรายละเอียด';
-      const graphic = renderScene(card.dataset.evVisual);
-      const artwork = document.createElement('div');
-      artwork.className = 'ev-topic-art';
-      artwork.innerHTML = graphic;
-      heading.before(artwork);
-      card.append(button);
-      button.addEventListener('click', () => {
-        opener = button;
-        title.textContent = heading.textContent;
-        const request = ++artRequest;
-        art.innerHTML = graphic;
-        if (card.dataset.evVisual === 'account') {
-          const figure = document.createElement('figure');
-          figure.className = 'ev-figure';
-          figure.innerHTML = '<img src="https://sparkev.co/brand/app-steps/register-01.png" alt="หน้าจอเริ่มต้นของแอป SPARK EV สำหรับลงทะเบียนหรือเข้าสู่ระบบ" style="display:block;width:100%;max-height:45dvh;object-fit:contain"><figcaption><a class="ev-link" href="https://sparkev.co/our-services">ภาพจากคู่มือทางการ SPARK EV ↗</a></figcaption>';
-          const image = figure.querySelector('img');
-          // Keep the local graphic if the official image is unavailable.
-          image.addEventListener('load', () => {
-            if (request === artRequest && dialog.open) art.replaceChildren(figure);
-          }, { once: true });
-        }
-        copy.replaceChildren(...Array.from(card.querySelectorAll(':scope > p, :scope > ul, :scope > .ev-actions'), node => node.cloneNode(true)));
-        dialog.showModal();
-      });
-    });
-  })();
-</script>
-
 </body>
 </html>
