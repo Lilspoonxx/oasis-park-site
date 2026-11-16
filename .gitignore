@@ -16,3 +16,11 @@ briefs/
 
 # กฎสำหรับ AI ที่เข้ามาช่วยแก้ (ไฟล์ทำงานภายใน ไม่ push)
 AGENTS.md
+
+# ความลับ/รหัสผ่าน — ห้ามขึ้น repo สาธารณะเด็ดขาด
+Backup*/
+*backup-code*
+*Backup-code*
+*.key
+*secret*
+*password*

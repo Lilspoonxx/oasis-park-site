@@ -1,0 +1,92 @@
+/* =====================================================
+   หน้าสมัครสมาชิก VIP ออนไลน์ (register.html)
+   ใช้ร่วมกับ style.css + vip.css
+   ===================================================== */
+.reg { background: radial-gradient(ellipse at 85% 0%, #0F7A2E 0%, #06401E 40%, var(--bg-deep) 75%); }
+.reg-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 56px); align-items: start;
+}
+.reg-intro { display: flex; flex-direction: column; gap: 16px; }
+.reg-intro .pill { align-self: flex-start; }
+.reg-back { font-size: 15px; color: var(--ink-dim); }
+.reg-intro h1 {
+  margin: 0; font-weight: 800; font-style: italic; line-height: 1.12;
+  font-size: clamp(34px, 4.2vw, 54px);
+}
+.reg-intro h1 span { color: var(--lime); text-shadow: 0 0 28px rgba(183, 240, 0, .45); }
+.reg-lead { margin: 0; font-size: 19px; }
+.reg-h2 { margin: 8px 0 0; font-weight: 800; font-style: italic; font-size: 24px; }
+
+/* ---------- ฟอร์ม ---------- */
+.reg-card {
+  padding: clamp(22px, 3vw, 36px); border-radius: var(--radius);
+  background: rgba(3, 26, 18, .82); border: 1px solid rgba(183, 240, 0, .55);
+  box-shadow: 0 0 40px -12px rgba(183, 240, 0, .5);
+}
+.f-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+.f-row label { font-weight: 700; font-size: 17px; }
+.req { color: var(--lime); }
+.opt { font-weight: 500; color: var(--ink-dim); font-size: 15px; }
+.f-row input, .f-row textarea {
+  width: 100%; font: inherit; font-size: 18px; color: #fff;
+  padding: 12px 14px; border-radius: 14px;
+  background: rgba(255, 255, 255, .07); border: 1.5px solid rgba(255, 255, 255, .35);
+  transition: border-color .15s, background .15s;
+}
+.f-row textarea { resize: vertical; min-height: 96px; }
+.f-row input::placeholder, .f-row textarea::placeholder { color: rgba(255, 255, 255, .45); }
+.f-row input:focus, .f-row textarea:focus { outline: none; border-color: var(--lime); background: rgba(183, 240, 0, .07); box-shadow: 0 0 0 3px rgba(183, 240, 0, .25); }
+.f-row [aria-invalid="true"] { border-color: var(--orange); }
+.f-hint { margin: 0; font-size: 14px; color: var(--ink-dim); }
+.f-err { margin: 0; font-size: 15px; color: var(--orange); font-weight: 600; min-height: 0; }
+.f-err:empty { display: none; }
+
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.f-consent { margin: 6px 0 20px; }
+.chk { display: flex; gap: 12px; align-items: flex-start; font-size: 16px; line-height: 1.55; cursor: pointer; }
+.chk input { flex: none; width: 24px; height: 24px; margin-top: 2px; accent-color: var(--lime); }
+.link-btn { background: none; border: 0; padding: 0; color: var(--lime-glow); text-decoration: underline; font-size: inherit; cursor: pointer; }
+
+.reg-submit { width: 100%; justify-content: center; font-size: 19px; }
+.reg-submit[disabled] { opacity: .6; pointer-events: none; }
+.f-status { margin: 12px 0 0; font-size: 15px; text-align: center; color: var(--ink-dim); }
+.f-status.bad { color: var(--orange); font-weight: 600; }
+
+/* ---------- ส่งสำเร็จ ---------- */
+.reg-done { display: flex; flex-direction: column; gap: 14px; text-align: center; align-items: center; }
+.reg-done[hidden] { display: none; }
+.reg-done:focus { outline: none; }
+.reg-done h2 { margin: 0; font-weight: 800; font-style: italic; font-size: 32px; }
+.reg-done p { margin: 0; }
+.rd-ico {
+  width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--lime); color: var(--on-lime); font-size: 38px; font-weight: 800;
+  box-shadow: 0 0 30px rgba(183, 240, 0, .6);
+}
+.reg-done .cta-row { justify-content: center; }
+
+/* ---------- PDPA ---------- */
+.pdpa {
+  max-width: 560px; width: calc(100% - 32px); padding: 24px 24px 20px;
+  border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--bg-deeper); color: var(--ink);
+}
+.pdpa::backdrop { background: rgba(0, 0, 0, .65); }
+.pdpa h2 { margin: 0 0 12px; font-size: 22px; font-weight: 800; font-style: italic; }
+.pdpa ul { margin: 0 0 18px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 16px; }
+.pdpa .btn { width: 100%; justify-content: center; }
+
+/* ---------- ปุ่มสมัครในหน้า VIP ---------- */
+.vip-join {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+}
+.vip-join h3 { margin: 0; }
+.vip-join p { margin: 4px 0 0; color: var(--ink-dim); font-size: 16px; }
+
+@media (max-width: 860px) {
+  .reg-grid { grid-template-columns: 1fr; }
+  .reg-intro h1 { font-size: 34px; }
+}
+#rd-phone { white-space: nowrap; }
