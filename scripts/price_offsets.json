@@ -1,0 +1,15 @@
+{
+  "_readme": "ส่วนต่างราคาเพชรบุรี (บาท/ลิตร) = ราคาหน้าปั๊ม Oasis Park เขาย้อย - ราคาบางจาก กทม. ในวันเดียวกัน · null = ยังไม่ได้ตั้ง · ตั้งครบทุกชนิดแล้วเว็บจะแสดงเป็นราคาปั๊มเขาย้อยอัตโนมัติ",
+  "province": "เพชรบุรี",
+  "measuredOn": null,
+  "offsets": {
+    "gasohol95": null,
+    "gasohol91": null,
+    "e20": null,
+    "e85": null,
+    "premium98": null,
+    "b20": null,
+    "dieselS": null,
+    "premiumDiesel": null
+  }
+}

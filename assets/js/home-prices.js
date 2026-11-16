@@ -37,7 +37,7 @@
     });
     row.innerHTML = html;
     var d = data.effective && data.effective.date;
-    if (note && d) note.textContent = 'มีผล ' + thDate(d) + ' · ราคาอ้างอิงบางจาก หน่วย บาท/ลิตร';
+    if (note && d) note.textContent = 'มีผล ' + thDate(d) + ' · ' + (data.local ? 'ราคาปั๊มเขาย้อย' : 'ราคาอ้างอิงบางจาก') + ' หน่วย บาท/ลิตร';
   }
 
   render(window.FuelPrices.current());

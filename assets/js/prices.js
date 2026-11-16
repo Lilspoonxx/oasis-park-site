@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', function () {
   var fuelNote = 'ราคาอ้างอิงจากประกาศบางจาก ราคาหน้าปั๊มอาจแตกต่างเล็กน้อย ตรวจคู่มือรถก่อนเลือกชนิดน้ำมัน';
   var water = 'เติมทุก 1,000 บาท รับน้ำดื่ม 1 ขวด';
   var info = {
-    gasohol95: { tag: 'แก๊สโซฮอล', b: ['Gasohol', '95 S EVO'], c: ['#FF9A2E', '#E26A00'], lead: 'แก๊สโซฮอลออกเทน 95 สำหรับรถเบนซินที่รองรับน้ำมันแก๊สโซฮอล', points: ['เติมตั้งแต่ 1,200 บาท รับน้ำผลไม้ดอยคำ', water], note: fuelNote },
-    gasohol91: { tag: 'แก๊สโซฮอล', b: ['Gasohol', '91 S EVO'], c: ['#2FC24B', '#0E7A2C'], lead: 'แก๊สโซฮอลออกเทน 91 สำหรับรถเบนซินทั่วไปที่รองรับแก๊สโซฮอล', points: ['เติมตั้งแต่ 1,200 บาท รับน้ำผลไม้ดอยคำ', water], note: fuelNote },
-    e20: { tag: 'แก๊สโซฮอล E20', b: ['Gasohol', 'E20 S EVO'], c: ['#B7F000', '#5FA800'], lead: 'แก๊สโซฮอล E20 มีเอทานอลผสม 20% ใช้ได้เฉพาะรถที่รองรับ E20', points: ['เติม E20 รับน้ำดื่ม 2 เท่า', 'เติมตั้งแต่ 1,200 บาท รับน้ำผลไม้ดอยคำ'], note: 'ก่อนเติม E20 โปรดตรวจสอบว่ารถของท่านรองรับ · ' + fuelNote },
-    e85: { tag: 'แก๊สโซฮอล E85', b: ['Gasohol', 'E85 S EVO'], c: ['#F04FC8', '#A3178B'], lead: 'แก๊สโซฮอล E85 มีเอทานอลผสมสูง ใช้ได้เฉพาะรถที่รองรับ E85', points: [water], note: 'ก่อนเติม E85 โปรดตรวจสอบว่ารถของท่านรองรับ · ' + fuelNote },
+    gasohol95: { tag: 'แก๊สโซฮอล์', b: ['Gasohol', '95 S EVO'], c: ['#FF9A2E', '#E26A00'], lead: 'แก๊สโซฮอล์ออกเทน 95 สำหรับรถเบนซินที่รองรับน้ำมันแก๊สโซฮอล์', points: ['เติมตั้งแต่ 1,200 บาท รับน้ำผลไม้ดอยคำ', water], note: fuelNote },
+    gasohol91: { tag: 'แก๊สโซฮอล์', b: ['Gasohol', '91 S EVO'], c: ['#2FC24B', '#0E7A2C'], lead: 'แก๊สโซฮอล์ออกเทน 91 สำหรับรถเบนซินทั่วไปที่รองรับแก๊สโซฮอล์', points: ['เติมตั้งแต่ 1,200 บาท รับน้ำผลไม้ดอยคำ', water], note: fuelNote },
+    e20: { tag: 'แก๊สโซฮอล์ E20', b: ['Gasohol', 'E20 S EVO'], c: ['#B7F000', '#5FA800'], lead: 'แก๊สโซฮอล์ E20 มีเอทานอลผสม 20% ใช้ได้เฉพาะรถที่รองรับ E20', points: ['เติม E20 รับน้ำดื่ม 2 เท่า', 'เติมตั้งแต่ 1,200 บาท รับน้ำผลไม้ดอยคำ'], note: 'ก่อนเติม E20 โปรดตรวจสอบว่ารถของท่านรองรับ · ' + fuelNote },
+    e85: { tag: 'แก๊สโซฮอล์ E85', b: ['Gasohol', 'E85 S EVO'], c: ['#F04FC8', '#A3178B'], lead: 'แก๊สโซฮอล์ E85 มีเอทานอลผสมสูง ใช้ได้เฉพาะรถที่รองรับ E85', points: [water], note: 'ก่อนเติม E85 โปรดตรวจสอบว่ารถของท่านรองรับ · ' + fuelNote },
     premium98: { tag: 'พรีเมียม', b: ['Hi Premium', '98 Plus'], c: ['#E3C25A', '#8A6B14'], lead: 'เบนซินพรีเมียมออกเทน 98 สำหรับรถที่ต้องการน้ำมันออกเทนสูง', points: [water], note: fuelNote },
     b20: { tag: 'ดีเซล B20', b: ['Diesel', 'B20'], c: ['#3AA0FF', '#0B52C9'], lead: 'ดีเซลผสมไบโอดีเซล 20% สำหรับรถที่รองรับ B20 เช่น รถบรรทุกและรถใหญ่', points: ['เติม B20 รับน้ำดื่ม 2 เท่า', 'B20 เลือกของแถมได้ตามจำนวนสิทธิ์ที่ได้รับ'], note: 'ก่อนเติม B20 โปรดตรวจสอบว่ารถของท่านรองรับ · ' + fuelNote },
     dieselS: { tag: 'ดีเซล', b: ['Hi Diesel', 'S'], c: ['#3F6BFF', '#14298F'], lead: 'น้ำมันดีเซลสำหรับเครื่องยนต์ดีเซล เหมาะกับรถกระบะ รถบรรทุก และรถใหญ่', points: ['เติมตั้งแต่ 1,200 บาท รับ M-150 หรือคาราบาวแดง', water, 'รถใหญ่หรือเติมตั้งแต่ 100 ลิตร รับคูปองอาหารฟรี'], note: fuelNote },
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
       '<div class="fxd-odo at"' + at(657, 346, 730, 180) + '><span class="fxd-num" data-roll="' + money(f.price) + '" data-from="' + (t.cls === 'same' ? '' : money(f.previousPrice)) + '">' + money(f.price) + '</span><small>บาท/ลิตร</small></div>' +
       '<div class="fxd-chg at"' + at(666, 532, 734, 61) + '><span class="chg ' + t.cls + '"><i class="ti" aria-hidden="true">' + t.ico + '</i>' + esc(t.lbl) + (t.cls === 'same' ? '' : ' บาท') + '</span><i class="fxd-vr" aria-hidden="true"></i>' +
       '<span class="fxd-prev">ก่อนหน้า <b>' + money(f.previousPrice) + '</b> บาท/ลิตร' + prevDate + '</span></div>' +
-      '<p class="fxd-src at"' + at(752, 605, 524, 34) + '>' + refreshIcon + 'ข้อมูลอ้างอิงจากประกาศราคาปลีกบางจาก</p>' +
+      '<p class="fxd-src at"' + at(752, 605, 524, 34) + '>' + refreshIcon + (current && current.local ? 'ราคาหน้าปั๊ม Oasis Park เขาย้อย' : 'ข้อมูลอ้างอิงจากประกาศราคาปลีกบางจาก') + '</p>' +
       (hist.length ? '<div class="fxd-hist at"' + at(638, 646, 777, 106) + '><div class="fxd-hl">' + barSvg + 'ประวัติราคา <small>(เฉพาะวันที่ปรับ)</small></div><ul class="fxd-chips" aria-label="ประวัติราคา บาทต่อลิตร">' + chips + '</ul></div>' : '') +
       '<details class="fxd-guide at"' + at(825, 755, 395, 43) + '><summary>คำแนะนำการอ่านราคา</summary><div class="fxd-guide-copy">ราคาปัจจุบันแสดงเป็นบาทต่อลิตร ลูกศรบอกการเปลี่ยนแปลงจากราคาก่อนหน้า เลือกชนิดน้ำมันอื่นจากรายการหรือปุ่มดูราคาทั้งหมด ราคาหน้าปั๊มอาจต่างจากราคาอ้างอิง</div></details>' +
       '<div class="fxd-acts"><button type="button" class="fxd-all at"' + at(727, 804, 361, 67) + '>' + listSvg + 'ดูราคาทั้งหมด</button><button type="button" class="fxd-close at"' + at(1115, 804, 224, 66) + '><span aria-hidden="true">✕</span> ปิด</button></div>';
@@ -240,6 +240,11 @@ document.addEventListener('DOMContentLoaded', function () {
   function render(data, opts) {
     opts = opts || {};
     current = data;
+    if (data.local) {   // ราคาปั๊มเขาย้อย (ราคาบางจากบวกส่วนต่างเพชรบุรี) — ข้อความมาจากข้อมูล
+      var pl = document.getElementById('priceLead'), pn = document.getElementById('priceSrcNote');
+      if (pl) pl.textContent = 'ราคาต่อลิตร ณ ปั๊ม Oasis Park เขาย้อย เพชรบุรี';
+      if (pn) pn.innerHTML = 'ที่มา: <a href="https://www.bangchak.co.th/th/oilprice" target="_blank" rel="noopener">ประกาศราคาบางจาก (เว็บทางการ)</a> บวกค่าขนส่งต่างจังหวัด เป็นราคาหน้าปั๊มเขาย้อย หากราคาที่ตู้จ่ายต่างจากนี้ ยึดราคาที่ตู้จ่ายเป็นหลัก';
+    }
     var items = window.OP.items;
     var eff = data.effective || {};
     var effTxt = eff.date ? thDate(eff.date) + (eff.time ? ' • ' + eff.time + ' น.' : '') : '';
@@ -412,10 +417,10 @@ document.addEventListener('DOMContentLoaded', function () {
   function openBoard(trigger) {
     var data = window.FuelPrices.current(), mFailed = failed, view = 'list';
     var item = {
-      tag: 'ราคาปลีกบางจาก', title: 'ราคาน้ำมันวันนี้', fuel: true, wide: true,
+      tag: data.local ? 'ราคาปั๊มเขาย้อย' : 'ราคาปลีกบางจาก', title: 'ราคาน้ำมันวันนี้', fuel: true, wide: true,
       html: boardModalHtml(data, mFailed),
       lead: 'แตะที่ชนิดน้ำมันเพื่อดูรายละเอียดและประวัติราคา',
-      points: [], note: 'ราคาปลีก กทม. ยังไม่รวมภาษีบำรุงท้องถิ่น ราคาหน้าปั๊มอาจแตกต่างเล็กน้อย',
+      points: [], note: data.remark || 'ราคาปลีก กทม. ยังไม่รวมภาษีบำรุงท้องถิ่น ราคาหน้าปั๊มอาจแตกต่างเล็กน้อย',
       onOpen: function (dlg) {
         var root = dlg.querySelector('.mb');
         var viewEl = root.querySelector('.mb-view');

@@ -53,7 +53,7 @@
       };
     }).filter(Boolean);
     if (!fuels.length) return null;
-    return { updated: raw.updated || null, effective: { date: eff.date || null, time: eff.time || null }, source: source, fuels: fuels };
+    return { updated: raw.updated || null, local: !!raw.local, remark: raw.remark || null, effective: { date: eff.date || null, time: eff.time || null }, source: source, fuels: fuels };
   }
 
   function readCache() {

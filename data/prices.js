@@ -1,6 +1,6 @@
 /* สร้างโดย scripts/update_prices.py - อย่าแก้มือ (สำเนาของ prices.json ให้เปิดไฟล์ตรงได้โดยไม่ต้อง fetch) */
 window.FUEL_PRICES_BUNDLE = {
-  "updated": "2026-11-15T13:48+07:00",
+  "updated": "2026-11-17T00:42+07:00",
   "effective": {
     "date": "2026-11-11",
     "time": "05:00"
@@ -10,6 +10,7 @@ window.FUEL_PRICES_BUNDLE = {
     "time": "20:35"
   },
   "source": "https://www.bangchak.co.th/th/oilprice",
+  "local": false,
   "remark": "ราคาปลีก กทม. ยังไม่รวมภาษีบำรุงท้องถิ่น ราคาหน้าปั๊มอาจแตกต่างเล็กน้อย",
   "fuels": [
     {
@@ -30,7 +31,8 @@ window.FUEL_PRICES_BUNDLE = {
           "date": "2026-11-11",
           "price": 39.34
         }
-      ]
+      ],
+      "offset": 0.0
     },
     {
       "id": "gasohol91",
@@ -50,7 +52,8 @@ window.FUEL_PRICES_BUNDLE = {
           "date": "2026-11-11",
           "price": 38.97
         }
-      ]
+      ],
+      "offset": 0.0
     },
     {
       "id": "e20",
@@ -70,7 +73,8 @@ window.FUEL_PRICES_BUNDLE = {
           "date": "2026-11-11",
           "price": 31.3
         }
-      ]
+      ],
+      "offset": 0.0
     },
     {
       "id": "e85",
@@ -86,7 +90,8 @@ window.FUEL_PRICES_BUNDLE = {
           "date": "2026-11-11",
           "price": 30.63
         }
-      ]
+      ],
+      "offset": 0.0
     },
     {
       "id": "premium98",
@@ -102,7 +107,8 @@ window.FUEL_PRICES_BUNDLE = {
           "date": "2026-11-11",
           "price": 48.55
         }
-      ]
+      ],
+      "offset": 0.0
     },
     {
       "id": "b20",
@@ -118,7 +124,8 @@ window.FUEL_PRICES_BUNDLE = {
           "date": "2026-11-11",
           "price": 33.5
         }
-      ]
+      ],
+      "offset": 0.0
     },
     {
       "id": "dieselS",
@@ -138,7 +145,8 @@ window.FUEL_PRICES_BUNDLE = {
           "date": "2026-11-11",
           "price": 40.79
         }
-      ]
+      ],
+      "offset": 0.0
     },
     {
       "id": "premiumDiesel",
@@ -154,7 +162,8 @@ window.FUEL_PRICES_BUNDLE = {
           "date": "2026-11-11",
           "price": 49.05
         }
-      ]
+      ],
+      "offset": 0.0
     }
   ]
 };

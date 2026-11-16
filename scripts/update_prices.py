@@ -65,8 +65,23 @@ def load_old():
         return {x['id']: x for x in json.load(f).get('fuels', []) if 'id' in x}
 
 
+OFFSETS = os.path.join(HERE, 'price_offsets.json')
+
+
+def load_offsets():
+    """ส่วนต่างราคาเพชรบุรีต่อชนิด (บาท/ลิตร) คืน {} ถ้ายังตั้งไม่ครบทุกชนิด (ใช้ราคา กทม. ตามเดิม)"""
+    if not os.path.exists(OFFSETS):
+        return {}
+    with open(OFFSETS, encoding='utf-8') as f:
+        offs = json.load(f).get('offsets', {})
+    if any(offs.get(v[0]) is None for v in FUELS.values()):
+        return {}
+    return {k: float(v) for k, v in offs.items()}
+
+
 def main():
     src = fetch()
+    offsets = load_offsets()
     eff_date, eff_time = effective_from(src.get('OilRemark2'))
     if not eff_date:
         sys.exit('อ่านวันที่ราคามีผลไม่ได้: %r' % src.get('OilRemark2'))
@@ -78,8 +93,13 @@ def main():
             print('ข้าม (ไม่รู้จักชื่อ):', o['OilName'])
             continue
         fid, name, category = FUELS[o['OilName']]
-        price, prev, tomorrow = o['PriceToday'], o['PriceYesterday'], o['PriceTomorrow']
-        hist = list((old.get(fid) or old.get(OLD_IDS.get(fid, '')) or {}).get('history', []))
+        off = offsets.get(fid, 0.0)
+        price, prev, tomorrow = (round(o[k] + off, 2) for k in ('PriceToday', 'PriceYesterday', 'PriceTomorrow'))
+        prior = old.get(fid) or old.get(OLD_IDS.get(fid, '')) or {}
+        hist = list(prior.get('history', []))
+        delta = round(off - prior.get('offset', 0.0), 2)
+        if delta:   # ส่วนต่างเปลี่ยน: ปรับประวัติเดิมให้อยู่บนฐานราคาเดียวกัน
+            hist = [dict(h, price=round(h['price'] + delta, 2)) for h in hist]
         if not hist and prev != price:
             hist.append({'date': None, 'price': prev})   # ราคาก่อนหน้า (ยังไม่ทราบวันที่ประกาศ)
         if not hist or hist[-1]['price'] != price:
@@ -91,6 +111,7 @@ def main():
             'effectiveDate': eff_date,
             'previousEffectiveDate': dated[-2]['date'] if len(dated) > 1 else None,
             'history': hist[-12:],
+            'offset': off,
         })
 
     order = [v[0] for v in FUELS.values()]
@@ -101,9 +122,17 @@ def main():
         'effective': {'date': eff_date, 'time': eff_time},
         'announced': {'date': src.get('OilPriceDate'), 'time': src.get('OilPriceTime')},
         'source': 'https://www.bangchak.co.th/th/oilprice',
-        'remark': 'ราคาปลีก กทม. ยังไม่รวมภาษีบำรุงท้องถิ่น ราคาหน้าปั๊มอาจแตกต่างเล็กน้อย',
+        'local': bool(offsets),
+        'remark': ('ราคาหน้าปั๊ม Oasis Park เขาย้อย เพชรบุรี (ราคาบางจากบวกค่าขนส่งต่างจังหวัด)' if offsets
+                   else 'ราคาปลีก กทม. ยังไม่รวมภาษีบำรุงท้องถิ่น ราคาหน้าปั๊มอาจแตกต่างเล็กน้อย'),
         'fuels': fuels,
     }
+    if os.path.exists(OUT):   # ไม่มีอะไรเปลี่ยน: ไม่เขียนไฟล์ (GitHub Actions จะได้ไม่ commit ทุกชั่วโมง)
+        with open(OUT, encoding='utf-8') as f:
+            prev_out = json.load(f)
+        if {k: v for k, v in prev_out.items() if k != 'updated'} == {k: v for k, v in out.items() if k != 'updated'}:
+            print('ราคาไม่เปลี่ยน · ราคามีผล %s %s' % (eff_date, eff_time))
+            return
     text = json.dumps(out, ensure_ascii=False, indent=2)
     with open(OUT, 'w', encoding='utf-8', newline='\n') as f:
         f.write(text + '\n')
