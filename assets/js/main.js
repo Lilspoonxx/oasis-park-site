@@ -168,3 +168,18 @@
     });
   });
 })();
+
+/* เปิดเว็บในแอป LINE (เช่น กดจากเมนู LINE OA) = เป็นเพื่อนกับร้านอยู่แล้วเป็นส่วนใหญ่
+   → เปลี่ยนปุ่ม "แอด LINE OA" เป็น "แชทกับเรา" (ลิงก์เดิม: แอดแล้วกดเข้าแชทได้ ยังไม่แอดก็แอดได้)
+   เปิดจากที่อื่น (Chrome/Safari/Facebook/Google Maps) ปุ่มยังเป็น "แอด LINE OA" เหมือนเดิม */
+(function () {
+  var inLine = /\bLine\//i.test(navigator.userAgent || '') || /[?&]from=line\b/i.test(location.search);
+  if (!inLine) return;
+  document.documentElement.classList.add('in-line');
+  function swap() {
+    document.querySelectorAll('a[href*="line.me"]').forEach(function (a) {
+      if (a.textContent.trim() === 'แอด LINE OA') a.textContent = 'แชทกับเรา';
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', swap); else swap();
+})();

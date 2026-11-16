@@ -82,7 +82,7 @@
       .then(function () { done(phone); })
       .catch(function () {
         btn.disabled = false;
-        btn.textContent = 'ส่งข้อมูลสมัครสมาชิก';
+        btn.textContent = 'สมัครฟรี · ส่งข้อมูล';
         status.className = 'f-status bad';
         status.textContent = 'ส่งไม่สำเร็จ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองอีกครั้ง หรือโทร 095-441-4142';
       });

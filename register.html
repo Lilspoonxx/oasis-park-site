@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>สมัครสมาชิก VIP ออนไลน์ — Oasis Park</title>
-<meta name="description" content="กรอกข้อมูลสมัครสมาชิก VIP Oasis Park ล่วงหน้าทางออนไลน์ แล้วแวะมาที่ปั๊มพร้อมบัตรประชาชน เปิดบัตรได้เร็วขึ้น">
+<meta name="description" content="สมัครสมาชิก VIP Oasis Park ฟรี ไม่มีค่าใช้จ่ายใดๆ กรอกข้อมูลล่วงหน้าทางออนไลน์ แล้วแวะมาที่ปั๊มพร้อมบัตรประชาชน ลงทะเบียนได้เร็วขึ้น">
 <meta name="theme-color" content="#04261A">
 <meta name="robots" content="noindex">
 <link rel="icon" href="assets/img/web/brand/logo-emblem.png">
@@ -42,13 +42,19 @@
         <a class="reg-back" href="vip.html">← กลับหน้าสมาชิก VIP</a>
         <span class="pill outline vip-pill">OASIS PARK VIP</span>
         <h1 id="reg-title">สมัครสมาชิก VIP<br><span>กรอกล่วงหน้าออนไลน์</span></h1>
+        <div class="free-box" role="note" aria-label="สมัครสมาชิกฟรี ไม่มีค่าใช้จ่ายใดๆ">
+          <span class="fb-stamp" aria-hidden="true">ฟรี</span>
+          <p class="fb-title">สมัครสมาชิก<b>ฟรี</b><br><span>ไม่มีค่าใช้จ่ายใดๆ</span></p>
+          <p class="fb-sub">ไม่มีค่าสมัคร ไม่มีค่าธรรมเนียมรายปี ไม่ต้องพกบัตร สิทธิ์ทั้งหมดอยู่ใน LINE OA ของคุณ</p>
+        </div>
+        <p class="free-invite">Oasis Park ขอเชิญคุณร่วมเป็นส่วนหนึ่งของ<b>ครอบครัวเรา</b> เพื่อรับสิทธิพิเศษเพิ่มขึ้นทุกครั้งที่มาใช้บริการ</p>
         <p class="reg-lead">กรอกข้อมูลไว้ก่อน แล้วแวะมาที่ปั๊ม ไม่ต้องรอกรอกข้อมูลที่ลานปั๊ม</p>
 
         <h2 class="reg-h2">สมัครง่าย 3 ขั้นตอน</h2>
         <ol class="vip-steps vip-steps-col">
           <li><span class="vs-n" aria-hidden="true">1</span><p>กรอกข้อมูลในแบบฟอร์มนี้</p></li>
           <li><span class="vs-n" aria-hidden="true">2</span><p>แวะมาที่ปั๊ม แจ้ง<b>เบอร์โทร</b> และยื่น<b>บัตรประชาชนตัวจริง</b>ให้พนักงาน</p></li>
-          <li><span class="vs-n" aria-hidden="true">3</span><p>พนักงานเปิดบัตรสมาชิกให้ เริ่มสะสมแต้มได้ทันที</p></li>
+          <li><span class="vs-n" aria-hidden="true">3</span><p>พนักงานลงทะเบียนสมาชิกให้ในระบบ LINE OA เริ่มสะสมแต้มได้ทันที</p></li>
         </ol>
         <p class="note">เพื่อความปลอดภัยของข้อมูล เราไม่ขอเลขบัตรประชาชนทางออนไลน์ พนักงานจะดูจากบัตรตัวจริงที่ปั๊มเท่านั้น</p>
       </div>
@@ -84,19 +90,19 @@
           <div class="f-consent">
             <label class="chk">
               <input id="f-consent" type="checkbox" required>
-              <span>ข้าพเจ้ายินยอมให้ Oasis Park (NKN Petroleum) เก็บและใช้ข้อมูลข้างต้น <b>เพื่อเปิดบัตรสมาชิก VIP และติดต่อเรื่องสมาชิกเท่านั้น</b> <button type="button" class="link-btn" id="pdpa-open">อ่านรายละเอียด</button></span>
+              <span>ข้าพเจ้ายินยอมให้ Oasis Park (NKN Petroleum) เก็บและใช้ข้อมูลข้างต้น <b>เพื่อลงทะเบียนสมาชิก VIP และติดต่อเรื่องสมาชิกเท่านั้น</b> <button type="button" class="link-btn" id="pdpa-open">อ่านรายละเอียด</button></span>
             </label>
             <p class="f-err" id="e-consent"></p>
           </div>
 
-          <button type="submit" class="btn btn-primary reg-submit" id="reg-submit">ส่งข้อมูลสมัครสมาชิก</button>
+          <button type="submit" class="btn btn-primary reg-submit" id="reg-submit">สมัครฟรี · ส่งข้อมูล</button>
           <p class="f-status" id="reg-status" role="status" aria-live="polite"></p>
         </form>
 
         <div class="reg-done" id="reg-done" hidden tabindex="-1">
           <div class="rd-ico" aria-hidden="true">✓</div>
           <h2>ได้รับข้อมูลแล้ว</h2>
-          <p>ขั้นต่อไป แวะมาที่ปั๊ม Oasis Park แล้ว<b>แจ้งเบอร์ <span id="rd-phone"></span></b> พร้อมยื่น<b>บัตรประชาชนตัวจริง</b> พนักงานจะเปิดบัตรสมาชิกให้</p>
+          <p>ขั้นต่อไป แวะมาที่ปั๊ม Oasis Park แล้ว<b>แจ้งเบอร์ <span id="rd-phone"></span></b> พร้อมยื่น<b>บัตรประชาชนตัวจริง</b> พนักงานจะลงทะเบียนสมาชิกให้</p>
           <div class="cta-row">
             <a class="btn btn-primary" href="https://maps.app.goo.gl/FMdbPYjpVNQoEC7d7" target="_blank" rel="noopener">นำทางมาที่ปั๊ม</a>
             <a class="btn btn-outline" href="https://line.me/R/ti/p/@087rhavv" target="_blank" rel="noopener">แอด LINE OA</a>
@@ -111,9 +117,9 @@
   <h2 id="pdpa-title">การเก็บและใช้ข้อมูลส่วนบุคคล</h2>
   <ul>
     <li><b>ข้อมูลที่เก็บ:</b> ชื่อ-นามสกุล เบอร์โทร ที่อยู่ และเบอร์ผู้ชวน (ถ้ามี)</li>
-    <li><b>ใช้ทำอะไร:</b> เปิดบัตรสมาชิก VIP ลงแต้มชวนเพื่อน และติดต่อเรื่องสมาชิกเท่านั้น ไม่นำไปขายหรือส่งต่อให้ผู้อื่น</li>
-    <li><b>ใครเห็นข้อมูล:</b> เฉพาะผู้ดูแลและพนักงานที่เปิดบัตรสมาชิกของ Oasis Park</li>
-    <li><b>เก็บนานแค่ไหน:</b> เมื่อเปิดบัตรสมาชิกเสร็จ ข้อมูลในแบบฟอร์มนี้จะถูกลบ ถ้าไม่มาเปิดบัตรภายใน 30 วัน ข้อมูลจะถูกลบเช่นกัน</li>
+    <li><b>ใช้ทำอะไร:</b> ลงทะเบียนสมาชิก VIP ลงแต้มชวนเพื่อน และติดต่อเรื่องสมาชิกเท่านั้น ไม่นำไปขายหรือส่งต่อให้ผู้อื่น</li>
+    <li><b>ใครเห็นข้อมูล:</b> เฉพาะผู้ดูแลและพนักงานที่ลงทะเบียนสมาชิกของ Oasis Park</li>
+    <li><b>เก็บนานแค่ไหน:</b> เมื่อลงทะเบียนสมาชิกเสร็จ ข้อมูลในแบบฟอร์มนี้จะถูกลบ ถ้าไม่มาลงทะเบียนภายใน 30 วัน ข้อมูลจะถูกลบเช่นกัน</li>
     <li><b>เลขบัตรประชาชน:</b> ไม่เก็บทางออนไลน์ พนักงานดูจากบัตรตัวจริงที่ปั๊มเท่านั้น</li>
     <li><b>ขอดู แก้ไข หรือลบข้อมูล:</b> ติดต่อ 095-441-4142 หรือ LINE OA ของ Oasis Park</li>
   </ul>
