@@ -585,5 +585,33 @@ dialog.op-modal.closing::backdrop { animation: backdropOut .22s ease both; }
 .vip-entry .more { padding-top: 0; white-space: nowrap; }
 @media (max-width: 600px) { .glass.vip-entry { padding: 16px 18px; } .vip-entry .tag-pill { align-self: flex-start; } }
 
+/* ---------- 2026-11-17 แบนเนอร์ชวนเพื่อนสมัคร VIP (หน้าแรก · ภาพ Vega v1) ---------- */
+.vip-ref { padding: 26px 0 0; }
+.vr-card {
+  position: relative; overflow: hidden; min-height: 440px; display: flex; align-items: center;
+  border-radius: var(--radius); background: #032116; border: 2px solid var(--lime);
+  box-shadow: 0 0 34px -10px rgba(183, 240, 0, .55), 0 24px 50px -24px rgba(0, 0, 0, .7);
+}
+.vr-art { position: absolute; inset: 0 0 0 auto; height: 100%; }
+.vr-art img { display: block; height: 100%; width: auto; max-width: none; }
+.vr-text { position: relative; z-index: 1; max-width: min(46%, 520px); padding: 36px 0 36px clamp(28px, 4vw, 48px); display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.vr-text h2 { margin: 0; font-weight: 800; font-style: italic; font-size: clamp(30px, 4vw, 46px); line-height: 1.2; }
+.vr-hl { margin: 0; font-family: 'Prompt', sans-serif; font-weight: 800; font-style: italic; font-size: clamp(26px, 3.2vw, 38px); line-height: 1.2; color: var(--lime); text-shadow: 0 0 18px rgba(183, 240, 0, .35); }
+.vr-desc { margin: 0; font-size: 17px; line-height: 1.65; color: var(--ink-dim); text-wrap: pretty; }
+.vr-text .btn { margin-top: 6px; }
+.vr-cap { position: absolute; right: 14px; bottom: 10px; z-index: 1; padding: 1px 8px; border-radius: 999px; background: rgba(3, 33, 22, .6); font-size: 12px; color: rgba(255, 255, 255, .92); text-shadow: 0 1px 4px rgba(0, 0, 0, .8); }
+@media (max-width: 860px) {
+  .vr-card { flex-direction: column; align-items: stretch; min-height: 0; }
+  .vr-art { position: static; height: auto; }
+  .vr-art img { width: 100%; height: auto; max-width: 100%; }
+  .vr-text { max-width: none; padding: 20px 20px 22px; }
+  .vr-text .btn { align-self: stretch; justify-content: center; }
+  .vr-cap { top: 10px; bottom: auto; }
+}
+@media (max-width: 600px) {
+  .vip-ref { padding-top: 18px; }
+  .vr-desc { font-size: 16px; }
+}
+
 /* เมนูใหม่ 2026-11-15: ลิงก์ #services ไม่ให้หัวข้อจมใต้แถบเมนู */
 #services { scroll-margin-top: 80px; }
