@@ -576,7 +576,7 @@ dialog.op-modal.closing::backdrop { animation: backdropOut .22s ease both; }
   .section-head p { font-size: 16px; }
 }
 
-/* ---------- 2026-11-15 ทางเข้าหน้า VIP (หน้าแรก + โปรโมชัน) ---------- */
+/* ---------- 2026-11-15 ทางเข้าหน้า VIP (หน้าแรก + โปรโมชั่น) ---------- */
 .glass.vip-entry { margin-top: 18px; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 10px 20px; padding: 18px 22px; border-width: 2px; border-color: var(--lime); }
 .vip-entry .tag-pill { align-self: center; }
 .vip-entry .ve-main { flex: 1 1 320px; display: flex; flex-direction: column; gap: 2px; line-height: 1.4; }
