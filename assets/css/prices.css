@@ -1,5 +1,11 @@
 /* หน้าราคาน้ำมัน — แถวราคาแบบ 2 แผง + ลูกเล่นเบาๆ (animate เฉพาะ transform/opacity เท่าที่ทำได้) */
 
+/* จองพื้นที่ตารางราคาไว้ก่อนสคริปต์โหลดเสร็จ กันเนื้อหาด้านล่างกระโดด (prices.js เอาคลาสออกหลังวาดตารางแล้ว) */
+.pb-loading > .wrap { min-height: 1060px; }
+@media (max-width: 900px) { .pb-loading > .wrap { min-height: 1550px; } }
+@media (max-width: 600px) { .pb-loading > .wrap { min-height: 2150px; } .pb-loading .pb-status { min-height: 89px; } }
+.pb-loading .pb-eff:empty { display: block; min-height: 27px; }
+
 /* ---------- สถานะหัวหน้า ---------- */
 .pb-head { gap: 6px; }
 .pb-status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; font-size: 17px; }

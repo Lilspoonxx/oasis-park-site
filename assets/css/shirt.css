@@ -52,6 +52,19 @@
 @keyframes sr-twinkle { 0%, 100% { opacity: 0; transform: scale(.4); } 50% { opacity: 1; transform: scale(1.2); } }
 @keyframes sr-flash { 0% { opacity: 0; transform: scale(.4); } 25% { opacity: 1; } 100% { opacity: 0; transform: scale(2.2); } }
 
+/* หยุดแอนิเมชันวนตอนกล่องอยู่นอกจอ (shirt.js ใส่/ถอดคลาส paused) */
+.shirt-reveal.paused .sr-ring, .shirt-reveal.paused .sr-mystery svg, .shirt-reveal.paused .sr-sheen,
+.shirt-reveal.paused .sr-q, .shirt-reveal.paused .sr-hint, .shirt-reveal.paused .sr-spark { animation-play-state: paused; }
+
+/* มือถือ/แท็บเล็ต: ตัดเอฟเฟกต์ที่ต้องวาดใหม่ทุกเฟรม เหลือแค่เสื้อลอย + ประกายไฟ หน้าตาเกือบเหมือนเดิม */
+@media (max-width: 800px), (hover: none) {
+  .sr-ring { animation: none; transform: rotate(35deg); }
+  .sr-sheen { animation: none; transform: translateX(-420px); }
+  .sr-q { animation: none; filter: none; }
+  .sr-mystery svg { filter: drop-shadow(0 18px 22px rgba(0,0,0,.55)); will-change: transform; }
+  .sr-spark:nth-of-type(n+6) { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sr-ring, .sr-mystery svg, .sr-sheen, .sr-q, .sr-hint, .sr-spark, .shirt-reveal.open .sr-flash { animation: none !important; }
   .sr-spark { opacity: .8; }

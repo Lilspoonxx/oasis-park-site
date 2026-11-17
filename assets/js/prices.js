@@ -496,5 +496,6 @@ document.addEventListener('DOMContentLoaded', function () {
   document.addEventListener('visibilitychange', function () { if (!document.hidden) check(false); });
 
   render(window.FuelPrices.current(), {});      // แสดงราคาทันทีจากชุดที่มี (ไม่รอเครือข่าย ไม่มีหน้าว่าง)
+  var ld = document.querySelector('.pb-loading'); if (ld) ld.classList.remove('pb-loading');   // เลิกจองพื้นที่ (กันหน้าเด้งตอนโหลด)
   check(false);                                 // แล้วตรวจข้อมูลสดเบื้องหลัง ถ้ามีใหม่ค่อยหมุนตัวเลข
 });

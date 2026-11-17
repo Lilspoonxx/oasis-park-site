@@ -20,6 +20,13 @@
     else mystery.focus();
   }
   imgs.forEach(function (m) { m.loading = 'eager'; });
+  // หยุดแอนิเมชันวนทั้งหมดตอนกล่องเลื่อนพ้นจอ ลดภาระเครื่อง (มือถือ/แอป LINE)
+  if ('IntersectionObserver' in window) {
+    root.classList.add('paused');
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { root.classList.toggle('paused', !e.isIntersecting); });
+    }, { rootMargin: '80px 0px' }).observe(root);
+  }
   mystery.addEventListener('click', function () { setOpen(true); });
   if (closeBtn) closeBtn.addEventListener('click', function () { setOpen(false); });
   tabs.forEach(function (t, i) { t.addEventListener('click', function () { show(i); }); });
