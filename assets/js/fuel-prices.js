@@ -16,7 +16,7 @@
   var CACHE_KEY = 'oasis-fuel-prices-v2';
 
   /* ---------- ชุดสำรองที่ตรวจสอบแล้ว (ใช้เมื่อไม่มีข้อมูลอื่นเลย) ---------- */
-  var EFF = '2026-11-11', PREV = '2026-11-06';
+  var EFF = '2026-11-18', PREV = '2026-11-11';   // ราคาป้ายหน้าปั๊มเขาย้อย (สปูนแจ้ง 18 พ.ย. 69)
   function fb(id, name, category, price, previousPrice) {
     var h = previousPrice !== price ? [{ date: PREV, price: previousPrice }, { date: EFF, price: price }] : [{ date: EFF, price: price }];
     return { id: id, name: name, category: category, price: price, previousPrice: previousPrice, effectiveDate: EFF, previousEffectiveDate: PREV, history: h };
@@ -25,14 +25,13 @@
     updated: null,
     effective: { date: EFF, time: '05:00' },
     fuels: [
-      fb('gasohol95', 'Gasohol 95 S EVO', 'gasohol', 39.34, 39.84),
-      fb('gasohol91', 'Gasohol 91 S EVO', 'gasohol', 38.97, 39.47),
-      fb('e20', 'Gasohol E20 S EVO', 'gasohol', 31.30, 31.80),
-      fb('e85', 'Gasohol E85 S EVO', 'gasohol', 30.63, 30.63),
+      fb('gasohol95', 'Gasohol 95 S EVO', 'gasohol', 38.97, 39.47),
+      fb('gasohol91', 'Gasohol 91 S EVO', 'gasohol', 38.60, 39.10),
+      fb('e20', 'Gasohol E20 S EVO', 'gasohol', 30.93, 31.43),
       fb('premium98', 'Hi Premium 98 Plus', 'gasohol', 48.55, 48.55),
-      fb('b20', 'Diesel B20', 'diesel', 33.50, 33.50),
-      fb('dieselS', 'Hi Diesel S', 'diesel', 40.79, 41.79),
-      fb('premiumDiesel', 'Hi Premium Diesel Plus', 'diesel', 49.05, 49.05)
+      fb('b20', 'Diesel B20', 'diesel', 33.63, 33.63),
+      fb('dieselS', 'Hi Diesel S', 'diesel', 40.12, 40.92),
+      fb('premiumDiesel', 'Hi Premium Diesel Plus', 'diesel', 49.18, 49.18)
     ]
   };
 
@@ -41,6 +40,7 @@
     if (!raw || !Array.isArray(raw.fuels) || !raw.fuels.length) return null;
     var eff = raw.effective || {};
     var fuels = raw.fuels.map(function (f) {
+      if (f && f.id === 'e85') return null;   // ไม่ได้ขายที่ปั๊มเขาย้อย (กันข้อมูลเก่าใน cache)
       var price = Number(f.price);
       if (!isFinite(price)) return null;
       var prevP = f.previousPrice !== undefined && f.previousPrice !== null ? Number(f.previousPrice) : price;

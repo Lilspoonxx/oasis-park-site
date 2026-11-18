@@ -30,7 +30,7 @@ FUELS = {
     'แก๊สโซฮอล์ 95 S EVO': ('gasohol95', 'Gasohol 95 S EVO', 'gasohol'),
     'แก๊สโซฮอล์ 91 S EVO': ('gasohol91', 'Gasohol 91 S EVO', 'gasohol'),
     'แก๊สโซฮอล์ E20 S EVO': ('e20', 'Gasohol E20 S EVO', 'gasohol'),
-    'แก๊สโซฮอล์ E85 S EVO': ('e85', 'Gasohol E85 S EVO', 'gasohol'),
+    # E85 ไม่ได้ขายที่ปั๊มเขาย้อย (สปูนยืนยัน 18 พ.ย. 69) → ไม่แสดงบนเว็บ
     'ไฮ พรีเมียม 98 พลัส': ('premium98', 'Hi Premium 98 Plus', 'gasohol'),
     'ดีเซล B20': ('b20', 'Diesel B20', 'diesel'),
     'ไฮดีเซล S': ('dieselS', 'Hi Diesel S', 'diesel'),
@@ -76,7 +76,7 @@ def load_offsets():
         offs = json.load(f).get('offsets', {})
     if any(offs.get(v[0]) is None for v in FUELS.values()):
         return {}
-    return {k: float(v) for k, v in offs.items()}
+    return {k: float(v) for k, v in offs.items() if v is not None}
 
 
 def main():
@@ -87,6 +87,10 @@ def main():
         sys.exit('อ่านวันที่ราคามีผลไม่ได้: %r' % src.get('OilRemark2'))
 
     old = load_old()
+    # บางจากประกาศล่วงหน้า (เช่น 19:45 มีผลพรุ่งนี้ 05:00) ช่วงก่อนมีผล PriceToday = ราคาเก่า
+    # ห้ามติดป้ายวันที่ใหม่ให้ราคาเก่า: ก่อนเวลามีผล คงราคาปัจจุบันจากไฟล์เดิม แล้วเก็บราคาใหม่ไว้ใน upcoming
+    eff_dt = datetime.strptime(eff_date + ' ' + eff_time, '%Y-%m-%d %H:%M').replace(tzinfo=BKK)
+    pending = datetime.now(BKK) < eff_dt
     fuels = []
     for o in json.loads(src['OilList']):
         if o['OilName'] not in FUELS:
@@ -96,6 +100,9 @@ def main():
         off = offsets.get(fid, 0.0)
         price, prev, tomorrow = (round(o[k] + off, 2) for k in ('PriceToday', 'PriceYesterday', 'PriceTomorrow'))
         prior = old.get(fid) or old.get(OLD_IDS.get(fid, '')) or {}
+        if pending and prior.get('price') is not None and prior.get('effectiveDate') != eff_date:
+            fuels.append(dict(prior, id=fid, name=name, category=category, tomorrowPrice=tomorrow))
+            continue
         hist = list(prior.get('history', []))
         delta = round(off - prior.get('offset', 0.0), 2)
         if delta:   # ส่วนต่างเปลี่ยน: ปรับประวัติเดิมให้อยู่บนฐานราคาเดียวกัน
@@ -117,16 +124,28 @@ def main():
     order = [v[0] for v in FUELS.values()]
     fuels.sort(key=lambda x: order.index(x['id']))
 
+    cur_eff = {'date': eff_date, 'time': eff_time}
+    upcoming = None
+    if pending:
+        try:
+            with open(OUT, encoding='utf-8') as f:
+                cur_eff = json.load(f).get('effective') or cur_eff
+        except (OSError, ValueError):
+            pass
+        if cur_eff.get('date') != eff_date:
+            upcoming = {'date': eff_date, 'time': eff_time}
     out = {
         'updated': datetime.now(BKK).isoformat(timespec='minutes'),
-        'effective': {'date': eff_date, 'time': eff_time},
+        'effective': cur_eff,
         'announced': {'date': src.get('OilPriceDate'), 'time': src.get('OilPriceTime')},
         'source': 'https://www.bangchak.co.th/th/oilprice',
         'local': bool(offsets),
-        'remark': ('ราคาหน้าปั๊ม Oasis Park เขาย้อย เพชรบุรี (ราคาบางจากบวกค่าขนส่งต่างจังหวัด)' if offsets
+        'remark': ('ราคาหน้าปั๊ม Oasis Park เขาย้อย เพชรบุรี' if offsets
                    else 'ราคาปลีก กทม. ยังไม่รวมภาษีบำรุงท้องถิ่น ราคาหน้าปั๊มอาจแตกต่างเล็กน้อย'),
         'fuels': fuels,
     }
+    if upcoming:
+        out['upcoming'] = upcoming   # ราคาใหม่ประกาศแล้วแต่ยังไม่มีผล (ดู tomorrowPrice ของแต่ละชนิด)
     if os.path.exists(OUT):   # ไม่มีอะไรเปลี่ยน: ไม่เขียนไฟล์ (GitHub Actions จะได้ไม่ commit ทุกชั่วโมง)
         with open(OUT, encoding='utf-8') as f:
             prev_out = json.load(f)
@@ -139,7 +158,8 @@ def main():
     with open(OUT_JS, 'w', encoding='utf-8', newline='\n') as f:
         f.write('/* สร้างโดย scripts/update_prices.py - อย่าแก้มือ (สำเนาของ prices.json ให้เปิดไฟล์ตรงได้โดยไม่ต้อง fetch) */\n')
         f.write('window.FUEL_PRICES_BUNDLE = ' + text + ';\n')
-    print('อัปเดตแล้ว %d รายการ · ราคามีผล %s %s' % (len(fuels), eff_date, eff_time))
+    print('อัปเดตแล้ว %d รายการ · ราคามีผล %s %s%s' % (len(fuels), out['effective'].get('date'), out['effective'].get('time'),
+                                                     (' · ราคาใหม่รอมีผล %s %s' % (eff_date, eff_time)) if upcoming else ''))
 
 
 if __name__ == '__main__':
