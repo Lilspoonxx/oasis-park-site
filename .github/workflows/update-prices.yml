@@ -1,0 +1,36 @@
+# อัปเดตราคาน้ำมันจากบางจากอัตโนมัติทุกชั่วโมง (commit เฉพาะเมื่อราคาเปลี่ยน)
+name: Update fuel prices
+
+on:
+  schedule:
+    - cron: '7 * * * *'   # ทุกชั่วโมง นาทีที่ 7 (เวลา UTC)
+  workflow_dispatch: {}   # กดรันเองได้จากแท็บ Actions
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-prices
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1 (ล็อกเวอร์ชันด้วย commit)
+      - name: Fetch Bangchak prices (+ ส่วนต่างเขาย้อยจาก scripts/price_offsets.json)
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python3 -B scripts/update_prices.py
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- data/; then
+            echo "no price change"
+            exit 0
+          fi
+          git config user.name "price-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/prices.json data/prices.js
+          git commit -m "Auto-update fuel prices (Bangchak)"
+          git push
