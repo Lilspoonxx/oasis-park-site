@@ -1,8 +1,8 @@
 /* สร้างโดย scripts/update_prices.py - อย่าแก้มือ (สำเนาของ prices.json ให้เปิดไฟล์ตรงได้โดยไม่ต้อง fetch) */
 window.FUEL_PRICES_BUNDLE = {
-  "updated": "2026-11-19T01:49+07:00",
+  "updated": "2026-11-19T08:06+07:00",
   "effective": {
-    "date": "2026-11-18",
+    "date": "2026-11-19",
     "time": "05:00"
   },
   "announced": {
@@ -17,11 +17,11 @@ window.FUEL_PRICES_BUNDLE = {
       "id": "gasohol95",
       "name": "Gasohol 95 S EVO",
       "category": "gasohol",
-      "price": 38.97,
-      "previousPrice": 39.47,
+      "price": 38.27,
+      "previousPrice": 38.97,
       "tomorrowPrice": 38.27,
-      "effectiveDate": "2026-11-18",
-      "previousEffectiveDate": "2026-11-11",
+      "effectiveDate": "2026-11-19",
+      "previousEffectiveDate": "2026-11-18",
       "history": [
         {
           "date": "2026-11-06",
@@ -34,6 +34,10 @@ window.FUEL_PRICES_BUNDLE = {
         {
           "date": "2026-11-18",
           "price": 38.97
+        },
+        {
+          "date": "2026-11-19",
+          "price": 38.27
         }
       ],
       "offset": 0.13
@@ -42,11 +46,11 @@ window.FUEL_PRICES_BUNDLE = {
       "id": "gasohol91",
       "name": "Gasohol 91 S EVO",
       "category": "gasohol",
-      "price": 38.6,
-      "previousPrice": 39.1,
+      "price": 37.9,
+      "previousPrice": 38.6,
       "tomorrowPrice": 37.9,
-      "effectiveDate": "2026-11-18",
-      "previousEffectiveDate": "2026-11-11",
+      "effectiveDate": "2026-11-19",
+      "previousEffectiveDate": "2026-11-18",
       "history": [
         {
           "date": "2026-11-06",
@@ -59,6 +63,10 @@ window.FUEL_PRICES_BUNDLE = {
         {
           "date": "2026-11-18",
           "price": 38.6
+        },
+        {
+          "date": "2026-11-19",
+          "price": 37.9
         }
       ],
       "offset": 0.13
@@ -67,11 +75,11 @@ window.FUEL_PRICES_BUNDLE = {
       "id": "e20",
       "name": "Gasohol E20 S EVO",
       "category": "gasohol",
-      "price": 30.93,
-      "previousPrice": 31.43,
+      "price": 30.23,
+      "previousPrice": 30.93,
       "tomorrowPrice": 30.23,
-      "effectiveDate": "2026-11-18",
-      "previousEffectiveDate": "2026-11-11",
+      "effectiveDate": "2026-11-19",
+      "previousEffectiveDate": "2026-11-18",
       "history": [
         {
           "date": "2026-11-06",
@@ -84,6 +92,10 @@ window.FUEL_PRICES_BUNDLE = {
         {
           "date": "2026-11-18",
           "price": 30.93
+        },
+        {
+          "date": "2026-11-19",
+          "price": 30.23
         }
       ],
       "offset": 0.13
@@ -95,7 +107,7 @@ window.FUEL_PRICES_BUNDLE = {
       "price": 48.55,
       "previousPrice": 48.55,
       "tomorrowPrice": 48.55,
-      "effectiveDate": "2026-11-18",
+      "effectiveDate": "2026-11-19",
       "previousEffectiveDate": null,
       "history": [
         {
@@ -112,7 +124,7 @@ window.FUEL_PRICES_BUNDLE = {
       "price": 33.63,
       "previousPrice": 33.63,
       "tomorrowPrice": 33.63,
-      "effectiveDate": "2026-11-18",
+      "effectiveDate": "2026-11-19",
       "previousEffectiveDate": null,
       "history": [
         {
@@ -127,9 +139,9 @@ window.FUEL_PRICES_BUNDLE = {
       "name": "Hi Diesel S",
       "category": "diesel",
       "price": 40.12,
-      "previousPrice": 40.92,
+      "previousPrice": 40.12,
       "tomorrowPrice": 40.12,
-      "effectiveDate": "2026-11-18",
+      "effectiveDate": "2026-11-19",
       "previousEffectiveDate": "2026-11-11",
       "history": [
         {
@@ -154,7 +166,7 @@ window.FUEL_PRICES_BUNDLE = {
       "price": 49.18,
       "previousPrice": 49.18,
       "tomorrowPrice": 49.18,
-      "effectiveDate": "2026-11-18",
+      "effectiveDate": "2026-11-19",
       "previousEffectiveDate": null,
       "history": [
         {
@@ -164,9 +176,5 @@ window.FUEL_PRICES_BUNDLE = {
       ],
       "offset": 0.13
     }
-  ],
-  "upcoming": {
-    "date": "2026-11-19",
-    "time": "05:00"
-  }
+  ]
 };
