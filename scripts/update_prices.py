@@ -180,22 +180,45 @@ def main():
         reasons = price_gate.check(src)
         if reasons and key not in approved_keys():
             print('⏸ รอบแปลก ยังไม่อัปเว็บ (รอสปูนยืนยันราคาหน้าตู้ · รอบ %s):\n- %s' % (key, '\n- '.join(reasons)))
+            touch_checked()   # ราคาบนเว็บตั้งใจคงไว้ (ตรงหน้าตู้) = ยังถือว่าเช็คแล้ว
             return
         print('✔ %s รอบ %s' % ('สปูนอนุมัติแล้ว' if reasons else 'รอบปกติ', key))
+    out['checked'] = out['updated']
     if os.path.exists(OUT):   # ไม่มีอะไรเปลี่ยน: ไม่เขียนไฟล์ (GitHub Actions จะได้ไม่ commit ทุกชั่วโมง)
         with open(OUT, encoding='utf-8') as f:
             prev_out = json.load(f)
-        if {k: v for k, v in prev_out.items() if k != 'updated'} == {k: v for k, v in out.items() if k != 'updated'}:
+        skip = ('updated', 'checked')
+        if {k: v for k, v in prev_out.items() if k not in skip} == {k: v for k, v in out.items() if k not in skip}:
             print('ราคาไม่เปลี่ยน · ราคามีผล %s %s' % (eff_date, eff_time))
+            touch_checked()
             return
+    write_out(out)
+    print('อัปเดตแล้ว %d รายการ · ราคามีผล %s %s%s' % (len(fuels), out['effective'].get('date'), out['effective'].get('time'),
+                                                     (' · ราคาใหม่รอมีผล %s %s' % (eff_date, eff_time)) if upcoming else ''))
+
+
+def touch_checked():
+    """ราคาไม่เปลี่ยน: บันทึกเวลา "เช็คล่าสุด" วันละครั้ง (หน้าเว็บจะได้ไม่เตือนว่าข้อมูลเก่า ทั้งที่ราคาถูกต้อง)"""
+    try:
+        with open(OUT, encoding='utf-8') as f:
+            cur = json.load(f)
+    except (OSError, ValueError):
+        return
+    now = datetime.now(BKK).isoformat(timespec='minutes')
+    if (cur.get('checked') or '')[:10] == now[:10]:
+        return
+    cur['checked'] = now
+    write_out(cur)
+    print('บันทึกเวลาเช็คล่าสุด', now)
+
+
+def write_out(out):
     text = json.dumps(out, ensure_ascii=False, indent=2)
     with open(OUT, 'w', encoding='utf-8', newline='\n') as f:
         f.write(text + '\n')
     with open(OUT_JS, 'w', encoding='utf-8', newline='\n') as f:
         f.write('/* สร้างโดย scripts/update_prices.py - อย่าแก้มือ (สำเนาของ prices.json ให้เปิดไฟล์ตรงได้โดยไม่ต้อง fetch) */\n')
         f.write('window.FUEL_PRICES_BUNDLE = ' + text + ';\n')
-    print('อัปเดตแล้ว %d รายการ · ราคามีผล %s %s%s' % (len(fuels), out['effective'].get('date'), out['effective'].get('time'),
-                                                     (' · ราคาใหม่รอมีผล %s %s' % (eff_date, eff_time)) if upcoming else ''))
 
 
 if __name__ == '__main__':

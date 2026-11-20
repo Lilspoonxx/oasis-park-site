@@ -361,13 +361,14 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function () { playRoll(n, from || null, function () { n.classList.add('glow'); }); }, 260);
   }
   function statusOf(data, failedFlag) {
-    var stamp = data.updated || (data.effective && data.effective.date);
-    var ageH = data.updated ? (Date.now() - new Date(data.updated).getTime()) / 36e5 : Infinity;
+    var seen = data.checked || data.updated;   // checked = บอทเช็คราคาล่าสุด (เขียนวันละครั้งแม้ราคาไม่เปลี่ยน)
+    var stamp = seen || (data.effective && data.effective.date);
+    var ageH = seen ? (Date.now() - new Date(seen).getTime()) / 36e5 : Infinity;
     var fresh = !failedFlag && data.source !== 'fallback' && data.source !== 'cache' && ageH <= LIVE_HOURS;
     var e = data.effective || {};
     return {
       fresh: fresh,
-      txt: 'อัปเดตล่าสุด ' + thDate(stamp) + (data.updated && thTime(data.updated) ? ' • ' + thTime(data.updated) + ' น.' : ''),
+      txt: 'อัปเดตล่าสุด ' + thDate(stamp) + (seen && thTime(seen) ? ' • ' + thTime(seen) + ' น.' : ''),
       eff: e.date ? 'ราคามีผล ' + thDate(e.date) + (e.time ? ' • ' + e.time + ' น.' : '') : '',
       msg: (failedFlag || data.source === 'fallback' || data.source === 'cache') ? 'กำลังแสดงข้อมูลล่าสุดที่มี (ราคามีผล ' + thDate(e.date) + ')' : (!fresh ? 'ข้อมูลอาจไม่ใช่ล่าสุด ตรวจราคาล่าสุดที่เว็บบางจากหรือสอบถามหน้าปั๊ม' : '')
     };

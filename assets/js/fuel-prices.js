@@ -53,7 +53,7 @@
       };
     }).filter(Boolean);
     if (!fuels.length) return null;
-    return { updated: raw.updated || null, local: !!raw.local, remark: raw.remark || null, effective: { date: eff.date || null, time: eff.time || null }, source: source, fuels: fuels };
+    return { updated: raw.updated || null, checked: raw.checked || raw.updated || null, local: !!raw.local, remark: raw.remark || null, effective: { date: eff.date || null, time: eff.time || null }, source: source, fuels: fuels };
   }
 
   function readCache() {
@@ -64,7 +64,7 @@
   }
   function newer(a, b) {            // เลือกชุดที่ใหม่กว่า (เทียบ updated แล้วค่อยเทียบวันที่มีผล)
     if (!a) return b; if (!b) return a;
-    var ka = (a.updated || '0') + '|' + (a.effective.date || ''), kb = (b.updated || '0') + '|' + (b.effective.date || '');
+    var ka = (a.checked || a.updated || '0') + '|' + (a.effective.date || ''), kb = (b.checked || b.updated || '0') + '|' + (b.effective.date || '');
     return ka >= kb ? a : b;
   }
 
@@ -74,7 +74,7 @@
   var lastRaw = null;
 
   /* ---------- ดึงข้อมูลสด (ไม่ล้มทั้งหน้า: ล้มเหลวก็ใช้ชุดที่มีอยู่) ---------- */
-  function sig(d) { return d.updated + '|' + d.fuels.map(function (f) { return f.id + ':' + f.price + ':' + f.previousPrice; }).join(','); }
+  function sig(d) { return d.updated + '|' + d.checked + '|' +d.fuels.map(function (f) { return f.id + ':' + f.price + ':' + f.previousPrice; }).join(','); }
 
   function refresh() {
     if (location.protocol === 'file:' || typeof fetch !== 'function') {     // เปิดไฟล์ตรง: fetch ไม่ได้ ใช้ชุด bundle/แคช/สำรองที่มี
