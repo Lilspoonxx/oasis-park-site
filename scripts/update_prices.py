@@ -66,6 +66,16 @@ def load_old():
 
 
 OFFSETS = os.path.join(HERE, 'price_offsets.json')
+HOLD = os.path.join(HERE, 'price_hold.json')
+
+
+def held():
+    """สวิตช์พักอัปเดต: ถ้า price_hold.json มี hold=true → ไม่แตะราคาบนเว็บเลย (รอสปูนยืนยันราคาหน้าตู้ก่อน)"""
+    if not os.path.exists(HOLD):
+        return None
+    with open(HOLD, encoding='utf-8') as f:
+        h = json.load(f)
+    return h if h.get('hold') else None
 
 
 def load_offsets():
@@ -80,6 +90,10 @@ def load_offsets():
 
 
 def main():
+    h = held()
+    if h:
+        print('พักอัปเดตราคา (price_hold.json) ตั้งแต่ %s: %s' % (h.get('since'), h.get('reason')))
+        return
     src = fetch()
     offsets = load_offsets()
     eff_date, eff_time = effective_from(src.get('OilRemark2'))
