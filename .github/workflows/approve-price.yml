@@ -8,6 +8,11 @@ on:
         description: 'เช็คตู้จ่ายแล้วราคาตรงกับบางจาก → พิมพ์คำว่า อัป'
         required: true
         type: string
+      round:
+        description: '(ไม่ต้องกรอก) รหัสรอบประกาศที่ต้องการอนุมัติ — ระบบ LINE OA ใส่ให้เองตอนบรอดแคสต์ ถ้าไม่ตรงกับรอบปัจจุบันจะไม่อัป'
+        required: false
+        type: string
+        default: ''
 
 permissions:
   contents: write
@@ -26,6 +31,7 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
           CONFIRM: ${{ inputs.confirm }}
+          EXPECT_ROUND: ${{ inputs.round }}
         run: |
           if [ "$(echo "$CONFIRM" | tr -d '[:space:]')" != "อัป" ]; then
             echo "❌ ช่อง confirm ต้องพิมพ์คำว่า อัป"; exit 1

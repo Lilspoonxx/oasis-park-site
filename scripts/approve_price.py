@@ -11,6 +11,9 @@ import update_prices  # noqa: E402
 
 src = update_prices.fetch()
 key = price_gate.round_key(src)
+expect = os.environ.get('EXPECT_ROUND', '').strip()
+if expect and expect != key:   # เรียกมาจาก LINE OA: รอบที่ประกาศลูกค้าต้องเป็นรอบเดียวกับที่บางจากประกาศอยู่ตอนนี้
+    sys.exit('❌ ไม่อัป: รอบที่บรอดแคสต์ (%s) ไม่ตรงกับรอบปัจจุบันของบางจาก (%s)' % (expect, key))
 try:
     with open(update_prices.APPROVED, encoding='utf-8') as f:
         data = json.load(f)
