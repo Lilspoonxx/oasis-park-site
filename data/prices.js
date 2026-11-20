@@ -177,5 +177,5 @@ window.FUEL_PRICES_BUNDLE = {
       "offset": 0.13
     }
   ],
-  "checked": "2026-11-20T22:36+07:00"
+  "checked": "2026-11-21T01:33+07:00"
 };
