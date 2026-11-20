@@ -19,6 +19,9 @@ import sys
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import price_gate  # noqa: E402  ด่านตรวจรอบปกติ/รอบแปลก
+
 API = 'https://oil-price.bangchak.co.th/ApiOilPrice2/th'
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, '..', 'data', 'prices.json')
@@ -67,10 +70,20 @@ def load_old():
 
 OFFSETS = os.path.join(HERE, 'price_offsets.json')
 HOLD = os.path.join(HERE, 'price_hold.json')
+APPROVED = os.path.join(HERE, 'price_approved.json')
+
+
+def approved_keys():
+    """รอบแปลกที่สปูนยืนยันราคาหน้าตู้แล้ว (เพิ่มโดย workflow approve-price.yml)"""
+    try:
+        with open(APPROVED, encoding='utf-8') as f:
+            return set(json.load(f).get('approved', {}))
+    except (OSError, ValueError):
+        return set()
 
 
 def held():
-    """สวิตช์พักอัปเดต: ถ้า price_hold.json มี hold=true → ไม่แตะราคาบนเว็บเลย (รอสปูนยืนยันราคาหน้าตู้ก่อน)"""
+    """สวิตช์ฉุกเฉิน: ถ้า price_hold.json มี hold=true → ไม่แตะราคาบนเว็บเลยไม่ว่ารอบไหน"""
     if not os.path.exists(HOLD):
         return None
     with open(HOLD, encoding='utf-8') as f:
@@ -160,6 +173,15 @@ def main():
     }
     if upcoming:
         out['upcoming'] = upcoming   # ราคาใหม่ประกาศแล้วแต่ยังไม่มีผล (ดู tomorrowPrice ของแต่ละชนิด)
+    # ด่านตรวจ: ราคาบนเว็บจะเปลี่ยน → ต้องเป็นรอบปกติ หรือสปูนอนุมัติรอบนี้แล้ว
+    changed = any((old.get(x['id']) or {}).get(k) != x.get(k) for x in fuels for k in ('price', 'tomorrowPrice'))
+    if changed:
+        key = price_gate.round_key(src)
+        reasons = price_gate.check(src)
+        if reasons and key not in approved_keys():
+            print('⏸ รอบแปลก ยังไม่อัปเว็บ (รอสปูนยืนยันราคาหน้าตู้ · รอบ %s):\n- %s' % (key, '\n- '.join(reasons)))
+            return
+        print('✔ %s รอบ %s' % ('สปูนอนุมัติแล้ว' if reasons else 'รอบปกติ', key))
     if os.path.exists(OUT):   # ไม่มีอะไรเปลี่ยน: ไม่เขียนไฟล์ (GitHub Actions จะได้ไม่ commit ทุกชั่วโมง)
         with open(OUT, encoding='utf-8') as f:
             prev_out = json.load(f)

@@ -1,0 +1,42 @@
+# สปูนยืนยันว่าตู้จ่ายเปลี่ยนราคาแล้ว (ใช้กับ "รอบแปลก" ที่ด่านตรวจพักไว้) → อนุมัติรอบนี้ แล้วอัปราคาบนเว็บทันที
+name: Approve price (สปูนยืนยันราคาหน้าตู้)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'เช็คตู้จ่ายแล้วราคาตรงกับบางจาก → พิมพ์คำว่า อัป'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-prices
+  cancel-in-progress: false
+
+jobs:
+  approve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1 (ล็อกเวอร์ชันด้วย commit)
+      - name: Approve current Bangchak round + update
+        env:
+          PYTHONIOENCODING: utf-8
+          CONFIRM: ${{ inputs.confirm }}
+        run: |
+          if [ "$(echo "$CONFIRM" | tr -d '[:space:]')" != "อัป" ]; then
+            echo "❌ ช่อง confirm ต้องพิมพ์คำว่า อัป"; exit 1
+          fi
+          python3 -B scripts/approve_price.py
+          python3 -B scripts/update_prices.py
+      - name: Commit
+        run: |
+          git add scripts/price_approved.json data/prices.json data/prices.js
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          git config user.name "price-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Approve price round (confirmed at pump by owner)"
+          git push
