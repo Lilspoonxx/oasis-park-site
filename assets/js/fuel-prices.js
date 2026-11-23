@@ -35,6 +35,16 @@
     ]
   };
 
+  /* ---------- แสดงขึ้น/ลงแค่ 1 อาทิตย์หลังราคามีผล (สปูนสั่ง 22 พ.ย. 69) ----------
+     หลังจากนั้น quiet = true → UI แสดงแค่ราคา ไม่บอกขึ้น/ลง/คงเดิม จนกว่าจะมีการปรับครั้งใหม่ */
+  var TREND_DAYS = 7;
+  function daysSince(iso) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || '');
+    if (!m) return Infinity;
+    var today = new Date(Date.now() + 7 * 36e5);   // วันที่ตามเวลาไทย
+    return Math.floor((Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()) - Date.UTC(+m[1], m[2] - 1, +m[3])) / 864e5);
+  }
+
   /* ---------- ทำให้ข้อมูลจากทุกแหล่งมีรูปแบบเดียวกัน ---------- */
   function normalize(raw, source) {
     if (!raw || !Array.isArray(raw.fuels) || !raw.fuels.length) return null;
@@ -44,10 +54,13 @@
       var price = Number(f.price);
       if (!isFinite(price)) return null;
       var prevP = f.previousPrice !== undefined && f.previousPrice !== null ? Number(f.previousPrice) : price;
+      if (!isFinite(prevP)) prevP = price;
+      var effDate = f.effectiveDate || eff.date || null;
       return {
         id: String(f.id), name: f.name, category: f.category === 'diesel' ? 'diesel' : 'gasohol',
-        price: price, previousPrice: isFinite(prevP) ? prevP : price,
-        effectiveDate: f.effectiveDate || eff.date || null,
+        price: price, previousPrice: prevP,
+        quiet: prevP === price || daysSince(effDate) >= TREND_DAYS,
+        effectiveDate: effDate,
         previousEffectiveDate: f.previousEffectiveDate || null,
         history: Array.isArray(f.history) ? f.history.filter(function (h) { return h && isFinite(h.price); }) : []
       };

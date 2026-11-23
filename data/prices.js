@@ -18,9 +18,9 @@ window.FUEL_PRICES_BUNDLE = {
       "name": "Gasohol 95 S EVO",
       "category": "gasohol",
       "price": 38.27,
-      "previousPrice": 38.27,
+      "previousPrice": 38.97,
       "tomorrowPrice": 38.27,
-      "effectiveDate": "2026-11-20",
+      "effectiveDate": "2026-11-19",
       "previousEffectiveDate": "2026-11-18",
       "history": [
         {
@@ -47,9 +47,9 @@ window.FUEL_PRICES_BUNDLE = {
       "name": "Gasohol 91 S EVO",
       "category": "gasohol",
       "price": 37.9,
-      "previousPrice": 37.9,
+      "previousPrice": 38.6,
       "tomorrowPrice": 37.9,
-      "effectiveDate": "2026-11-20",
+      "effectiveDate": "2026-11-19",
       "previousEffectiveDate": "2026-11-18",
       "history": [
         {
@@ -76,9 +76,9 @@ window.FUEL_PRICES_BUNDLE = {
       "name": "Gasohol E20 S EVO",
       "category": "gasohol",
       "price": 30.23,
-      "previousPrice": 30.23,
+      "previousPrice": 30.93,
       "tomorrowPrice": 30.23,
-      "effectiveDate": "2026-11-20",
+      "effectiveDate": "2026-11-19",
       "previousEffectiveDate": "2026-11-18",
       "history": [
         {
@@ -107,7 +107,7 @@ window.FUEL_PRICES_BUNDLE = {
       "price": 48.55,
       "previousPrice": 48.55,
       "tomorrowPrice": 48.55,
-      "effectiveDate": "2026-11-20",
+      "effectiveDate": "2026-11-11",
       "previousEffectiveDate": null,
       "history": [
         {
@@ -124,7 +124,7 @@ window.FUEL_PRICES_BUNDLE = {
       "price": 33.63,
       "previousPrice": 33.63,
       "tomorrowPrice": 33.63,
-      "effectiveDate": "2026-11-20",
+      "effectiveDate": "2026-11-11",
       "previousEffectiveDate": null,
       "history": [
         {
@@ -170,7 +170,7 @@ window.FUEL_PRICES_BUNDLE = {
       "price": 49.18,
       "previousPrice": 49.18,
       "tomorrowPrice": 49.18,
-      "effectiveDate": "2026-11-20",
+      "effectiveDate": "2026-11-11",
       "previousEffectiveDate": null,
       "history": [
         {

@@ -30,6 +30,7 @@
       if (!f) return;
       var diff = Math.round((f.price - f.previousPrice) * 100) / 100;
       var chg = '';
+      if (f.quiet) diff = 0;   // เกิน 1 อาทิตย์หลังราคามีผล: แสดงแค่ราคา
       if (diff < 0) chg = '<span class="ps-chg down">▼ ' + Math.abs(diff).toFixed(2) + '</span>';
       else if (diff > 0) chg = '<span class="ps-chg up">▲ ' + diff.toFixed(2) + '</span>';
       html += '<a class="ps-chip" role="listitem" href="prices.html"><span class="ps-name">' + p[1] +

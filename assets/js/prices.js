@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ส่วนต่างคำนวณจาก ราคาปัจจุบัน - ราคาครั้งก่อน เสมอ */
   function trendOf(f) {
+    if (f.quiet) return { cls: 'same', quiet: true, d: 0, a: '0.00', lbl: '', ico: '', short: '', long: '', plain: '' };   // เกิน 1 อาทิตย์: แสดงแค่ราคา
     var d = r2(f.price - (typeof f.previousPrice === 'number' ? f.previousPrice : f.price)), a = money(Math.abs(d));
     if (d < 0) return { cls: 'down', d: d, a: a, lbl: 'ลดลง ' + a, ico: '▼', short: '↓ ลดลง ' + a, long: '↓ ลดลง ' + a + ' บาท', plain: 'ราคาลดลง ' + a + ' บาท/ลิตร' };
     if (d > 0) return { cls: 'up', d: d, a: a, lbl: 'เพิ่มขึ้น ' + a, ico: '▲', short: '↑ เพิ่มขึ้น ' + a, long: '↑ เพิ่มขึ้น ' + a + ' บาท', plain: 'ราคาเพิ่มขึ้น ' + a + ' บาท/ลิตร' };
@@ -144,9 +145,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var prevTxt = money(f.previousPrice) + ' บาท/ลิตร' + (f.previousEffectiveDate ? ' (มีผล ' + thDate(f.previousEffectiveDate) + ')' : '');
     return '<div class="fxm">' +
       '<div class="fxm-price"><span class="fxm-num" data-roll="' + money(f.price) + '" data-from="' + (t.cls === 'same' ? '' : money(f.previousPrice)) + '">' + money(f.price) + '</span><small>บาท/ลิตร</small></div>' +
-      '<div class="fxm-trend"><span class="chg ' + t.cls + '">' + esc(t.long) + '</span></div>' +
+      (t.quiet ? '' : '<div class="fxm-trend"><span class="chg ' + t.cls + '">' + esc(t.long) + '</span></div>') +
       '<dl class="fxm-dl">' +
-      '<div><dt>ราคาก่อนหน้า</dt><dd>' + esc(prevTxt) + '</dd></div>' +
+      (t.quiet ? '' : '<div><dt>ราคาก่อนหน้า</dt><dd>' + esc(prevTxt) + '</dd></div>') +
       (effTxt ? '<div><dt>ราคามีผล</dt><dd>' + esc(effTxt) + '</dd></div>' : '') +
       '</dl>' +
       (hist.length ? '<div class="fxm-hist"><h4>ประวัติราคา</h4>' + spark(hist) + '<ul class="fxm-tl">' + tl + '</ul>' + (hist.length < 2 ? '<p class="fxm-hn">ยังไม่มีการปรับราคาในประวัติ ระบบจะเพิ่มให้อัตโนมัติเมื่อราคาเปลี่ยน</p>' : '') + '</div>' : '') +
@@ -173,8 +174,8 @@ document.addEventListener('DOMContentLoaded', function () {
       '<div class="fxd-title at"' + at(722, 205, 558, 84) + '><span>' + esc(f.name) + '</span></div>' +
       (dateTxt ? '<div class="fxd-date at"' + at(851, 300, 364, 43) + '>' + calSvg + esc(dateTxt) + '</div>' : '') +
       '<div class="fxd-odo at"' + at(657, 346, 730, 180) + '><span class="fxd-num" data-roll="' + money(f.price) + '" data-from="' + (t.cls === 'same' ? '' : money(f.previousPrice)) + '">' + money(f.price) + '</span><small>บาท/ลิตร</small></div>' +
-      '<div class="fxd-chg at"' + at(666, 532, 734, 61) + '><span class="chg ' + t.cls + '"><i class="ti" aria-hidden="true">' + t.ico + '</i>' + esc(t.lbl) + (t.cls === 'same' ? '' : ' บาท') + '</span><i class="fxd-vr" aria-hidden="true"></i>' +
-      '<span class="fxd-prev">ก่อนหน้า <b>' + money(f.previousPrice) + '</b> บาท/ลิตร' + prevDate + '</span></div>' +
+      (t.quiet ? '' : '<div class="fxd-chg at"' + at(666, 532, 734, 61) + '><span class="chg ' + t.cls + '"><i class="ti" aria-hidden="true">' + t.ico + '</i>' + esc(t.lbl) + (t.cls === 'same' ? '' : ' บาท') + '</span><i class="fxd-vr" aria-hidden="true"></i>' +
+      '<span class="fxd-prev">ก่อนหน้า <b>' + money(f.previousPrice) + '</b> บาท/ลิตร' + prevDate + '</span></div>') +
       '<p class="fxd-src at"' + at(752, 605, 524, 34) + '>' + refreshIcon + (current && current.local ? 'ราคาหน้าปั๊ม Oasis Park เขาย้อย' : 'ข้อมูลอ้างอิงจากประกาศราคาปลีกบางจาก') + '</p>' +
       (hist.length ? '<div class="fxd-hist at"' + at(638, 646, 777, 106) + '><div class="fxd-hl">' + barSvg + 'ประวัติราคา <small>(เฉพาะวันที่ปรับ)</small></div><ul class="fxd-chips" aria-label="ประวัติราคา บาทต่อลิตร">' + chips + '</ul></div>' : '') +
       '<details class="fxd-guide at"' + at(825, 755, 395, 43) + '><summary>คำแนะนำการอ่านราคา</summary><div class="fxd-guide-copy">ราคาปัจจุบันแสดงเป็นบาทต่อลิตร ลูกศรบอกการเปลี่ยนแปลงจากราคาก่อนหน้า เลือกชนิดน้ำมันอื่นจากรายการหรือปุ่มดูราคาทั้งหมด ราคาหน้าปั๊มอาจต่างจากราคาอ้างอิง</div></details>' +
@@ -264,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var base = info[f.id] || { tag: 'น้ำมัน', b: ['', f.name], c: ['#B7F000', '#5FA800'], lead: '', points: [], note: fuelNote };
         var has = typeof f.price === 'number';
         var t = has ? trendOf(f) : null;
-        if (t) buckets[t.cls].push({ name: f.name, d: t.d });
+        if (t && !t.quiet) buckets[t.cls].push({ name: f.name, d: t.d });
         shown[f.id] = has ? money(f.price) : null;
 
         items['fuel-' + f.id] = has ? fuelItem(f, data) : { tag: base.tag, title: f.name, big: 'สอบถามราคา', lead: base.lead, points: base.points, note: base.note };
@@ -281,12 +282,12 @@ document.addEventListener('DOMContentLoaded', function () {
           '<span class="fbadge' + (base.dark ? ' dk' : '') + '" aria-hidden="true"><small>' + esc(base.b[0]) + '</small><b' + (base.b[1].length > 8 ? ' class="lg"' : '') + '>' + esc(base.b[1]) + '</b></span>' +
           '<span class="fname">' + esc(f.name) + '</span>' +
           '<span class="pcell">' + (has ? '<span class="fuel-price">' + rollMarkup(money(f.price)) + '</span><span class="unit">บาท/ลิตร</span>' : '<span class="fuel-price">สอบถามราคา</span>') + '</span>' +
-          (t ? '<span class="chg ' + t.cls + '"><i class="ti" aria-hidden="true">' + t.ico + '</i>' + esc(t.lbl) + '</span>' : '<span></span>') +
+          (t && !t.quiet ? '<span class="chg ' + t.cls + '"><i class="ti" aria-hidden="true">' + t.ico + '</i>' + esc(t.lbl) + '</span>' : '<span></span>') +
           '<span class="pchev" aria-hidden="true">' + chevSvg + '</span>';
         rows.appendChild(b);
         if (has) {
           var from = opts.animate && prevShown[f.id] && prevShown[f.id] !== money(f.price) ? prevShown[f.id]
-            : (typeof f.previousPrice === 'number' && f.previousPrice !== f.price ? money(f.previousPrice) : null);
+            : (!f.quiet && typeof f.previousPrice === 'number' && f.previousPrice !== f.price ? money(f.previousPrice) : null);
           if (opts.animate && prevShown[f.id] === money(f.price)) setCols(b.querySelector('.roll'), null, true);
           else observeReveal(b, from);
         }
@@ -339,12 +340,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   function bucketsOf(data) {          // จัดกลุ่ม ลง/ขึ้น/คงเดิม จากข้อมูลจริงทุกครั้ง
     var b = { down: [], same: [], up: [] };
-    data.fuels.forEach(function (f) { var t = trendOf(f); b[t.cls].push({ name: f.name, d: t.d }); });
+    data.fuels.forEach(function (f) { var t = trendOf(f); if (!t.quiet) b[t.cls].push({ name: f.name, d: t.d }); });
     return b;
   }
   function renderSummary(data, b, eff) {
     var sum = document.querySelector('#price-summary');
     if (!sum) return;
+    if (!b.up.length && !b.down.length) { sum.hidden = true; return; }   // ไม่มีการปรับในรอบ 1 อาทิตย์: ไม่ต้องสรุปขึ้น/ลง
     sum.innerHTML = '<div class="sm-left"><i class="sm-ico" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="13" width="3.2" height="8" rx="1"/><rect x="8.4" y="9" width="3.2" height="12" rx="1"/><rect x="13.8" y="5" width="3.2" height="16" rx="1"/><rect x="19" y="2" width="2.4" height="19" rx="1"/></svg></i><h2>สรุปราคา<span>ล่าสุด</span></h2></div><div class="sm-body">' + summaryHtml(b, eff) + '</div>';
     sum.hidden = false;
   }
@@ -393,7 +395,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return '<button type="button" class="mrow t-' + t.cls + '" data-fuel="' + esc(f.id) + '" data-from="' + from + '" style="--c1:' + base.c[0] + '">' +
           '<span class="mname"><i class="fdot" style="--fc:' + base.c[0] + '" aria-hidden="true"></i>' + esc(f.name) + '</span>' +
           '<span class="pcell"><span class="fuel-price">' + rollMarkup(money(f.price)) + '</span><span class="unit">บาท/ลิตร</span></span>' +
-          '<span class="chg ' + t.cls + '">' + esc(t.long) + '</span>' +
+          (t.quiet ? '<span></span>' : '<span class="chg ' + t.cls + '">' + esc(t.long) + '</span>') +
           '<span class="pchev" aria-hidden="true">' + chevSvg + '</span></button>';
       }).join('') + '</div>';
     }).join('');

@@ -138,12 +138,14 @@ def main():
             hist.append({'date': None, 'price': prev})   # ราคาก่อนหน้า (ยังไม่ทราบวันที่ประกาศ)
         if not hist or hist[-1]['price'] != price:
             hist.append({'date': eff_date, 'price': price})
-        dated = [h for h in hist if h.get('date')]
+        # "ราคาก่อนหน้า" = ราคาครั้งก่อนที่ปรับ (จุดรองสุดท้ายในประวัติ) ให้ตัวเลขกับวันที่มาจากจุดเดียวกันเสมอ
+        # (เดิมใช้ PriceYesterday คู่กับวันที่จากประวัติ → ชนิดที่ไม่ได้ปรับรอบนี้ได้ "ก่อนหน้า" = ราคาปัจจุบัน แต่ติดวันที่ของราคาเก่า)
+        prev_pt = hist[-2] if len(hist) > 1 else {'price': price, 'date': None}
         fuels.append({
             'id': fid, 'name': name, 'category': category,
-            'price': price, 'previousPrice': prev, 'tomorrowPrice': tomorrow,
-            'effectiveDate': eff_date,
-            'previousEffectiveDate': dated[-2]['date'] if len(dated) > 1 else None,
+            'price': price, 'previousPrice': prev_pt['price'], 'tomorrowPrice': tomorrow,
+            'effectiveDate': hist[-1].get('date') or eff_date,   # วันที่ราคานี้เริ่มใช้จริง (ชนิดที่ไม่ได้ปรับ = วันที่ปรับครั้งล่าสุด)
+            'previousEffectiveDate': prev_pt.get('date'),
             'history': hist[-12:],
             'offset': off,
         })
