@@ -29,6 +29,9 @@
     var START = new Date('2026-11-23T00:00:00+07:00').getTime(); // วันเปิดตัวแบบเสื้อ (ใช้คำนวณแถบความคืบหน้า)
     var els = {}, last = {};
     dateBox.querySelectorAll('[data-u]').forEach(function (b) { els[b.dataset.u] = b; });
+    var rings = {};
+    dateBox.querySelectorAll('[data-r]').forEach(function (c) { rings[c.dataset.r] = c; });
+    var pctEl = document.getElementById('jrPct');
     var bar = document.getElementById('jrBar'), msg = document.getElementById('jrCdMsg'), timer = null;
     var pad = function (n) { return (n < 10 ? '0' : '') + n; };
     function set(u, v) {
@@ -43,9 +46,15 @@
         clearInterval(timer); return;
       }
       var s = Math.floor(left / 1000);
-      set('d', pad(Math.floor(s / 86400))); set('h', pad(Math.floor(s % 86400 / 3600)));
-      set('m', pad(Math.floor(s % 3600 / 60))); set('s', pad(s % 60));
-      bar.style.width = Math.min(100, Math.max(2, (Date.now() - START) / (TARGET - START) * 100)).toFixed(2) + '%';
+      var v = { d: Math.floor(s / 86400), h: Math.floor(s % 86400 / 3600), m: Math.floor(s % 3600 / 60), s: s % 60 };
+      var full = { d: Math.ceil((TARGET - START) / 86400000), h: 24, m: 60, s: 60 };
+      Object.keys(v).forEach(function (u) {
+        set(u, pad(v[u]));
+        if (rings[u]) rings[u].style.strokeDashoffset = (100 - Math.min(1, v[u] / full[u]) * 100).toFixed(2);
+      });
+      var pct = Math.min(100, Math.max(2, (Date.now() - START) / (TARGET - START) * 100));
+      bar.style.width = pct.toFixed(2) + '%';
+      if (pctEl) pctEl.textContent = pct.toFixed(1) + '%';
       var days = left / 86400000;
       msg.textContent = days <= 1 ? 'พรุ่งนี้แล้ว! เจอกันที่ปั๊ม OASIS PARK'
         : days <= 5 ? 'โค้งสุดท้าย! เตรียมตัวรับเสื้อได้เลย'

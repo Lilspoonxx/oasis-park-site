@@ -670,7 +670,7 @@ dialog.op-modal.closing::backdrop { animation: backdropOut .22s ease both; }
 .jr-promo:hover { transform: translateY(-2px); border-color: var(--lime-glow); color: #fff; }
 .jr-promo img { width: clamp(72px, 14vw, 110px); height: auto; filter: drop-shadow(0 10px 12px rgba(0,0,0,.6)); }
 .jp-text { flex: 1; display: flex; flex-direction: column; line-height: 1.3; min-width: 0; }
-.jp-text small { font-size: 12px; font-weight: 700; letter-spacing: .24em; color: var(--lime); }
+.jp-text small { font-size: 14px; font-weight: 700; color: var(--lime); }
 .jp-text b { font-family: 'Prompt', sans-serif; font-style: italic; font-weight: 800; font-size: clamp(20px, 3.4vw, 30px); }
 .jp-text > span { font-size: 15px; color: rgba(255,255,255,.78); }
 .jp-go { flex: none; padding: 8px 16px; border-radius: 999px; background: var(--lime); color: var(--on-lime); font-weight: 700; font-size: 15px; }
