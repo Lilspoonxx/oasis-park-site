@@ -1,75 +1,89 @@
-/* ส่วนเสื้อ — ปริศนา "?" แล้วเปิดเผยลายจริง */
-.shirt-reveal { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); align-items: center; }
-@media (max-width: 800px) { .shirt-reveal { grid-template-columns: 1fr; } }
+/* เสื้อ OASIS PARK — โชว์รูมภาพเสื้อ (หน้าโปรโมชั่น) · เรียบหรู ดำ-เขียวเข้ม เส้นไลม์บาง */
+.jersey { position: relative; padding: clamp(40px, 7vw, 88px) 0; background:
+  radial-gradient(ellipse 70% 55% at 30% 40%, rgba(15,122,46,.28), transparent 70%),
+  linear-gradient(180deg, var(--bg-deeper) 0%, #020F0A 100%);
+  border-top: 1px solid rgba(183,240,0,.18); border-bottom: 1px solid rgba(183,240,0,.18); }
+.jr-head { text-align: center; margin-bottom: clamp(20px, 4vw, 40px); }
+.jr-eyebrow { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .32em; color: var(--lime); padding-bottom: 10px; border-bottom: 1px solid rgba(183,240,0,.45); }
+.jr-head h2 { margin: 16px 0 0; font-weight: 800; font-style: italic; font-size: clamp(30px, 5vw, 54px); line-height: 1.15; }
+.jr-head h2 span { display: block; color: var(--lime); }
 
-.sr-stage {
-  position: relative; aspect-ratio: 1322 / 1190; width: 100%; border-radius: 28px; overflow: hidden; isolation: isolate;
-  background: radial-gradient(ellipse at 50% 42%, #0E5A2C 0%, #063C1E 45%, #031A12 100%);
-  border: 1.5px solid var(--border);
-  box-shadow: 0 0 0 1px rgba(183,240,0,.12), 0 30px 70px -20px rgba(0,0,0,.7), 0 0 80px -20px rgba(183,240,0,.35);
-}
-.sr-ring { position: absolute; inset: -30%; z-index: 0; background: conic-gradient(from 0deg, transparent 0 55%, rgba(183,240,0,.35) 70%, transparent 85%); animation: sr-spin 9s linear infinite; opacity: .8; }
-.sr-grid { position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(rgba(183,240,0,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(183,240,0,.07) 1px, transparent 1px); background-size: 38px 38px; mask-image: radial-gradient(circle at 50% 50%, #000 20%, transparent 72%); -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 20%, transparent 72%); }
-.sr-spark { position: absolute; z-index: 1; width: 8px; height: 8px; border-radius: 50%; background: var(--lime-glow); box-shadow: 0 0 14px 3px rgba(223,255,69,.9); opacity: 0; animation: sr-twinkle 3.2s ease-in-out infinite; pointer-events: none; }
+.jr-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: center; }
+@media (max-width: 860px) { .jr-grid { grid-template-columns: 1fr; } }
 
-.sr-mystery {
-  position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; width: 100%; padding: 0; border: 0; background: none; color: #fff; cursor: pointer;
-  transition: transform .6s cubic-bezier(.5, 0, .2, 1), opacity .5s ease, filter .6s ease;
-}
-.sr-mystery svg { width: 74%; height: auto; max-height: 90%; overflow: visible; animation: sr-float 4.5s ease-in-out infinite; filter: drop-shadow(0 22px 28px rgba(0,0,0,.6)) drop-shadow(0 0 26px rgba(183,240,0,.35)); transition: filter .3s; }
-.sr-mystery:hover svg { filter: drop-shadow(0 22px 28px rgba(0,0,0,.6)) drop-shadow(0 0 40px rgba(223,255,69,.7)); }
-.sr-sheen { animation: sr-sheen 3.6s ease-in-out infinite; }
-.sr-q { font-family: 'Prompt', sans-serif; font-weight: 800; font-style: italic; fill: var(--lime-glow); animation: sr-pulse 2.2s ease-in-out infinite; transform-origin: 200px 215px; filter: drop-shadow(0 0 10px rgba(223,255,69,.95)); }
-.sr-hint { position: absolute; left: 50%; bottom: 5%; transform: translateX(-50%); padding: 6px 18px; border-radius: 999px; background: var(--lime); color: var(--on-lime); font-weight: 700; font-size: 16px; white-space: nowrap; box-shadow: 0 0 24px rgba(183,240,0,.6); animation: sr-hint 2.2s ease-in-out infinite; }
+/* แกลเลอรีภาพเสื้อ */
+.jr-gallery { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 600px; margin: 0 auto; }
+.jr-main { position: relative; aspect-ratio: 900 / 810; border-radius: 24px; overflow: hidden; background: #031A12; border: 1px solid rgba(183,240,0,.3); box-shadow: 0 40px 80px -30px rgba(0,0,0,.8), 0 0 60px -24px rgba(183,240,0,.35); }
+.jr-main img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .45s ease; }
+.jr-main img.on { opacity: 1; }
+.jr-zoom { position: absolute; right: 12px; bottom: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.35); background: rgba(2,12,7,.7); color: #fff; font-size: 14px; font-weight: 700; cursor: zoom-in; backdrop-filter: blur(6px); }
+.jr-zoom:hover { border-color: var(--lime-glow); }
+.jr-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.jr-thumbs button { position: relative; padding: 0; aspect-ratio: 900 / 810; border-radius: 14px; overflow: hidden; border: 1.5px solid rgba(255,255,255,.16); background: #031A12; cursor: pointer; transition: border-color .2s, transform .2s; }
+.jr-thumbs button:hover { transform: translateY(-2px); border-color: rgba(223,255,69,.7); }
+.jr-thumbs button[aria-selected="true"] { border-color: var(--lime); box-shadow: 0 0 0 2px rgba(183,240,0,.35); }
+.jr-thumbs img { width: 100%; height: 100%; object-fit: cover; }
+.jr-thumbs span { position: absolute; left: 0; right: 0; bottom: 0; padding: 2px 4px; font-size: 13px; font-weight: 700; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.75)); }
 
-.sr-flash { position: absolute; inset: 0; z-index: 4; pointer-events: none; background: radial-gradient(circle at 50% 50%, #fff 0%, var(--lime-glow) 25%, transparent 62%); opacity: 0; }
-.shirt-reveal.open .sr-flash { animation: sr-flash .9s ease-out; }
-.shirt-reveal.open .sr-mystery { transform: scale(1.35); opacity: 0; filter: blur(8px) brightness(2); pointer-events: none; }
+/* ข้อมูลเสื้อ */
+.jr-info { display: flex; flex-direction: column; gap: 18px; }
+.jr-lead { margin: 0; font-size: 18px; color: var(--ink-dim); }
+.jr-date { position: relative; padding: 16px 18px 14px; border: 1px solid rgba(183,240,0,.5); border-radius: 20px; overflow: hidden;
+  background: radial-gradient(ellipse 80% 120% at 100% 0%, rgba(183,240,0,.14), transparent 60%), linear-gradient(160deg, #06190F, #020C07);
+  box-shadow: 0 0 40px -18px rgba(183,240,0,.6); display: flex; flex-direction: column; gap: 12px; }
+.jr-date-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.jr-date-main { display: flex; flex-direction: column; }
+.jr-date-main small { font-size: 14px; color: rgba(255,255,255,.7); }
+.jr-date-main b { font-family: 'Prompt', sans-serif; font-style: italic; font-weight: 800; font-size: clamp(24px, 3.2vw, 32px); line-height: 1.2; color: var(--lime); }
+.jr-live { flex: none; display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; color: #fff; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); }
+.jr-live i { width: 8px; height: 8px; border-radius: 50%; background: #FF4D4D; box-shadow: 0 0 0 0 rgba(255,77,77,.7); animation: jr-ping 1.6s ease-out infinite; }
+.jr-cd { display: flex; align-items: flex-start; justify-content: space-between; gap: 4px; }
+.cd-u { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.cd-u b { display: block; width: 100%; text-align: center; padding: 8px 0 6px; border-radius: 14px; font-family: 'Prompt', sans-serif; font-weight: 800; font-size: clamp(30px, 6vw, 44px); line-height: 1; font-variant-numeric: tabular-nums; color: #fff;
+  background: linear-gradient(180deg, #1A231E 0%, #0B120E 50%, #070C09 50%, #111A15 100%); border: 1px solid rgba(255,255,255,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 10px 20px -10px rgba(0,0,0,.8); }
+.cd-s b { color: var(--on-lime); background: linear-gradient(180deg, var(--lime-glow) 0%, var(--lime) 50%, #A2D800 50%, var(--lime) 100%); border-color: var(--lime-glow); box-shadow: 0 0 22px rgba(183,240,0,.45); }
+.cd-u b.tick { animation: jr-tick .45s cubic-bezier(.2,.9,.3,1.3); }
+.cd-u small { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.7); }
+.cd-sep { padding-top: 10px; font-family: 'Prompt', sans-serif; font-weight: 800; font-size: clamp(22px, 4vw, 32px); color: rgba(183,240,0,.6); animation: jr-blink 1s steps(1) infinite; }
+.jr-bar { height: 6px; border-radius: 999px; background: rgba(255,255,255,.1); overflow: hidden; }
+.jr-bar span { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--g-1), var(--lime), var(--lime-glow)); box-shadow: 0 0 12px rgba(223,255,69,.8); transition: width 1s linear; }
+.jr-cd-msg { margin: 0; font-size: 15px; font-weight: 600; color: var(--lime-glow); }
+.jr-date.done .jr-cd, .jr-date.done .jr-bar, .jr-date.done .jr-live { display: none; }
+.jr-date.done .jr-cd-msg { font-family: 'Prompt', sans-serif; font-style: italic; font-weight: 800; font-size: 26px; }
+@keyframes jr-tick { 0% { transform: translateY(-12%) scale(1.06); filter: brightness(1.5); } 100% { transform: none; filter: none; } }
+@keyframes jr-blink { 50% { opacity: .25; } }
+@keyframes jr-ping { 0% { box-shadow: 0 0 0 0 rgba(255,77,77,.7); } 100% { box-shadow: 0 0 0 10px rgba(255,77,77,0); } }
+@media (max-width: 400px) { .cd-u small { font-size: 12px; } .jr-cd { gap: 2px; } }
 
-.sr-viewer { position: absolute; inset: 0; z-index: 3; visibility: hidden; opacity: 0; transform: scale(.92); transition: opacity .7s ease .25s, transform .7s cubic-bezier(.2, .9, .3, 1.1) .25s, visibility 0s linear 1s; }
-.shirt-reveal.open .sr-viewer { visibility: visible; opacity: 1; transform: none; transition-delay: .25s, .25s, 0s; }
-.sr-viewer img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .45s ease; }
-.sr-viewer img.on { opacity: 1; }
-.sr-tabs { position: absolute; left: 0; right: 0; bottom: 3.2%; display: flex; justify-content: center; gap: 8px; z-index: 5; }
-.sr-tab { padding: 6px 16px; min-height: 40px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,.55); background: rgba(3,26,18,.72); color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; backdrop-filter: blur(6px); transition: background .2s, color .2s, border-color .2s, transform .2s; }
-.sr-tab:hover { border-color: var(--lime-glow); transform: translateY(-2px); }
-.sr-tab[aria-selected="true"] { background: var(--lime); color: var(--on-lime); border-color: var(--lime-glow); }
+.jr-spec { margin: 0; display: grid; gap: 0; border-top: 1px solid rgba(255,255,255,.12); }
+.jr-spec div { display: grid; grid-template-columns: 92px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+.jr-spec dt { font-size: 14px; font-weight: 700; letter-spacing: .04em; color: var(--lime); padding-top: 2px; }
+.jr-spec dd { margin: 0; font-size: 16px; }
 
-.sr-text { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
-.sr-text h2 { margin: 0; font-style: italic; font-weight: 800; font-size: clamp(30px, 4.2vw, 48px); line-height: 1.2; }
-.sr-text h2 span { color: var(--lime); text-shadow: 0 0 26px rgba(183,240,0,.45); }
-.sr-text p { margin: 0; color: var(--ink-dim); }
-.sr-feats { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.sr-feats li { padding: 4px 14px; border-radius: 999px; border: 1px solid var(--border); background: rgba(183,240,0,.1); font-size: 15px; font-weight: 600; }
-.sr-soon { opacity: 0; max-height: 0; overflow: hidden; transition: opacity .6s ease .6s, max-height .6s ease; }
-.shirt-reveal.open .sr-soon { opacity: 1; max-height: 200px; }
+.jr-cond { padding: 18px; border-radius: 20px; background: linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border: 1px dashed rgba(255,176,102,.6); display: flex; flex-direction: column; gap: 12px; }
+.jr-cond-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.jr-cond h3 { margin: 0; font-size: 20px; font-weight: 700; }
+.jr-pending { flex: none; padding: 2px 12px; border-radius: 999px; font-size: 14px; font-weight: 700; color: #1d1203; background: var(--orange); }
+.jr-cond p { margin: 0; font-size: 16px; color: var(--ink-dim); }
+.jr-cond p b { color: var(--orange); }
+.jr-cond .btn { align-self: flex-start; }
+.jr-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; counter-reset: s; }
+.jr-steps li { position: relative; padding: 8px 10px; border-radius: 12px; background: rgba(0,0,0,.25); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; line-height: 1.35; }
+.jr-steps b { font-size: 14px; color: #fff; }
+.jr-steps span { font-size: 13px; color: rgba(255,255,255,.72); }
+.jr-steps li.done { border-color: rgba(183,240,0,.55); }
+.jr-steps li.done b::before { content: '✓ '; color: var(--lime); }
+.jr-note { margin: 0; font-size: 14px; color: rgba(255,255,255,.6); }
 
-@keyframes sr-spin { to { transform: rotate(360deg); } }
-@keyframes sr-float { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-12px) rotate(1deg); } }
-@keyframes sr-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .75; transform: scale(1.08); } }
-@keyframes sr-hint { 0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); } 50% { opacity: .8; transform: translateX(-50%) scale(1.06); } }
-@keyframes sr-sheen { 0% { transform: translateX(-420px) skewX(-18deg); } 60%, 100% { transform: translateX(520px) skewX(-18deg); } }
-@keyframes sr-twinkle { 0%, 100% { opacity: 0; transform: scale(.4); } 50% { opacity: 1; transform: scale(1.2); } }
-@keyframes sr-flash { 0% { opacity: 0; transform: scale(.4); } 25% { opacity: 1; } 100% { opacity: 0; transform: scale(2.2); } }
-
-/* หยุดแอนิเมชันวนตอนกล่องอยู่นอกจอ (shirt.js ใส่/ถอดคลาส paused) */
-.shirt-reveal.paused .sr-ring, .shirt-reveal.paused .sr-mystery svg, .shirt-reveal.paused .sr-sheen,
-.shirt-reveal.paused .sr-q, .shirt-reveal.paused .sr-hint, .shirt-reveal.paused .sr-spark { animation-play-state: paused; }
-
-/* มือถือ/แท็บเล็ต: ตัดเอฟเฟกต์ที่ต้องวาดใหม่ทุกเฟรม เหลือแค่เสื้อลอย + ประกายไฟ หน้าตาเกือบเหมือนเดิม */
-@media (max-width: 800px), (hover: none) {
-  .sr-ring { animation: none; transform: rotate(35deg); }
-  .sr-sheen { animation: none; transform: translateX(-420px); }
-  .sr-q { animation: none; filter: none; }
-  .sr-mystery svg { filter: drop-shadow(0 18px 22px rgba(0,0,0,.55)); will-change: transform; }
-  .sr-spark:nth-of-type(n+6) { display: none; }
-}
+.jr-lightbox { max-width: min(92vw, 900px); max-height: 92vh; padding: 0; border: 1px solid rgba(183,240,0,.4); border-radius: 18px; background: #030b07; color: #fff; overflow: auto; }
+.jr-lightbox::backdrop { background: rgba(0,0,0,.82); backdrop-filter: blur(4px); }
+.jr-lightbox img { width: 100%; height: auto; max-height: 80vh; object-fit: contain; }
+.jr-lightbox p { margin: 0; padding: 10px 16px 14px; font-size: 15px; text-align: center; }
+.jr-x { position: sticky; top: 8px; float: right; margin: 8px 8px -48px 0; z-index: 2; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.4); background: rgba(0,0,0,.6); color: #fff; font-size: 18px; cursor: pointer; }
 
 @media (prefers-reduced-motion: reduce) {
-  .sr-ring, .sr-mystery svg, .sr-sheen, .sr-q, .sr-hint, .sr-spark, .shirt-reveal.open .sr-flash { animation: none !important; }
-  .sr-spark { opacity: .8; }
-  .sr-mystery, .sr-viewer, .sr-viewer img, .sr-soon, .sr-tab { transition: none !important; }
-  .shirt-reveal.open .sr-mystery { transform: none; filter: none; }
+  .jr-main img, .jr-thumbs button, .jr-bar span { transition: none; }
+  .cd-u b.tick, .cd-sep, .jr-live i { animation: none; }
 }
 
-.sr-close[hidden] { display: none; }
+/* แบนเนอร์หน้าหลัก ใช้ไฟล์ style.css แยก (.jr-promo) */

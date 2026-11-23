@@ -663,3 +663,15 @@ dialog.op-modal.closing::backdrop { animation: backdropOut .22s ease both; }
   .free-box .fb-stamp { width: 62px; height: 62px; font-size: 20px; }
 }
 .free-box .fb-title span { white-space: nowrap; }
+
+/* แบนเนอร์เสื้อหน้าหลัก → promotions.html#jersey */
+.jr-promo-wrap { padding: 18px 0 4px; }
+.jr-promo { display: flex; align-items: center; gap: clamp(12px, 3vw, 24px); padding: 10px clamp(14px, 3vw, 28px) 10px 10px; border-radius: 22px; border: 1px solid rgba(183,240,0,.45); background: radial-gradient(ellipse at 12% 50%, rgba(15,122,46,.45), transparent 60%), linear-gradient(120deg, #06170F, #020C07); box-shadow: 0 20px 40px -24px rgba(0,0,0,.8); transition: transform .25s, border-color .25s; }
+.jr-promo:hover { transform: translateY(-2px); border-color: var(--lime-glow); color: #fff; }
+.jr-promo img { width: clamp(72px, 14vw, 110px); height: auto; filter: drop-shadow(0 10px 12px rgba(0,0,0,.6)); }
+.jp-text { flex: 1; display: flex; flex-direction: column; line-height: 1.3; min-width: 0; }
+.jp-text small { font-size: 12px; font-weight: 700; letter-spacing: .24em; color: var(--lime); }
+.jp-text b { font-family: 'Prompt', sans-serif; font-style: italic; font-weight: 800; font-size: clamp(20px, 3.4vw, 30px); }
+.jp-text > span { font-size: 15px; color: rgba(255,255,255,.78); }
+.jp-go { flex: none; padding: 8px 16px; border-radius: 999px; background: var(--lime); color: var(--on-lime); font-weight: 700; font-size: 15px; }
+@media (max-width: 420px) { .jp-go { display: none; } }
