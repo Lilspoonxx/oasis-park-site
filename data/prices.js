@@ -1,13 +1,13 @@
 /* สร้างโดย scripts/update_prices.py - อย่าแก้มือ (สำเนาของ prices.json ให้เปิดไฟล์ตรงได้โดยไม่ต้อง fetch) */
 window.FUEL_PRICES_BUNDLE = {
-  "updated": "2026-11-21T08:13+07:00",
+  "updated": "2026-11-24T20:04+07:00",
   "effective": {
     "date": "2026-11-20",
     "time": "13:00"
   },
   "announced": {
-    "date": "20/11/2569",
-    "time": "14:05"
+    "date": "24/11/2569",
+    "time": "19:55"
   },
   "source": "https://www.bangchak.co.th/th/oilprice",
   "local": true,
@@ -123,7 +123,7 @@ window.FUEL_PRICES_BUNDLE = {
       "category": "diesel",
       "price": 33.63,
       "previousPrice": 33.63,
-      "tomorrowPrice": 33.63,
+      "tomorrowPrice": 33.03,
       "effectiveDate": "2026-11-11",
       "previousEffectiveDate": null,
       "history": [
@@ -140,7 +140,7 @@ window.FUEL_PRICES_BUNDLE = {
       "category": "diesel",
       "price": 40.07,
       "previousPrice": 40.12,
-      "tomorrowPrice": 40.07,
+      "tomorrowPrice": 39.47,
       "effectiveDate": "2026-11-20",
       "previousEffectiveDate": "2026-11-18",
       "history": [
@@ -181,5 +181,9 @@ window.FUEL_PRICES_BUNDLE = {
       "offset": 0.13
     }
   ],
-  "checked": "2026-11-24T04:14+07:00"
+  "upcoming": {
+    "date": "2026-11-25",
+    "time": "05:00"
+  },
+  "checked": "2026-11-24T20:04+07:00"
 };
