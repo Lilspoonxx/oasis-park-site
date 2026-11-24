@@ -185,5 +185,5 @@ window.FUEL_PRICES_BUNDLE = {
     "date": "2026-11-25",
     "time": "05:00"
   },
-  "checked": "2026-11-24T20:04+07:00"
+  "checked": "2026-11-25T00:33+07:00"
 };
