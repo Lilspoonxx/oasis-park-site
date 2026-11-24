@@ -1,9 +1,9 @@
 /* สร้างโดย scripts/update_prices.py - อย่าแก้มือ (สำเนาของ prices.json ให้เปิดไฟล์ตรงได้โดยไม่ต้อง fetch) */
 window.FUEL_PRICES_BUNDLE = {
-  "updated": "2026-11-24T20:04+07:00",
+  "updated": "2026-11-25T05:04+07:00",
   "effective": {
-    "date": "2026-11-20",
-    "time": "13:00"
+    "date": "2026-11-25",
+    "time": "05:00"
   },
   "announced": {
     "date": "24/11/2569",
@@ -121,15 +121,19 @@ window.FUEL_PRICES_BUNDLE = {
       "id": "b20",
       "name": "Diesel B20",
       "category": "diesel",
-      "price": 33.63,
+      "price": 33.03,
       "previousPrice": 33.63,
       "tomorrowPrice": 33.03,
-      "effectiveDate": "2026-11-11",
-      "previousEffectiveDate": null,
+      "effectiveDate": "2026-11-25",
+      "previousEffectiveDate": "2026-11-11",
       "history": [
         {
           "date": "2026-11-11",
           "price": 33.63
+        },
+        {
+          "date": "2026-11-25",
+          "price": 33.03
         }
       ],
       "offset": 0.13
@@ -138,11 +142,11 @@ window.FUEL_PRICES_BUNDLE = {
       "id": "dieselS",
       "name": "Hi Diesel S",
       "category": "diesel",
-      "price": 40.07,
-      "previousPrice": 40.12,
+      "price": 39.47,
+      "previousPrice": 40.07,
       "tomorrowPrice": 39.47,
-      "effectiveDate": "2026-11-20",
-      "previousEffectiveDate": "2026-11-18",
+      "effectiveDate": "2026-11-25",
+      "previousEffectiveDate": "2026-11-20",
       "history": [
         {
           "date": "2026-11-06",
@@ -159,6 +163,10 @@ window.FUEL_PRICES_BUNDLE = {
         {
           "date": "2026-11-20",
           "price": 40.07
+        },
+        {
+          "date": "2026-11-25",
+          "price": 39.47
         }
       ],
       "offset": 0.13
@@ -181,9 +189,5 @@ window.FUEL_PRICES_BUNDLE = {
       "offset": 0.13
     }
   ],
-  "upcoming": {
-    "date": "2026-11-25",
-    "time": "05:00"
-  },
-  "checked": "2026-11-25T00:33+07:00"
+  "checked": "2026-11-25T05:04+07:00"
 };
