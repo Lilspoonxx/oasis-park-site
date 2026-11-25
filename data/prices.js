@@ -1,13 +1,13 @@
 /* สร้างโดย scripts/update_prices.py - อย่าแก้มือ (สำเนาของ prices.json ให้เปิดไฟล์ตรงได้โดยไม่ต้อง fetch) */
 window.FUEL_PRICES_BUNDLE = {
-  "updated": "2026-11-25T05:04+07:00",
+  "updated": "2026-11-25T20:19+07:00",
   "effective": {
     "date": "2026-11-25",
     "time": "05:00"
   },
   "announced": {
-    "date": "24/11/2569",
-    "time": "19:55"
+    "date": "25/11/2569",
+    "time": "20:15"
   },
   "source": "https://www.bangchak.co.th/th/oilprice",
   "local": true,
@@ -19,7 +19,7 @@ window.FUEL_PRICES_BUNDLE = {
       "category": "gasohol",
       "price": 38.27,
       "previousPrice": 38.97,
-      "tomorrowPrice": 38.27,
+      "tomorrowPrice": 37.57,
       "effectiveDate": "2026-11-19",
       "previousEffectiveDate": "2026-11-18",
       "history": [
@@ -48,7 +48,7 @@ window.FUEL_PRICES_BUNDLE = {
       "category": "gasohol",
       "price": 37.9,
       "previousPrice": 38.6,
-      "tomorrowPrice": 37.9,
+      "tomorrowPrice": 37.2,
       "effectiveDate": "2026-11-19",
       "previousEffectiveDate": "2026-11-18",
       "history": [
@@ -77,7 +77,7 @@ window.FUEL_PRICES_BUNDLE = {
       "category": "gasohol",
       "price": 30.23,
       "previousPrice": 30.93,
-      "tomorrowPrice": 30.23,
+      "tomorrowPrice": 29.73,
       "effectiveDate": "2026-11-19",
       "previousEffectiveDate": "2026-11-18",
       "history": [
@@ -189,5 +189,9 @@ window.FUEL_PRICES_BUNDLE = {
       "offset": 0.13
     }
   ],
-  "checked": "2026-11-25T05:04+07:00"
+  "upcoming": {
+    "date": "2026-11-26",
+    "time": "05:00"
+  },
+  "checked": "2026-11-25T20:19+07:00"
 };
