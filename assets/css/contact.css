@@ -1,0 +1,254 @@
+/* หน้าแผนที่ & ติดต่อ (contact.html) — v1.6 · 26 พ.ย. 69
+   ปุ่มนำทาง (เครื่องบิน) / โทร (ภาพมือถือ) · การ์ด LINE / Facebook / TikTok · นาฬิกาเวลาไทย */
+
+.ct-hero { padding: clamp(28px, 5vw, 56px) 0 4px; text-align: center; }
+.ct-hero h1 { margin: 10px 0 6px; font-weight: 800; font-style: italic; font-size: clamp(34px, 6vw, 58px); line-height: 1.15; }
+.ct-hero h1 .accent { color: var(--lime); text-shadow: 0 0 32px rgba(183, 240, 0, .5); }
+.ct-hero p { margin: 0 auto; max-width: 560px; color: var(--ink-dim); }
+
+/* ---------- 1) ปุ่มหลัก นำทาง + โทร ---------- */
+.hero-cta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 720px; margin: 26px auto 0; }
+.big-btn { position: relative; overflow: hidden; display: flex; align-items: center; gap: 14px; min-height: 76px; padding: 14px 20px; border-radius: 22px; text-align: left; font-family: 'Prompt', sans-serif; transition: transform .45s var(--spring), box-shadow .35s ease, border-color .3s; }
+.big-btn .ic { flex: none; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform .45s var(--spring); }
+.big-btn b { display: block; font-weight: 800; font-style: italic; font-size: 22px; line-height: 1.15; }
+.big-btn small { display: block; font: 600 14px/1.4 'Sarabun', sans-serif; opacity: .85; }
+.big-btn .arr { margin-left: auto; font-size: 22px; font-weight: 800; transition: transform .35s var(--spring); }
+/* นำทาง = ปุ่มไลม์ */
+.big-btn.go { background: linear-gradient(180deg, var(--lime-glow), var(--lime-btn)); color: var(--on-lime); box-shadow: 0 10px 30px -10px rgba(183, 240, 0, .8); }
+.big-btn.go .ic { background: rgba(5, 46, 22, .14); }
+.big-btn.go:hover, .big-btn.go:focus-visible { color: var(--on-lime); }
+/* โทร = ปุ่มขอบไลม์ */
+.big-btn.call { background: rgba(183, 240, 0, .08); color: #fff; border: 1.5px solid rgba(183, 240, 0, .75); }
+.big-btn.call .ic { background: rgba(183, 240, 0, .16); }
+.big-btn.call:hover, .big-btn.call:focus-visible { color: #fff; border-color: var(--lime-glow); }
+/* แสงกวาดผ่านเบาๆ */
+.big-btn::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; transform: skewX(-20deg); background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .45), transparent); opacity: 0; pointer-events: none; }
+.big-btn:hover, .big-btn:focus-visible { transform: translateY(-3px); box-shadow: 0 0 0 4px rgba(223, 255, 69, .22), 0 18px 40px -12px rgba(183, 240, 0, .85); }
+.big-btn:hover::after, .big-btn:focus-visible::after { animation: sweep .9s ease; }
+.big-btn:hover .ic, .big-btn:focus-visible .ic { transform: scale(1.08) rotate(-6deg); }
+.big-btn:hover .arr, .big-btn:focus-visible .arr { transform: translateX(4px); }
+.big-btn:active { transform: scale(.97); transition-duration: .1s; }
+.big-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+@keyframes sweep { from { left: -60%; opacity: 1; } to { left: 130%; opacity: 1; } }
+/* หายใจเบาๆ ที่ปุ่มนำทาง ให้รู้ว่ากดได้ (ช้าและจาง ไม่รบกวน) */
+.big-btn.go { animation: breathe 3.2s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { box-shadow: 0 10px 30px -10px rgba(183, 240, 0, .6); } 50% { box-shadow: 0 10px 38px -6px rgba(183, 240, 0, 1); } }
+.big-btn.go:hover, .big-btn.go:focus-visible { animation: none; }
+
+/* ---------- 2) การ์ดข้อมูลติดต่อ ---------- */
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 28px; }
+.card { position: relative; display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 6px 14px; align-items: start; padding: 20px; border-radius: 20px; background: linear-gradient(160deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02)); border: 1px solid rgba(255, 255, 255, .18); box-shadow: 0 12px 30px -18px rgba(0, 0, 0, .8); transition: border-color .3s, box-shadow .3s, transform .4s var(--spring), background .3s; }
+.card:hover, .card:focus-within { border-color: rgba(183, 240, 0, .7); box-shadow: 0 0 0 1px rgba(183, 240, 0, .25), 0 18px 36px -18px rgba(183, 240, 0, .6); transform: translateY(-2px); background: linear-gradient(160deg, rgba(183, 240, 0, .09), rgba(255, 255, 255, .02)); }
+.card .ci { grid-row: span 3; width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: rgba(183, 240, 0, .12); border: 1px solid rgba(183, 240, 0, .35); }
+.card .lb { font: 700 13px/1.2 'Prompt', sans-serif; letter-spacing: .08em; color: var(--lime); text-transform: uppercase; }
+.card .val { font-weight: 600; font-size: 18px; line-height: 1.45; overflow-wrap: anywhere; }
+.card .val a { color: var(--lime-glow); }
+.card .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.card.wide { grid-column: span 2; }
+
+.chip { min-height: 44px; padding: 0 16px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; font: 700 15px/1 'Sarabun', sans-serif; cursor: pointer; border: 1px solid rgba(255, 255, 255, .45); background: transparent; color: #fff; transition: background .2s, border-color .2s, color .2s, transform .3s var(--spring); }
+.chip:hover { border-color: var(--lime-glow); background: rgba(183, 240, 0, .14); color: #fff; }
+.chip:active { transform: scale(.94); }
+.chip:focus-visible { outline: 3px solid var(--lime-glow); outline-offset: 2px; }
+.chip.done { background: var(--lime); border-color: var(--lime); color: var(--on-lime); }
+.chip svg { flex: none; }
+
+.toast { position: fixed; left: 50%; bottom: 96px; z-index: 350; transform: translate(-50%, 16px); opacity: 0; padding: 10px 20px; border-radius: 999px; background: var(--lime); color: var(--on-lime); font-weight: 700; box-shadow: 0 10px 30px -8px rgba(183, 240, 0, .8); transition: opacity .25s, transform .4s var(--spring); pointer-events: none; max-width: calc(100vw - 32px); text-align: center; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ปรากฏทีละชิ้น */
+.js .rv { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .7s cubic-bezier(.2, .7, .2, 1); transition-delay: var(--d, 0s); }
+.js .rv.in { opacity: 1; transform: none; }
+/* กันเหนียว: ถ้าสคริปต์ค่อยๆ ปรากฏไม่ทำงาน เนื้อหาต้องโผล่เองภายใน 2.5 วิ ไม่ค้างโปร่งใส */
+.js .rv:not(.in) { animation: rvSafe .4s ease 2.5s forwards; }
+@keyframes rvSafe { to { opacity: 1; transform: none; } }
+
+/* ---------- ช่องทาง LINE / Facebook / TikTok · ไอคอนเคลื่อนไหว ---------- */
+.sc-h { margin: 34px 0 0; font: 800 italic clamp(22px, 3vw, 30px)/1.2 'Prompt', sans-serif; }
+.sc-h span { color: var(--lime); }
+.social { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+.card.sc { grid-template-columns: 60px minmax(0, 1fr); }
+.si { grid-row: span 3; position: relative; width: 60px; height: 60px; border-radius: 18px; display: flex; align-items: center; justify-content: center; background: var(--c); box-shadow: 0 8px 20px -8px var(--c), inset 0 1px 0 rgba(255, 255, 255, .35); transition: transform .45s var(--spring); }
+.si svg { width: 40px; height: 40px; overflow: visible; }
+.si.fb svg { width: 34px; height: 34px; margin-top: 4px; }
+.si.tt { background: #111; box-shadow: 0 8px 20px -8px rgba(254, 44, 85, .8), inset 0 1px 0 rgba(255, 255, 255, .25); }
+.si.tt svg { width: 34px; height: 34px; }
+/* ขยับเองเป็นจังหวะ ผลัดกันทีละไอคอน (ไม่ขยับพร้อมกันให้รก) */
+.si svg { animation: siIdle 4.5s ease-in-out infinite; transform-origin: 50% 60%; }
+.si.fb svg { animation-delay: 1.5s; }
+.si.tt svg { animation-delay: 3s; }
+@keyframes siIdle { 0%, 78%, 100% { transform: none; } 82% { transform: translateY(-4px) rotate(-10deg); } 87% { transform: translateY(0) rotate(8deg); } 92% { transform: rotate(-4deg); } 96% { transform: rotate(2deg); } }
+.si.tt .tc { animation: ttGlitchC 4.5s steps(1) 3s infinite; }
+.si.tt .tp { animation: ttGlitchP 4.5s steps(1) 3s infinite; }
+@keyframes ttGlitchC { 0%, 88%, 100% { transform: none; } 80% { transform: translate(-1.6px, -.8px); } 84% { transform: translate(1.2px, .6px); } }
+@keyframes ttGlitchP { 0%, 88%, 100% { transform: none; } 80% { transform: translate(1.6px, .8px); } 84% { transform: translate(-1.2px, -.6px); } }
+.sc:hover .si, .sc:focus-within .si { transform: translateY(-3px) rotate(-6deg) scale(1.04); }
+/* ตอนกด: ยุบ-เด้ง + วงแสง + ประกายกระจาย */
+.si.pop { animation: siPop .62s var(--spring); }
+@keyframes siPop { 0% { transform: scale(1); } 18% { transform: scale(.78) rotate(-8deg); } 48% { transform: scale(1.24) rotate(7deg); } 72% { transform: scale(.95) rotate(-3deg); } 100% { transform: scale(1); } }
+.si.pop::after { content: ""; position: absolute; inset: -3px; border-radius: 21px; border: 1.5px solid rgba(255, 255, 255, .75); box-shadow: 0 0 14px rgba(255, 250, 230, .55); animation: siRing .7s cubic-bezier(.2, .7, .2, 1) forwards; pointer-events: none; }
+@keyframes siRing { from { transform: scale(.92); opacity: 1; } to { transform: scale(1.7); opacity: 0; } }
+/* แสงเงาวาบผ่านไอคอน (เหมือนกระจกสะท้อนแสง) */
+.si::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; z-index: 1;
+  background: linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, .8) 48%, rgba(255, 255, 255, .15) 56%, transparent 66%) no-repeat; background-size: 260% 100%; background-position: 135% 0; }
+.si.pop::before { animation: siSheen .75s ease-out; }
+@keyframes siSheen { 0% { opacity: 1; background-position: 135% 0; } 100% { opacity: 1; background-position: -55% 0; } }
+/* ประกายวิ้ง 4 แฉก สีขาวแชมเปญ เรืองอ่อนๆ */
+.burst { position: absolute; left: 50%; top: 50%; width: 0; height: 0; pointer-events: none; z-index: 2; }
+.burst .gl { position: absolute; left: 0; top: 0; width: var(--s); height: var(--s); margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  transform: rotate(var(--a)) translateY(calc(var(--r) * -1)); filter: drop-shadow(0 0 3px rgba(255, 250, 232, .95)) drop-shadow(0 0 10px rgba(223, 255, 69, .35)); }
+.burst .gl i { display: block; width: 100%; height: 100%; opacity: 0; transform: scale(0);
+  background: radial-gradient(circle, #fff 0 28%, #FFF7DE 55%, #EBDDA8 100%);
+  clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+  animation: glint .8s cubic-bezier(.2, .7, .2, 1) var(--dl, 0ms) forwards; }
+@keyframes glint { 0% { opacity: 0; transform: scale(0) rotate(0); } 35% { opacity: 1; transform: scale(1) rotate(45deg); } 100% { opacity: 0; transform: translateY(-8px) scale(.15) rotate(120deg); } }
+.burst .dust { position: absolute; left: -1.5px; top: -1.5px; width: 3px; height: 3px; border-radius: 50%; background: #FFF9E6; box-shadow: 0 0 6px rgba(255, 249, 230, .95);
+  transform: rotate(var(--a)) translateY(-30px); opacity: 0; animation: dust .9s ease-out var(--dl, 0ms) forwards; }
+@keyframes dust { 0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0; transform: rotate(var(--a)) translateY(-54px); } }
+@media (max-width: 960px) { .social { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) {
+  .si, .si svg, .si.tt .tc, .si.tt .tp, .si.pop, .si.pop::after, .si.pop::before { animation: none !important; transition: none !important; }
+  .burst { display: none; }
+  .sc:hover .si, .sc:focus-within .si { transform: none; }
+}
+
+/* ---------- นาฬิกาเวลาไทย (การ์ดเวลาเปิด) ---------- */
+.card.hours { display: flex; align-items: center; gap: clamp(18px, 4vw, 44px); padding: 22px clamp(20px, 3vw, 36px); }
+.clock { position: relative; flex: none; width: 236px; height: 236px; }
+.dial { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.dial .glow { fill: none; stroke: rgba(183, 240, 0, .07); stroke-width: 12; }
+.dial .inner { fill: rgba(3, 26, 18, .6); stroke: rgba(255, 255, 255, .08); }
+.dial .trk { fill: none; stroke: var(--lime); stroke-width: 2.2; stroke-opacity: .55; filter: drop-shadow(0 0 2px rgba(183, 240, 0, .6)); }
+#clkTicks line { stroke: rgba(255, 255, 255, .32); stroke-width: 1.6; stroke-linecap: round; }
+#clkTicks line.big { stroke: var(--lime-glow); stroke-width: 2.8; }
+.dial .sun { fill: #F4FFC2; stroke: #052E16; stroke-width: 1.5; filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 8px var(--lime-glow)) drop-shadow(0 0 16px var(--lime)); }
+.dial .sun-ring { fill: none; stroke: var(--lime-glow); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; animation: sunPulse 2s ease-out infinite; }
+@keyframes sunPulse { from { transform: scale(1); opacity: .9; } to { transform: scale(2.6); opacity: 0; } }
+.face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-align: center; }
+.face .tz { font: 600 12px/1.3 'Sarabun', sans-serif; color: var(--ink-dim); letter-spacing: .04em; }
+.face .dg { display: flex; align-items: baseline; gap: 3px; font-family: 'Prompt', sans-serif; font-variant-numeric: tabular-nums; line-height: 1.05; }
+.face .dg b { font-weight: 800; font-size: 42px; color: #fff; text-shadow: 0 0 18px rgba(183, 240, 0, .45); }
+.face .dg small { font-weight: 700; font-size: 17px; color: var(--lime-glow); min-width: 3ch; text-align: left; }
+.face .dg .col2 { font-style: normal; margin-right: 1px; opacity: .8; }
+.face .tz { margin-bottom: 2px; }
+.face .nojs { display: none; }
+html:not(.js) .face .nojs { display: block; font: 800 italic 34px/1 'Prompt', sans-serif; color: var(--lime); }
+.face .col { position: relative; top: -2px; display: inline-block; margin: 0 1px; font-style: normal; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: .25; } }
+.face .open { margin-top: 8px; display: inline-flex; align-items: center; gap: 6px; padding: 3px 12px; border-radius: 999px; background: linear-gradient(180deg, var(--lime-glow), var(--lime-btn)); color: var(--on-lime); font: 800 italic 14px/1.5 'Prompt', sans-serif; box-shadow: 0 4px 14px -4px rgba(183, 240, 0, .8); white-space: nowrap; }
+.face .open .d { width: 7px; height: 7px; border-radius: 50%; background: var(--on-lime); animation: pulse 2s ease-in-out infinite; }
+.hours-txt { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.clock-col { flex: none; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.clock-col .dt { font-size: 15px; line-height: 1.4; color: var(--ink-dim); text-align: center; }
+.clock-col .dt:empty { display: none; }
+.hours-txt .ttl { font: 800 italic clamp(26px, 3.2vw, 36px)/1.2 'Prompt', sans-serif; color: #fff; }
+.hours-txt .sub2 { font-size: 19px; font-weight: 600; color: var(--ink-dim); }
+/* การ์ดนี้: เงาไลม์ขอบล่างเบาลง ให้จุดเรืองแสงบนหน้าปัดเด่นแทน */
+.card.hours { box-shadow: 0 12px 28px -20px rgba(0, 0, 0, .85); }
+.card.hours:hover, .card.hours:focus-within { transform: none; border-color: rgba(183, 240, 0, .45); background: linear-gradient(160deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02)); box-shadow: 0 0 0 1px rgba(183, 240, 0, .12), 0 12px 28px -20px rgba(0, 0, 0, .85); }
+@media (max-width: 600px) {
+  .card.hours { flex-direction: column; text-align: center; padding: 20px 16px; }
+  .hours-txt { align-items: center; }
+  .clock { width: 220px; height: 220px; }
+  .face .dg b { font-size: 38px; }
+  .face .dg small { font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .face .col, .dial .sun-ring, .face .open .d { animation: none !important; }
+}
+
+/* =====================================================
+   ลูกเล่นตอนกด นำทาง (เครื่องบินบินผ่าน) / โทร (ภาพมือถือกำลังโทร)
+   ===================================================== */
+body.fx-on { overflow: hidden; }
+.fx { position: fixed; inset: 0; z-index: 500; overflow: hidden; color: #fff; }
+.fx[hidden] { display: none; }
+.fx-veil { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 42%, rgba(15, 122, 46, .62), rgba(3, 26, 18, .97) 65%); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); animation: fxFade .25s ease both; }
+@keyframes fxFade { from { opacity: 0; } }
+.fx-stage { position: absolute; inset: 0; display: none; }
+.fx.fly .st-fly { display: block; }
+.fx.call .st-call { display: flex; align-items: center; justify-content: center; }
+
+/* นำทาง */
+.fx-sky { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.fx-route { fill: none; stroke: var(--lime); stroke-width: 3; stroke-linecap: round; stroke-opacity: .55; filter: drop-shadow(0 0 6px rgba(183, 240, 0, .9)); }
+.fx-plane { position: absolute; left: 0; top: 0; width: 64px; height: 64px; margin: -32px 0 0 -32px; transform: translate(-200px, -200px); will-change: transform; }
+.fx-plane svg { width: 100%; height: 100%; transform: rotate(45deg); filter: drop-shadow(0 0 12px rgba(223, 255, 69, .95)); }
+.fx-pin { position: absolute; left: 50%; top: 42%; width: 58px; height: 58px; margin: -58px 0 0 -29px; opacity: 0; }
+.fx-pin svg { position: relative; width: 100%; height: 100%; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .55)); }
+.fx-pin::before { content: ""; position: absolute; left: 50%; bottom: -12px; width: 24px; height: 24px; margin-left: -12px; border-radius: 50%; border: 2px solid var(--lime-glow); opacity: 0; }
+.fx.drop .fx-pin { animation: pinDrop .55s var(--spring) both; }
+.fx.drop .fx-pin::before { animation: pinRing 1s ease-out .25s infinite; }
+@keyframes pinDrop { 0% { opacity: 0; transform: translateY(-70px) scale(.6); } 100% { opacity: 1; transform: none; } }
+@keyframes pinRing { from { transform: scale(.4); opacity: 1; } to { transform: scale(3.2); opacity: 0; } }
+
+/* โทร */
+.ph-wrap { position: relative; display: grid; place-items: center; margin-top: -90px; }
+.ph-ring { position: absolute; left: 50%; top: 50%; width: 230px; height: 230px; margin: -115px 0 0 -115px; border-radius: 50%; border: 2px solid rgba(183, 240, 0, .55); animation: phRing 1.6s ease-out infinite; }
+.ph-ring.r2 { animation-delay: .53s; } .ph-ring.r3 { animation-delay: 1.06s; }
+@keyframes phRing { from { transform: scale(.6); opacity: .9; } to { transform: scale(1.8); opacity: 0; } }
+.phone { position: relative; width: 190px; height: 360px; border-radius: 34px; padding: 40px 16px 24px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; background: linear-gradient(170deg, #0F7A2E 0%, #063D1E 55%, #04261A 100%); border: 2px solid rgba(223, 255, 69, .85); box-shadow: 0 0 0 7px rgba(3, 26, 18, .95), 0 0 0 8px rgba(255, 255, 255, .18), 0 0 60px rgba(183, 240, 0, .45), 0 30px 60px -20px rgba(0, 0, 0, .9); animation: phIn .55s var(--spring) both; }
+.phone::before { content: ""; position: absolute; top: 13px; left: 50%; width: 64px; height: 9px; margin-left: -32px; border-radius: 9px; background: rgba(0, 0, 0, .55); }
+@keyframes phIn { from { opacity: 0; transform: translateY(46px) scale(.8); } }
+.phone .av { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 8px; box-shadow: 0 0 26px rgba(183, 240, 0, .75); }
+.phone .nm { font: 800 italic 21px/1.2 'Prompt', sans-serif; }
+.phone .nm span { color: var(--lime); }
+.phone .no { font: 700 17px/1.3 'Prompt', sans-serif; color: var(--lime-glow); font-variant-numeric: tabular-nums; }
+.phone .stt { font-size: 14px; color: var(--ink-dim); }
+.phone .stt i { font-style: normal; animation: dot 1.2s infinite; } .phone .stt i:nth-child(2) { animation-delay: .2s; } .phone .stt i:nth-child(3) { animation-delay: .4s; }
+@keyframes dot { 0%, 60%, 100% { opacity: .2; } 30% { opacity: 1; } }
+.phone .cb { margin-top: auto; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, var(--lime-glow), var(--lime-btn)); color: var(--on-lime); animation: cbPulse 1.1s ease-out infinite; }
+.phone .cb svg { animation: wiggle 1s ease-in-out infinite; }
+@keyframes cbPulse { from { box-shadow: 0 0 0 0 rgba(183, 240, 0, .75); } to { box-shadow: 0 0 0 20px rgba(183, 240, 0, 0); } }
+@keyframes wiggle { 0%, 60%, 100% { transform: rotate(0); } 10%, 30%, 50% { transform: rotate(-14deg); } 20%, 40% { transform: rotate(14deg); } }
+
+/* ข้อความ + ปุ่มยกเลิก */
+.fx-msg { position: absolute; left: 50%; top: calc(42% + 30px); width: min(90vw, 420px); margin: 0; transform: translateX(-50%); text-align: center; animation: fxUp .4s .12s ease both; }
+.fx.call .fx-msg { top: calc(50% + 178px); }
+.fx-msg b { display: block; font: 800 italic clamp(22px, 5vw, 30px)/1.25 'Prompt', sans-serif; }
+.fx-msg small { display: block; margin-top: 4px; font-size: 15px; color: var(--ink-dim); }
+.fx-msg b, .fx-msg small { text-shadow: 0 2px 14px rgba(3, 26, 18, .95), 0 0 2px rgba(3, 26, 18, .9); }
+@keyframes fxUp { from { opacity: 0; transform: translate(-50%, 10px); } }
+.fx-acts { position: absolute; left: 50%; bottom: max(28px, env(safe-area-inset-bottom)); transform: translateX(-50%); display: flex; gap: 10px; width: max-content; max-width: calc(100vw - 32px); }
+.fx-acts .chip { min-width: 120px; min-height: 48px; justify-content: center; background: rgba(3, 26, 18, .6); }
+.fx-acts .fx-go { background: linear-gradient(180deg, var(--lime-glow), var(--lime-btn)); color: var(--on-lime); border-color: transparent; box-shadow: 0 8px 24px -8px rgba(183, 240, 0, .9); }
+.fx-acts .fx-go:hover { color: var(--on-lime); background: linear-gradient(180deg, var(--lime-glow), var(--lime-btn)); }
+.fx-acts .chip[hidden] { display: none; }
+/* จอเตี้ยมาก (มือถือแนวนอน): ซ่อนภาพมือถือ เหลือข้อความ + ปุ่ม ไม่ให้ทับกัน */
+@media (max-height: 480px) {
+  .fx.call .st-call { display: none; }
+  html .fx.call .fx-msg { top: 34%; }
+  .fx-pin { top: 30%; }
+  .fx.fly .fx-msg { top: calc(30% + 24px); }
+}
+/* ไม่มี JavaScript: ซ่อนตัวเลข --:-- เหลือป้าย "เปิด 24 ชั่วโมง" กลางวง */
+html:not(.js) .face .tz, html:not(.js) .face .dg { display: none; } /* ไม่มี JS: เหลือ "24 ชม." กลางวง */
+@media (max-height: 700px) {
+  .phone { width: 160px; height: 300px; padding-top: 34px; }
+  .phone .av { width: 64px; height: 64px; }
+  .ph-ring { width: 190px; height: 190px; margin: -95px 0 0 -95px; }
+  .fx.call .fx-msg { top: calc(50% + 140px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx *, .fx *::before, .fx-veil { animation: none !important; }
+  .fx-pin { opacity: 1; }
+}
+
+@media (max-width: 860px) {
+  .cards { grid-template-columns: 1fr; }
+  .card.wide { grid-column: auto; }
+}
+@media (max-width: 520px) {
+  .hero-cta { grid-template-columns: 1fr; gap: 10px; }
+  .big-btn { min-height: 68px; }
+  .card { padding: 16px; grid-template-columns: 42px minmax(0, 1fr); }
+  .card .ci { width: 42px; height: 42px; }
+  .card .acts .chip { flex: 1 1 auto; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .rv { opacity: 1; transform: none; transition: none; }
+  .big-btn, .big-btn .ic, .big-btn .arr, .card, .chip, .toast { transition: none !important; }
+  .big-btn.go, .big-btn::after, .big-btn:hover::after, .big-btn:focus-visible::after { animation: none !important; }
+  .big-btn:hover, .big-btn:focus-visible, .card:hover, .card:focus-within, .big-btn:active, .chip:active { transform: none; }
+  .big-btn:hover .ic, .big-btn:focus-visible .ic, .big-btn:hover .arr, .big-btn:focus-visible .arr { transform: none; }
+}
