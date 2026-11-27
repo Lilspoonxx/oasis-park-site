@@ -8,11 +8,15 @@
   if (!form) return;
   var $ = function (id) { return document.getElementById(id); };
   var btn = $('reg-submit'), status = $('reg-status');
+  var sending = false;   // กันกดส่งซ้ำระหว่างรอ
 
-  // PDPA
+  // PDPA (เบราว์เซอร์เก่าที่ไม่มี showModal → เปิด/ปิดด้วย attribute open แทน)
   var pdpa = $('pdpa');
-  $('pdpa-open').addEventListener('click', function () { if (pdpa.showModal) pdpa.showModal(); });
-  pdpa.addEventListener('click', function (e) { if (e.target === pdpa) pdpa.close(); });
+  $('pdpa-open').addEventListener('click', function () { if (pdpa.showModal) pdpa.showModal(); else pdpa.setAttribute('open', ''); });
+  pdpa.querySelector('form').addEventListener('submit', function (e) {
+    if (!pdpa.close) { e.preventDefault(); pdpa.removeAttribute('open'); $('pdpa-open').focus(); }
+  });
+  pdpa.addEventListener('click', function (e) { if (e.target === pdpa && pdpa.close) pdpa.close(); });
 
   function digits(s) { return (s || '').replace(/\D/g, ''); }
   function setErr(input, errId, msg) {
@@ -33,7 +37,7 @@
     check(name, 'e-name', name.value.trim().length < 3 ? 'กรุณากรอกชื่อและนามสกุล' : '');
     check(phone, 'e-phone', !isMobile(p) ? 'กรุณากรอกเบอร์มือถือ 10 หลัก เช่น 0812345678' : '');
     check(addr, 'e-addr', addr.value.trim().length < 10 ? 'กรุณากรอกที่อยู่ให้ครบ' : '');
-    check(ref, 'e-ref', r && !isMobile(r) ? 'เบอร์ผู้ชวนไม่ถูกต้อง (ถ้าไม่มีให้เว้นว่าง)' :
+    check(ref, 'e-ref', ref.value.trim() && !isMobile(r) ? 'เบอร์ผู้ชวนไม่ถูกต้อง (ถ้าไม่มีให้เว้นว่าง)' :
                         r && r === p ? 'เบอร์ผู้ชวนต้องไม่ใช่เบอร์ของคุณเอง' : '');
     check(consent, 'e-consent', !consent.checked ? 'กรุณาติ๊กยินยอมก่อนส่งข้อมูล' : '');
     if (first) first.focus();
@@ -52,11 +56,13 @@
     var box = $('reg-done');
     box.hidden = false;
     box.focus();
-    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    box.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'center' });
   }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    if (sending) return;
     status.className = 'f-status';
     status.textContent = '';
     if (!validate()) return;
@@ -76,11 +82,14 @@
     body.append('address', $('f-addr').value.trim());
     body.append('referrer', digits($('f-ref').value));
 
+    sending = true;
     btn.disabled = true;
     btn.textContent = 'กำลังส่ง...';
+    status.textContent = 'กำลังส่งข้อมูล กรุณารอสักครู่';
     fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: body })
-      .then(function () { done(phone); })
+      .then(function () { status.textContent = ''; done(phone); })
       .catch(function () {
+        sending = false;
         btn.disabled = false;
         btn.textContent = 'ยืนยันการสมัคร';
         status.className = 'f-status bad';

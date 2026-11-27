@@ -58,24 +58,24 @@
         <form id="reg-form" novalidate>
           <div class="f-row">
             <label for="f-name">ชื่อ-นามสกุล <span class="req">*</span></label>
-            <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="120" placeholder="เช่น สมชาย ใจดี">
+            <input id="f-name" aria-describedby="e-name" name="name" type="text" autocomplete="name" required maxlength="120" placeholder="เช่น สมชาย ใจดี">
             <p class="f-err" id="e-name"></p>
           </div>
           <div class="f-row">
             <label for="f-phone">เบอร์โทรศัพท์มือถือ <span class="req">*</span></label>
-            <input id="f-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" required maxlength="12" placeholder="0812345678">
-            <p class="f-hint">ใช้เบอร์นี้แจ้งพนักงานเมื่อมาถึงปั๊ม</p>
+            <input id="f-phone" aria-describedby="h-phone e-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" required maxlength="12" placeholder="0812345678">
+            <p class="f-hint" id="h-phone">ใช้เบอร์นี้แจ้งพนักงานเมื่อมาถึงปั๊ม</p>
             <p class="f-err" id="e-phone"></p>
           </div>
           <div class="f-row">
             <label for="f-addr">ที่อยู่ <span class="req">*</span></label>
-            <textarea id="f-addr" name="address" rows="3" autocomplete="street-address" required maxlength="400" placeholder="บ้านเลขที่ หมู่ ตำบล อำเภอ จังหวัด รหัสไปรษณีย์"></textarea>
+            <textarea id="f-addr" aria-describedby="e-addr" name="address" rows="3" autocomplete="street-address" required maxlength="400" placeholder="บ้านเลขที่ หมู่ ตำบล อำเภอ จังหวัด รหัสไปรษณีย์"></textarea>
             <p class="f-err" id="e-addr"></p>
           </div>
           <div class="f-row">
             <label for="f-ref">เบอร์โทรของผู้ชวน <span class="opt">(ถ้ามี)</span></label>
-            <input id="f-ref" name="referrer" type="tel" inputmode="numeric" maxlength="12" placeholder="ถ้าเพื่อนชวนมา ใส่เบอร์เพื่อน">
-            <p class="f-hint">ได้แต้มทั้งคุณและเพื่อน คนละ 100 แต้ม</p>
+            <input id="f-ref" aria-describedby="h-ref e-ref" name="referrer" type="tel" inputmode="numeric" maxlength="12" placeholder="ถ้าเพื่อนชวนมา ใส่เบอร์เพื่อน">
+            <p class="f-hint" id="h-ref">ได้แต้มทั้งคุณและเพื่อน คนละ 100 แต้ม</p>
             <p class="f-err" id="e-ref"></p>
           </div>
 
@@ -84,9 +84,10 @@
 
           <div class="f-consent">
             <label class="chk">
-              <input id="f-consent" type="checkbox" required>
-              <span>ข้าพเจ้ายินยอมให้ Oasis Park (NKN Petroleum) เก็บและใช้ข้อมูลข้างต้น <b>เพื่อลงทะเบียนสมาชิก VIP และติดต่อเรื่องสมาชิกเท่านั้น</b> <button type="button" class="link-btn" id="pdpa-open">อ่านรายละเอียด</button></span>
+              <input id="f-consent" aria-describedby="e-consent" type="checkbox" required>
+              <span>ข้าพเจ้ายินยอมให้ Oasis Park (NKN Petroleum) เก็บและใช้ข้อมูลข้างต้น <b>เพื่อลงทะเบียนสมาชิก VIP และติดต่อเรื่องสมาชิกเท่านั้น</b></span>
             </label>
+            <button type="button" class="link-btn pdpa-link" id="pdpa-open">อ่านรายละเอียด</button>
             <p class="f-err" id="e-consent"></p>
           </div>
 
